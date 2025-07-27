@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_res_users_tree_groupby_user_type" model="ir.ui.view">
+        <field name="name">res.users.tree.groupby.user_type</field>
+        <field name="model">res.users</field>
+
+        <field name="inherit_id" ref="base.view_users_search" />
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="login"/>
+                <field name="email"/>
+                <field name="active"/>
+                <field name="user_type"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="User Type" name="group_by_user_type" context="{'group_by': 'user_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="userinherit_form_taleb" model="ir.ui.view">
+        <field name="name">userinherit_form_taleb</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//div[3]" position="after">
+                <group>
+                    <group>
+                        <field name="father_name" placeholder='Father name' />
+                        <field name="email" placeholder='e-mail' />
+                        <field name="country_id" />
+                        <field name="calling_code" />
+                        <field name="state_id" />
+                        <field name="location_id" />
+                        <field name="student_class_id"/>
+                        <field name="user_type" />
+                        <field name="student_id"/>
+                        <field name="student_course_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="points" class="oe_avatar" />
+                            <!-- <field name="promotion_code" attrs="{'invisible':[('user_type','!=', 'promoter')]}"/> -->
+                        </group>
+                    </group>
+                </group>
+
+            </xpath>
+
+            <xpath position="inside" expr="//form//sheet//notebook">
+
+
+                <page name="activation" string="Activation">
+
+
+                    <group>
+
+                        <field name="is_active" />
+                        <field name="email_is_active" />
+                        <field name="image_file_name" />
+                        <field name="image_path" />
+                    </group>
+
+                </page>
+
+            </xpath>
+
+            <xpath position="inside" expr="//form//sheet//notebook">
+
+
+                <page name="subscription" string="Subscription">
+
+
+                    <field name="subscription_ids" widget='one2many' >
+                        <tree editable="bottom">
+
+                            <field name="course_id" />
+                            <field name="end_date" />
+                            <field name="start_date" />
+                            <field name="status" />
+
+                        </tree>
+
+                    </field>
+                </page>
+
+            </xpath>
+
+            <xpath position="inside" expr="//form//sheet//notebook">
+
+
+                <page name="grades" string="Grades">
+
+
+
+                    <field name="courses_results_ids">
+                        <tree>
+                            <field name="course_id" />
+                            <field name="result" />
+                        </tree>
+
+                    </field>
+
+                </page>
+
+            </xpath>
+
+           
+
+            <xpath position="replace" expr="//field[@name = 'image_1920']">
+
+                <field name="personal_image" filename="image_file_name" class="oe_avatar" />
+
+            </xpath>
+        </field>
+    </record>
+    <!-- Inherit the res.users action -->
+     <record id="base.action_res_users" model="ir.actions.act_window">
+        <field name="name">Users (sdsd)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                    Click to create a new user.
+            </p>
+        </field>
+        <!-- <field name="inherit_id" ref="base.action_res_users"/> -->
+        <!-- Add a new context value -->
+        <field name="context">{'search_default_group_by_user_type': 1}</field>
+    </record>
+
+</odoo>

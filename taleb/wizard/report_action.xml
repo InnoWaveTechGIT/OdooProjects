@@ -1,0 +1,11 @@
+<odoo>
+    <record id="action_coupon_report_card" model="ir.actions.report">
+        <field name="name">Coupon Report</field>
+        <field name="model">coupons.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">taleb.coupon_report_card</field>
+        <field name="report_file">taleb.coupon_report_card</field>
+        <field name="print_report_name">'Coupon - %s' % (object.coupon_id)</field>
+        <field name="binding_model_id" ref="model_coupons_report"/>
+     </record>
+</odoo>

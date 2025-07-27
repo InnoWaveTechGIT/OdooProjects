@@ -1,0 +1,107 @@
+<!-- <?xml version="1.0"?> -->
+
+<odoo>
+
+    <data>
+        <record model="ir.ui.view" id="user_device_form_view">
+            <field name="name">user.device.form</field>
+            <field name="model">user.device</field>
+            <field name="arch" type="xml">
+                <form string="User Device">
+                    <group>
+                        <field name="user_id"/>
+                        <field name="user_name"/>
+                        <field name="user_number"/>
+                        <field name="user_relation_id"/>
+                        <field name="number_of_tokens"/>
+                    </group>
+                    <notebook>
+                        <page string="Devices">
+                            <field name="devices" mode="tree">
+                                <tree>
+                                    <field name="device_id"/>
+                                    <field name="device"/>
+                                    <field name="is_valid"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="user_device_tree_view">
+            <field name="name">user.device.tree</field>
+            <field name="model">user.device</field>
+            <field name="arch" type="xml">
+                <tree string="User Devices">
+                    <field name="user_id"/>
+                    <field name="user_number"/>
+                    <field name="user_name"/>
+                    <field name="number_of_tokens"/>
+                </tree>
+            </field>
+        </record>
+        <record id="user_device_search_view_taleb" model="ir.ui.view">
+            <field name="name">search by number</field>
+            <field name="model">user.device</field>
+    
+            <field name="arch" type="xml">
+                <search>
+                    
+                    <field name="user_number"/>
+                    <field name="user_name"/>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="user_device_action">
+            <field name="name">User Devices</field>
+            <field name="res_model">user.device</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+            Click here to create a new user device record.
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="user_device_conf_form_view">
+            <field name="name">user.device.config.form</field>
+            <field name="model">user.device.config</field>
+            <field name="arch" type="xml">
+                <form string="User Device">
+                    <group>
+
+                        <field name="number"/>
+                    </group>
+
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="user_device_conf_tree_view">
+            <field name="name">user.device.config.tree</field>
+            <field name="model">user.device.config</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="number"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="user_device_conf_action">
+            <field name="name">User Devices</field>
+            <field name="res_model">user.device.config</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+            Click here to create a new user device record.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="device_id" name="Device Id" sequence="6" parent="taleb_user_token" action="user_device_action" />
+        <menuitem id="device_conf_id" name="Device Configration" sequence="7" parent="taleb_user_token" action="user_device_conf_action" />
+    </data>
+
+</odoo>

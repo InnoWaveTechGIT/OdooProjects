@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <data>
+        <record id="view_student_class_tree" model="ir.ui.view">
+            <field name="name">User student class Tree</field>
+            <field name="model">student.class</field>
+            <field name="arch" type="xml">
+                <tree string="User Class" editable='bottom'>
+                    <field name="name" />
+
+                </tree>
+            </field>
+        </record>
+
+       
+        
+        <record id="action_student_class" model="ir.actions.act_window">
+            <field name="name">User Class</field>
+            <field name="res_model">student.class</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new user course status.
+                </p>
+            </field>
+        </record>
+        <menuitem id="student_class" name="User Class" sequence="3" parent="taleb_user_token" action="action_student_class" />
+    </data>
+</odoo>

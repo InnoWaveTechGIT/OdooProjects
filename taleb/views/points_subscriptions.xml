@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+
+        <record id="points_subscription_view_taleb" model="ir.ui.view">
+
+            <field name="name">Points Subscription</field>
+
+            <field name="model">points.subscription</field>
+
+
+            <field name="arch" type="xml">
+
+
+                 <tree default_order='id dec'>
+
+                    <field name="user_id" />
+                    <field name="payment_type"></field>
+                    <field  class="image" name="image" widget="" filename="image_file_name"/>
+                    <field name="accepted"></field>
+
+
+
+                </tree>
+
+            </field>
+
+        </record>
+        <record id="points_subscription_form_view" model="ir.ui.view">
+    <field name="name">points.subscription.form.view</field>
+    <field name="model">points.subscription</field>
+    <field name="arch" type="xml">
+        <form>
+            <header>
+            <button name="add_points_to_user" string="Accept" type="object" class="oe_highlight" attrs="{'invisible': ['|', '|', ('accepted', '=', True), ('op_number', '=', False), ('sender_name', '=', False)]}" />
+            </header>
+            <sheet>
+                <group>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <field name="payment_type"   attrs="{'readonly': [('accepted', '=', True)]}"/>
+                    <field name="points_id"   attrs="{'readonly': [('accepted', '=', True)]}"/>
+                    <field name="user_id"   attrs="{'readonly': [('accepted', '=', True)]}"/>
+                    <field name="number_of_points"     attrs="{'readonly': [('accepted', '=', True)]}"/>
+                    <field name="accepted"      attrs="{'readonly': [('accepted', '=', True)]}"/>
+                    <field name="op_number" widget="char" placeholder="Enter OP Number" required="1"     attrs="{'readonly': [('accepted', '=', True)]}"/>
+                    <field name="sender_name" widget="char" placeholder="Enter Sender Name" required="1"    attrs="{'readonly': [('accepted', '=', True)]}"/>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+        <record id="points_subscriptions_action_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">Points Subscription</field>
+
+            <field name="res_model">points.subscription</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{}</field>
+
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first user token Record! </p>
+
+            </field>
+
+        </record>
+        <!-- <menuitem id="list_payment_type_menu_item" name="Payment Type" sequence="3" parent="teleb_root" /> -->
+        <menuitem id="subscription_type_menu_item" name="Points Subscribtion" sequence="3" parent="list_payment_type_menu_item"
+            action="points_subscriptions_action_window_taleb" />
+        
+    
+    
+    </data></odoo>

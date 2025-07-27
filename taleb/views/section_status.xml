@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <data>
+        <record id="view_section_status_tree" model="ir.ui.view">
+            <field name="name">User Section Status Tree</field>
+            <field name="model">section_status</field>
+            <field name="arch" type="xml">
+                <tree string="User Courses Status">
+                    <field name="user_id"/>
+                    <field name="section_id"/>
+                    <field name="is_watched"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_section_status_form" model="ir.ui.view">
+            <field name="name">User Section Status Form</field>
+            <field name="model">section_status</field>
+            <field name="arch" type="xml">
+                <form string="User Courses Status">
+                    <sheet>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="section_id"/>
+                            <field name="course_name"/>
+                            <field name="is_watched" widget="boolean_toggle"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_section_status" model="ir.actions.act_window">
+            <field name="name">User Section Status</field>
+            <field name="res_model">section_status</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+            Click to create a new user course status.
+                </p>
+            </field>
+        </record>
+<menuitem id="taleb_user_section_status" name="Section Status" sequence="2" parent="taleb_user_status" action="action_section_status" />
+    </data>
+</odoo>

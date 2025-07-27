@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <!--Define the form view for the block.student model -->
+        <record id="view_coupons_report_form" model="ir.ui.view">
+            <field name="name">coupons.report.form</field>
+            <field name="model">coupons.report</field>
+            <field name="arch" type="xml">
+                <form string="Coupons Report">
+                    <group>
+                        <group>
+                            <field name="promoters_id"/>
+                            
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_print_report" type='object' string='Print' class='btn-primary'/>
+                        <button string='Cancel' class='btn-secondary' special='cancel'/>
+
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="coupons_report_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">Coupons Report</field>
+            <field name="res_model">coupons.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref='view_coupons_report_form' />
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="taleb_user_reports" name="Reports" sequence="33" parent="teleb_root"/>
+        <menuitem id="taleb_user_coupon_reports" name="Promoters reports" sequence="1" parent="taleb_user_reports" action="coupons_report_window_taleb" />    
+    </data>
+</odoo>

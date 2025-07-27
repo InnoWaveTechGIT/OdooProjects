@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+  
+
+        <record id="user_contact_us_list_view_taleb" model="ir.ui.view">
+
+            <field name="name">User contact_us List</field>
+
+            <field name="model">contact.us</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                    <field name="name" />
+                    <field name="email" />
+                    <field name="phone_number" />
+                    <field name="reason" />
+                    <!-- reason -->
+                    <!-- d -->
+
+
+                </tree>
+
+            </field>
+
+        </record>
+
+
+        <record id="user_contact_us_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">contact_us Form</field>
+
+            <field name="model">contact.us</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="Contact Us">
+
+
+                    <sheet>
+
+
+                        <group>
+
+
+                            <group>
+
+
+                                <field name="name" />
+                                <field name="email" />
+                                <field name="phone_number" />
+                                <field name="reason" />
+
+
+                            </group>
+
+
+                            <group>
+
+                                <field name="message" />
+
+                            </group>
+
+                        </group>
+                      
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+
+
+        <record id="contact_us_action_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">Contact Us</field>
+
+            <field name="res_model">contact.us</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{}</field>
+
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first user token Record! </p>
+
+            </field>
+
+        </record>
+        <menuitem  id="us_menu_item" name="Us" parent="teleb_root"  />
+
+        <menuitem id="taleb_user_contact_us" name="Contact Us" sequence="3" parent="us_menu_item"
+            action="contact_us_action_window_taleb" />
+            <!-- <> -->
+
+    </data>
+
+</odoo>

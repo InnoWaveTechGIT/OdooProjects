@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+        <record id="view_promoters_tree" model="ir.ui.view">
+            <field name="name">promoters.tree</field>
+            <field name="model">promoters</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="promoter"/>
+                    <field name="promotion_code_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form view for the promoters model -->
+        <record id="view_promoters_form" model="ir.ui.view">
+            <field name="name">promoters.form</field>
+            <field name="model">promoters</field>
+            <field name="arch" type="xml">
+                <form>
+
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="promoter"/>
+                        </group>
+                        <notebook>
+
+                            <page name="promo_codes" string="Promo Codes">
+
+
+
+                                <field name="promotion_code_ids">
+                                    <tree editable="bottom">
+                                        <field name="user_id" />
+                                        <field name="promotion_code" />
+                                        <field name="course_ids"  widget="many2many_tags"/>
+                                        <field name="discount_percentage" />
+                                        <field name="expiration_date" />
+                                        <field name="promoter_rate" />
+                                        <field name="is_valid" />
+                                        
+                                        
+                                         
+                                    </tree>
+
+                                </field>
+
+                            </page>
+                             <!-- for package coupon -->
+                             <page name="package_promo_codes" string="Package Promo Codes">
+
+
+
+                                <field name="package_code_ids">
+                                    <tree editable="bottom">
+                                        <field name="user_id" />
+                                        <field name="promotion_code" />
+                                        <field name="package_ids"  widget="many2many_tags"/>
+                                        <field name="discount_percentage" />
+                                        <field name="is_valid" />
+                                        
+                                        
+                                         
+                                    </tree>
+
+                                </field>
+
+                            </page>
+                             <!-- end package page  -->
+                            <page name="promo_codes_user" string="Promo Codes Users">
+
+
+
+                                <field name="promotion_user_ids">
+                                    <tree editable="bottom">
+                                        <field name="user_id" />
+                                        <field name="promotion_id" />
+                                    </tree>
+
+                                </field>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action to open the promoters model -->
+        <record id="action_promoters" model="ir.actions.act_window">
+            <field name="name">Promoters</field>
+            <field name="res_model">promoters</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+            Click here to create a new promoter record.
+                </p>
+            </field>
+        </record>
+        <menuitem id="taleb_user_promoters" name="Promoters" sequence="33" parent="teleb_root" action="action_promoters" />
+    </data>
+</odoo>

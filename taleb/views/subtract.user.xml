@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+<record id="subtract_point_form_view" model="ir.ui.view">
+    <field name="name">Subtract Point Form</field>
+    <field name="model">subtract.point</field>
+    <field name="arch" type="xml">
+        <form string="Subtract Point">
+            <sheet>
+                <group>
+                    <field name="user_id" required="1"/>
+                    <field name="points" required="1"/>
+                    <field name="total_points" readonly="1"/>
+                    <field name="last_number_of_points" readonly="1"/>
+                    <field name="total_number_of_points" readonly="1"/>
+                    <field name="created_date" readonly="1"/>
+                    <field name="last_modified" readonly="1"/>
+                    <field name="message"/>
+                </group>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                </div>
+            </sheet>
+        </form>
+    </field>
+</record>
+<record id="subtract_point_tree_view" model="ir.ui.view">
+    <field name="name">Subtract Point Tree</field>
+    <field name="model">subtract.point</field>
+    <field name="arch" type="xml">
+        <tree string="Subtract Point">
+            <field name="user_id"/>
+            <field name="points"/>
+            <field name="total_points"/>
+            <field name="last_number_of_points"/>
+            <field name="total_number_of_points"/>
+            <field name="created_date"/>
+        </tree>
+    </field>
+</record>
+<record id="subtract_point_action" model="ir.actions.act_window">
+    <field name="name">Subtract Point</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">subtract.point</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[]</field>
+    <field name="context">{}</field>
+    <field name="search_view_id" ref="subtract_point_tree_view"/>
+</record>
+ <menuitem id="subtract_points_menu_item" name="Subtract Points" sequence="8" parent="list_payment_type_menu_item"
+            action="subtract_point_action" />
+        </data>
+        </odoo>

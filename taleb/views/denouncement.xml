@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+
+        <record id="user_denouncement_list_view_taleb" model="ir.ui.view">
+
+            <field name="name">User denouncement List</field>
+
+            <field name="model">denouncement</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                
+                    <field name="related_comment" />
+                    <field name="number_of_reports" />
+
+
+                </tree>
+
+            </field>
+
+        </record>
+
+
+        <record id="user_denouncement_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">denouncement Form</field>
+
+            <field name="model">denouncement</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="Denouncement">
+                    <header>
+                            
+                        
+                        <button name="delete_Realted_comment" string="Delete Comment" type="object" class="oe_highlight"   confirm='Are you sure you want to delete this comment ' />
+                     
+                    </header>
+
+
+                    <sheet>
+                       
+
+
+                        <group>
+
+
+                            <group>
+
+
+                                <field name="related_comment" />
+                                <field name="number_of_reports" />
+                                
+
+                            </group>
+
+
+                           <!--  -->
+                           
+                        </group>
+                        <notebook>
+                            <page name="" string="reports">
+                                <!-- denouncement_ids -->
+                                <field name="denouncement_ids">
+                                    <tree create="false" editable="bottom">
+                                       
+                                        <field name="user_id" />
+                                        <field name="comment" />
+                                        
+
+
+
+                                    </tree>
+
+                                </field>
+
+                            </page>
+
+                        </notebook>
+
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+
+
+        <record id="denouncement_action_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">Denouncement</field>
+
+            <field name="res_model">denouncement</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{}</field>
+
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first user token Record! </p>
+
+            </field>
+        </record>
+
+        <menuitem id="taleb_user_denouncement" name="Reports on Comments" sequence="4" parent="comments_courses_video1" action="denouncement_action_window_taleb" />
+
+    </data>
+
+</odoo>

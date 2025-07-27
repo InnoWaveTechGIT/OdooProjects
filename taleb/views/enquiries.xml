@@ -1,0 +1,310 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+
+        <record id="comments_video_list_view_taleb" model="ir.ui.view">
+
+            <field name="name">Enquiries</field>
+
+            <field name="model">enquiries</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                    <field name="user_id" />
+                    <field name="comment" />
+                    <field name="enquiry_id"/>
+
+
+                </tree>
+
+            </field>
+
+        </record>
+
+
+        <record id="comments_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">Enquiries Form</field>
+
+            <field name="model">enquiries</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="Comments  Video">
+
+
+                    <sheet>
+
+
+                        <group>
+
+
+
+
+                            <field name="user_id" />
+                            <field name="comment" />
+                            <field name="enquiry_id"/>
+                            <field name="image__"></field>
+                            <field name="course_id" />
+                            <field name="teacher_id" />
+                            
+                            <field name='pending'/>
+                            
+
+
+
+
+
+
+
+                        </group>
+
+                        <notebook>
+                            <page name="" string="Replies">
+                                <field name="replay_enquiry_ids">
+                                    <tree editable="bottom">
+                                        <field name="user_id" />
+                                        <field name="comment" />
+                                        <field name="image_1" widget="image" style="max-width: 300px; height: auto;" />
+                                        <field name="image_2" widget="image" style="max-width: 300px; height: auto;" />
+                                        <field name="image_3" widget="image" style="max-width: 300px; height: auto;" />
+                                        <field name="image_4" widget="image" style="max-width: 300px; height: auto;" />
+                                        <field name="image_5" widget="image" style="max-width: 300px; height: auto;" />
+                                        <field name="image_url1" invisible="1"/>
+                                        <field name="image_url2" invisible="1"/>
+                                        <field name="image_url3" invisible="1"/>
+                                        <field name="image_url4" invisible="1" />
+                                        <field name="image_url5" invisible="1"/>
+                                        
+                                        
+
+
+
+                                    </tree>
+
+                                </field>
+
+                            </page>
+                            <page name="" string="Images">
+                                <field name="image_ids">
+                                    <tree editable="bottom">
+                                        <field name="image"  widget="image"/>
+                                    
+
+
+
+                                    </tree>
+
+                                </field>
+
+                            </page>
+
+                        </notebook>
+
+
+
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+
+                </form>
+
+            </field>
+
+        </record>
+
+        <record id="user_replay_enquiry_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">course.video Form</field>
+
+            <field name="model">replay_enquiry</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="Course Video">
+
+
+                    <sheet>
+
+
+                        <group>
+
+
+                            <group>
+
+                                <field name="user_id" />
+                                <field name="comment" />
+                                <field name="replay_id" />
+
+
+
+                            </group>
+
+
+                            <group>
+                                
+                                
+
+                            </group>
+
+                        </group>
+
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+        <!-- Kanban View -->
+        <record id="taleb_record_rule_user_comment" model="ir.rule">
+            <field name="name">Record Rule for comment user</field>
+            <field ref="model_enquiries" name="model_id"/>
+            <field name="domain_force">[('course_id.teacher_id.name.id', '=', user.id)] </field>
+            <field name="groups" eval="[(4, ref('taleb.res_groups_taleb_teacher'))]"/>
+        </record>
+        <record id="taleb_record_rule_user_comment1" model="ir.rule">
+            <field name="name">Record Rule for comment user</field>
+            <field ref="model_enquiries" name="model_id"/>
+            <field name="domain_force">[(1, '=', 1)] </field>
+            <field name="groups" eval="[(4, ref('taleb.res_groups_taleb_admin'))]"/>
+        </record>
+        <record id="comments_kanban" model="ir.ui.view">
+            <field name="name">enquiries.kanban</field>
+            <field name="model">enquiries</field>
+            <field name="arch" type="xml">
+                <kanban class="o_hr_employee_kanban" js_class="hr_employee_kanban" sample="1">
+                    <field name="id"/>
+
+
+                    
+                    <field name="enquiry_id"/>
+                    <field name="comment"/>
+                    <field name="image__"/>
+                    <field name="user_id"/>
+                    <field name="teacher_id"/>
+                    
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <div class="o_kanban_image">
+
+                                    <field name="image__" widget="image"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <h1 class="o_kanban_record_title">
+                                                <p>Video Name :
+                                                    <field name="enquiry_id" placeholder="enquiry_id"/>
+                                                </p>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                   
+                                        <span>
+                                            <p>User :
+                                                <field name="user_id"/>
+                                            </p>
+                                        </span>
+                                        <span>
+
+                                            <p>Comment :
+                                                <field name="comment" placeholder="comment"/>
+                                            </p>
+
+                                        </span>
+                                        
+                                    
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <!-- End Kanban view -->
+
+
+
+
+        <record id="comments_action_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">User comments</field>
+
+            <field name="res_model">enquiries</field>
+
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain"></field>
+            <field name="context">{}</field>
+
+
+
+
+        </record>
+        <record id="comments_video_list_view_taleb_reply" model="ir.ui.view">
+
+            <field name="name">Enquiries</field>
+
+            <field name="model">replay_enquiry</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                    <field name="user_id" />
+                    <field name="comment" />
+                    <field name="replay_id" />
+
+
+                </tree>
+
+            </field>
+
+        </record>
+        <record id="comments_action_window_taleb1" model="ir.actions.act_window">
+
+            <field name="name">User comments</field>
+
+            <field name="res_model">replay_enquiry</field>
+
+            <field name="view_mode">tree</field>
+            <field name="domain"></field>
+            <field name="context">{}</field>
+
+
+
+
+        </record>
+
+        <!-- <menuitem id="comments_courses_video" name="Comments Videos" sequence="6" parent="teleb_root" /> -->
+        <menuitem id="comments_courses_video1" name="Comments" sequence="30" parent="teleb_root"  />
+        <menuitem id="comments_courses_video2" name="Comments" sequence="1" parent="comments_courses_video1" action="comments_action_window_taleb" />
+        <menuitem id="comments_courses_video3" name="Replies" sequence="2" parent="comments_courses_video1" action="comments_action_window_taleb1" />
+
+
+
+
+
+
+
+    </data>
+
+</odoo>

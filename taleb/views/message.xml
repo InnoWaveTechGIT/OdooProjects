@@ -1,0 +1,77 @@
+<!-- message_form_view.xml -->
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="message_form_view">
+            <field name="name">message.form.view</field>
+            <field name="model">support.message</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="conversation_id" />
+                            <field name="user_id" />
+                            <field name="body" />
+                            <field name="date"/>
+
+                            
+                        </group>
+                        <notebook>
+                            <page name="Images" string="Images">
+                               <field name="image_ids">
+                                    <tree editable="bottom">
+                                        <field name='image' class="oe_avatar" filename="image_file_name"  />
+                                        <field name="image_file_name" />
+                                        <field name="image_path" />
+                                        
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="message_tree_view">
+            <field name="name">message.tree.view</field>
+            <field name="model">support.message</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="conversation_id"/>
+                    <field name="user_id"/>
+                    <field name="body"/>
+                    <!-- <field name="date" options="{'order': 'desc'}"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="message_action" model="ir.actions.act_window">
+
+            <field name="name">Message</field>
+
+            <field name="res_model">support.message</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{}</field>
+
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first user message Record! </p>
+
+            </field>
+
+        </record>
+
+
+        <!-- conversation_menu.xml -->
+
+
+        <menuitem id="mesage_menu_item" name="Message" sequence="10" parent="support" action="message_action"/>
+
+    </data>
+</odoo>

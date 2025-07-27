@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <!-- Tree view -->
+        <record id="view_ppt_courses_tree" model="ir.ui.view">
+            <field name="name">ppt.courses.tree</field>
+            <field name="model">cpackage_payments_tracker</field>
+            <field name="arch" type="xml">
+                <tree string="PPT Courses">
+                    <field name="c_id"/>
+                    <field name="sessions_per_payment"/>
+                    <field name="ppt_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form view -->
+        <record id="view_ppt_courses_form" model="ir.ui.view">
+            <field name="name">ppt.courses.form</field>
+            <field name="model">cpackage_payments_tracker</field>
+            <field name="arch" type="xml">
+                <form string="PPT Courses">
+                    <sheet>
+                        <group>
+                            <field name="c_id"/>
+                            <field name="sessions_per_payment"/>
+                            <field name="ppt_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_ppt_courses" model="ir.actions.act_window">
+            <field name="name">PPT Courses</field>
+            <field name="res_model">cpackage_payments_tracker</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu item -->
+        <menuitem id="menu_ppt_courses" name="PPT Courses"/>
+        <menuitem id="menu_ppt_courses_tree" name="PPT Courses" parent="teleb_root" action="action_ppt_courses" />
+    </data>
+</odoo>

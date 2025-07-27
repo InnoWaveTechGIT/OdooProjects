@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <data>
+        <record id="view_session_status_tree" model="ir.ui.view">
+            <field name="name">User Session Status Tree</field>
+            <field name="model">session_status</field>
+            <field name="arch" type="xml">
+                <tree string="User Courses Status">
+                    <field name="user_id" />
+                    <field name="session_id" />
+                    <field name="subscribed"/>
+                    <field name="is_watched" />
+                    <field name="progress" />
+                    <field name="courses_dont_have_session" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_session_status_form" model="ir.ui.view">
+            <field name="name">User Session Status Form</field>
+            <field name="model">session_status</field>
+            <field name="arch" type="xml">
+                <form string="User Courses Status">
+                    <header>
+                        <field name="subscribed" widget="statusbar" statusbar_visible="subscribed,unsubscribed"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="user_id" />
+                            <field name="session_id" />
+
+                            <field name="section_name" />
+                            <field name="course_name" />
+                            <field name="section_count" />
+                            <field name="course_count" />
+                            <field name="is_watched" widget="boolean_toggle" />
+                            <field name="progress" />
+                            <field name="courses_dont_have_session" />
+                            <!-- <field name="session_question_count" />
+                            <field name="user_course_mark" />
+                            <field name="user_session_comment" />
+                            <field name="user_session_rate" /> -->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+       
+        <record id="view_group_my_session_by_course_id_status" model="ir.ui.view">
+            <field name="name">group_my_session</field>
+            <field name="model">session_status</field>
+
+            <field name="arch" type="xml">
+                <search>
+                    
+                    <field name="course_name" />
+                    <field name="user_id" />
+                    <field name="section_name" />
+                    <separator />
+                    <group expand="0" string="Group By">
+                        <filter string="User Name" name="group_by_course_name"
+                            context="{'group_by': 'user_id'}" />
+                        <filter string="Course Name" name="group_by_course_name"
+                            context="{'group_by': 'course_name'}" />
+                        <filter string="Section Name" name="group_by_course_name"
+                            context="{'group_by': 'section_name'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_session_status" model="ir.actions.act_window">
+            <field name="name">User Session Status</field>
+            <field name="res_model">session_status</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="context">{
+                'search_default_group_by_course_name': 1
+                }</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new user course status.
+                </p>
+            </field>
+        </record>
+        <menuitem id="taleb_user_status" name="LMS" sequence="32" parent="teleb_root" />
+        <menuitem id="taleb_user_session_status" name="Session Status" sequence="3"
+            parent="taleb_user_status" action="action_session_status" />
+    </data>
+</odoo>

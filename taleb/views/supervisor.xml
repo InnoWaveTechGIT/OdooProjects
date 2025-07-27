@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+
+        <record id="supervisor_point_form_view" model="ir.ui.view">
+            <field name="name">supervisor Point Form</field>
+            <field name="model">educational.supervisor</field>
+            <field name="arch" type="xml">
+                <form string="Supervisor Point">
+                    <sheet>
+
+                        <group>
+                            <field name="user_id" />
+                            <field name="course_id" />
+                            <field name="user_progress" />
+                        </group>
+                        <notebook>
+                            <page name="section" string="Section">
+                                <field name="section_progress_ids">
+                                    <tree>
+                                        <field name='section_id' />
+                                        <field name='user_progress' />
+
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="supervisor_point_tree_view" model="ir.ui.view">
+            <field name="name">supervisor Point Tree</field>
+            <field name="model">educational.supervisor</field>
+            <field name="arch" type="xml">
+                <tree string="Supervisor Point">
+                    <header>
+
+                        <button name="get_student_progress" string="Get all data" type="object" class="oe_highlight" />
+                        
+                    </header>
+                    <field name="user_id" />
+                    <field name="course_id" />
+                    <field name="user_progress" />
+                </tree>
+            </field>
+        </record>
+        <record id="supervisor_point_action" model="ir.actions.act_window">
+            <field name="name">Supervisor </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">educational.supervisor</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'default_trigger_server_action': True}</field>
+
+        </record>
+
+        
+
+        <record id="action_generate_data1" model="ir.actions.server">
+            <field name="name">Generate Data</field>
+            <field name="model_id" ref="model_educational_supervisor" />
+            <field name="state">code</field>
+            <field name="code">
+                action = self.env['session_status'].sudo().get_student_progress()
+            </field>
+        </record>
+
+        <record id="view_educational_supervisor_tree" model="ir.ui.view">
+            <field name="name">educational_supervisor.tree</field>
+            <field name="model">educational.supervisor</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="user_id" />
+                    <field name="course_id" />
+                    <field name="section" />
+                    <field name="user_progress" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_supervisor_wizard_form" model="ir.ui.view">
+            <field name="name">supervisor.wizard.form</field>
+            <field name="model">supervisor.wizard</field>
+            <field name="arch" type="xml">
+                <form string="My Wizard">
+                    <group>
+                        <field name="user_ids"/>
+                        <field name="course_ids" widget='many2many_tags'/>
+                        <field name="server_id" domain="[('model_id.model', '=', 'session_status')]"/>
+                    </group>
+                    <footer>
+                        <button string="Print" type="object"
+                                name="button_show_tree_view"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary"
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="supervisor_report_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">Supervisor Report</field>
+            <field name="res_model">supervisor.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         <menuitem id="taleb_user_supervisor_status" name="Supervisor Report" sequence="5"
+            parent="taleb_user_status" action="supervisor_report_window_taleb" />
+
+    </data>
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Action View -->
+        <record id="action_configration_points" model="ir.actions.act_window">
+            <field name="name">Configuration Points</field>
+            <field name="res_model">configration_points</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_configration_points_tree" model="ir.ui.view">
+            <field name="name">configration_points.tree</field>
+            <field name="model">configration_points</field>
+            <field name="arch" type="xml">
+                <tree string="Configuration Points">
+                    <field name="point_price"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_configration_points_form" model="ir.ui.view">
+            <field name="name">configration_points.form</field>
+            <field name="model">configration_points</field>
+            <field name="arch" type="xml">
+                <form string="Configuration Points">
+                    <sheet>
+                        <group>
+                            <field name="point_price"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_configration_points" name="Configuration Points"
+            parent="list_payment_type_menu_item" sequence="10"
+            action="action_configration_points"/>
+    </data>
+</odoo>

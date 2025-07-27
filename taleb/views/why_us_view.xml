@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+
+        <record id="user_why_us_list_view_taleb" model="ir.ui.view">
+
+            <field name="name">User why_us List</field>
+
+            <field name="model">why.us</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                    <field name="title" />
+                    <field name="brief" />
+
+
+                </tree>
+
+            </field>
+
+        </record>
+
+
+        <record id="user_why_us_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">why us Form</field>
+
+            <field name="model">why.us</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="Why Us">
+
+
+                    <sheet>
+
+
+                        <group>
+
+
+                            <group>
+
+
+                                
+                    <field name="title" />
+                    <field name="video_full_url" />
+
+
+                            </group>
+
+
+                            <group>
+
+                                <field name="brief" />
+                                <field name="video_path" />
+                            </group>
+
+                        </group>
+                      
+
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+
+
+        <record id="why_us_action_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">Why Us</field>
+
+            <field name="res_model">why.us</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{}</field>
+
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first user token Record! </p>
+
+            </field>
+
+        </record>
+
+        <menuitem id="taleb_user_why_us" name="Why Us" sequence="8" parent="us_menu_item"
+            action="why_us_action_window_taleb" />
+
+    </data>
+
+</odoo>

@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+
+        <record id="user_section_quize_list_view_taleb" model="ir.ui.view">
+
+            <field name="name">User section_quize List</field>
+
+            <field name="model">section_quize_result</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                    <field name="pdf_file" filename="file_name" />
+                    <field name="section_id" />
+
+
+                </tree>
+
+            </field>
+
+        </record>
+
+
+        <record id="user_section_quize_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">section_quize Form</field>
+
+            <field name="model">section_quize_result</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="Section Quiz Result">
+
+
+                    <sheet>
+
+
+                        <group>
+
+
+                            <group>
+
+                                <field name="user_id" />
+                                <field name="pdf_file"  filename="file_name" />
+                                <field name="section_id" />
+                                <field name="file_path" />
+                                
+
+
+                            </group>
+   
+                            
+                            <group>
+                                <field name="file_type" />
+                                <field name="the_expected_degree" />
+                                
+                            </group>
+
+
+                        </group>
+
+                        <notebook>
+
+                            <page name="image" string="Image 2 PDF" attrs="{'invisible':[('file_type','!=', 'image')]}">
+                                <field name="image_ids">
+                                    <tree editable="bottom">
+                                        <field name='section_image' class="oe_avatar" filename="image_file_name"  />
+                                        <field name="image_file_name" />
+                                        <field name="image_path" />
+                                        
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+
+
+        <record id="section_quize_action_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">Section Quiz Result</field>
+
+            <field name="res_model">section_quize_result</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{}</field>
+
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first Record! </p>
+
+            </field>
+            <!-- <> -->
+        </record>
+
+        <menuitem id="taleb_user_section_quize" name="Section Quiz Result" sequence="5" parent="taleb_user_courses" action="section_quize_action_window_taleb" />
+
+    </data>
+
+</odoo>

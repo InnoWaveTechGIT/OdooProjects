@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record id="privacy_list_view_taleb" model="ir.ui.view">
+
+            <field name="name">privacy List</field>
+
+            <field name="model">privacy.policy</field>
+
+
+            <field name="arch" type="xml">
+<!-- <> -->
+
+                <tree>
+
+                   
+                    <field name="content" />
+                    
+
+                </tree>
+
+            </field>
+
+        </record>
+        <record id="privacy_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">privacy Form</field>
+
+            <field name="model">privacy.policy</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="Privacy Policy">
+
+
+                    <sheet>
+                        <group>
+                            <field name="content"></field>
+
+
+
+                        </group>
+
+
+                       
+
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+        <record id="privacy_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">privacy policy</field>
+
+            <field name="res_model">privacy.policy</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context"></field>
+
+
+            <!-- <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first user token Record! </p>
+
+            </field> -->
+
+        </record>
+
+       
+            <menuitem id="taleb_privacy" name="Privacy Policy" parent="us_menu_item"
+            action="privacy_window_taleb"/>
+
+
+    </data>
+
+
+</odoo>

@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+
+        <record id="user_token_list_view_taleb" model="ir.ui.view">
+
+            <field name="name">User Token List</field>
+
+            <field name="model">user.token</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                    <field name="user_id" />
+
+                    <field name="token" />
+
+                </tree>
+
+            </field>
+
+        </record>
+
+
+        <record id="user_token_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">user_token Form</field>
+
+            <field name="model">user.token</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="User Token">
+
+
+                    <sheet>
+
+
+                        <group>
+
+
+                            <group>
+
+                                <field name="user_id" />
+
+                            </group>
+
+
+                            <group>
+
+                                <field name="token" />
+                                <field name="fire_base" />
+                                <field name="is_android" />
+                            </group>
+
+                        </group>
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+
+
+        <record id="user_token_action_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">User Token</field>
+
+            <field name="res_model">user.token</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{}</field>
+
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first user token Record! </p>
+
+            </field>
+
+        </record>
+
+        <menuitem id="teleb_root" name="Taleb" sequence="10"/>
+        <menuitem id="taleb_user_token" name="User Codes" sequence="99" parent="teleb_root"  />
+        <menuitem id="taleb_user_token1" name="User Token" sequence="2" parent="taleb_user_token" action="user_token_action_window_taleb" />
+
+    </data>
+
+</odoo>

@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_work_papers_enquery_taleb_form" model="ir.ui.view">
+            <field name="name">work.papers.enquery.taleb.form</field>
+            <field name="model">work.papers.enquery.taleb</field>
+            <field name="arch" type="xml">
+                <form string="Work Papers Enquery Taleb">
+                    <sheet>
+                        <group>
+                            
+                            <field name="work_id" />
+                            <field name="comment" />
+                            <field name="user_id" />
+                            <field name="pending" />
+                            <field name="section_id" readonly="1"/>
+                            <field name="course_id" readonly="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Replaies">
+                                <field name="comment_ids" widget="one2many_list">
+                                    <tree editable="bottom">
+                                        <field name="user_id"/>
+                                        <field name="comment"/>
+                                        <field name="image_1" widget="image" style="max-width: 300px; height: auto;"/>
+                                        <field name="image_2" widget="image" style="max-width: 300px; height: auto;"/>
+                                        <field name="image_3" widget="image" style="max-width: 300px; height: auto;"/>
+                                        <field name="image_4" widget="image" style="max-width: 300px; height: auto;"/>
+                                        <field name="image_5" widget="image" style="max-width: 300px; height: auto;"/>
+                                        <field name="image_url1" invisible="1"/>
+                                        <field name="image_url2" invisible="1"/>
+                                        <field name="image_url3" invisible="1"/>
+                                        <field name="image_url4" invisible="1"/>
+                                        <field name="image_url5" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Images">
+                                <field name="image_ids" widget="one2many_list">
+                                    <tree editable="bottom">
+                                        <field name="image" widget="image" style="max-width: 300px; height: auto;"/>
+                                        <field name="image_url" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_work_papers_enquery_taleb_tree" model="ir.ui.view">
+            <field name="name">work.papers.enquery.taleb.tree</field>
+            <field name="model">work.papers.enquery.taleb</field>
+            <field name="arch" type="xml">
+                <tree string="Work Papers Enquery Taleb">
+                    <field name="section_id"/>
+                    <field name="course_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_work_papers_enquery_taleb" model="ir.actions.act_window">
+            <field name="name">Work Papers Enquery Taleb</field>
+            <field name="res_model">work.papers.enquery.taleb</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="taleb_work_papers2" name="Work Papers Comments" sequence="2" parent="taleb_work_papers" action="action_work_papers_enquery_taleb" />
+    </data>
+</odoo>

@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+
+        <record id="user_resault_list_view_taleb" model="ir.ui.view">
+
+            <field name="name">User resault List</field>
+
+            <field name="model">resault</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                    <field name="user_id" />
+                    <field name="resault" />
+
+
+                </tree>
+
+            </field>
+
+        </record>
+
+
+        <record id="user_resault_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">resault Form</field>
+
+            <field name="model">resault</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="about Us">
+
+
+                    <sheet>
+
+
+                        <group>
+
+
+                            <group>
+
+                                <field name="user_id" />
+                                <field name="resault" />
+                                <field name="session_id" />
+                                <field name="course_id" />
+                                <field name="try_counter" />
+                                <field name="false_answers" />
+                            </group>
+
+
+                        </group>
+
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+
+
+        <record id="resault_action_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">Resault</field>
+
+            <field name="res_model">resault</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{}</field>
+
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first user token Record! </p>
+
+            </field>
+
+        </record>
+        <record id="user_resault_conf_list_view_taleb" model="ir.ui.view">
+
+            <field name="name">User resault conf List</field>
+
+            <field name="model">quiz.conf</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                    <field name="number" />
+
+
+                </tree>
+
+            </field>
+
+        </record>
+        <record id="user_resault_conf_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">resault conf Form</field>
+
+            <field name="model">quiz.conf</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="Configration">
+
+
+                    <sheet>
+
+
+                        <group>
+
+
+                            <group>
+
+                                <field name="number" />
+                                
+                            </group>
+
+
+                        </group>
+
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+        <record id="resault_conf_action_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">Resault Conf</field>
+
+            <field name="res_model">quiz.conf</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{}</field>
+
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first user token Record! </p>
+
+            </field>
+
+        </record>
+        <menuitem id="taleb_user_resault" name="Result" sequence="2" parent="taleb_user_courses_video"
+            action="resault_action_window_taleb" />
+
+        <menuitem id="taleb_user_resault_conf" name="quiz configration" sequence="3" parent="taleb_user_courses_video"
+            action="resault_conf_action_window_taleb" />
+
+
+    </data>
+
+</odoo>

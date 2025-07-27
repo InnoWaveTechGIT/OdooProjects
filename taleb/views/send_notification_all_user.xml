@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+        <!-- View definitions -->
+        <record model="ir.ui.view" id="notificationall_form">
+            <field name="name">notificationall.form</field>
+            <field name="model">users.notificationall</field>
+            <field name="arch" type="xml">
+                <form string="Notification All Users">
+                    <sheet>
+                        <group>
+                            <field name="title"/>
+                            <field name="body"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="notificationall_tree">
+            <field name="name">notificationall.tree</field>
+            <field name="model">users.notificationall</field>
+            <field name="arch" type="xml">
+                <tree string="All Notifications">
+                    <field name="title"/>
+                    <field name="create_date"/>
+                </tree>
+            </field>
+        </record>
+         <!-- Window action -->
+        
+        <record id="notificationall_action" model="ir.actions.act_window">
+
+                    <field name="name">Notification All Users</field>
+        
+                    <field name="res_model">users.notificationall</field>
+        
+                    <field name="view_mode">tree,form</field>
+        
+                    <field name="context">{}</field>
+        
+        
+                    <field name="help" type="html">
+        
+                        <p class="o_view_nocontent_smiling_face"> </p>
+        
+                    </field>
+        
+                </record>
+        
+
+        <!-- Menu item -->
+         <menuitem id="notificationall_menu" name="Notificationa All Users" sequence="4" parent="us_menu_item"
+                action="notificationall_action" />
+
+       
+    </data>
+</odoo>

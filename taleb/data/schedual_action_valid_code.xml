@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+
+    <record model="ir.cron" id="ir_cron_scheduler_un_valid_action">
+
+        <field name="name">Set the code unvalid</field>
+
+        <field name="model_id" ref="model_user_verification" />
+
+        <field name="state">code</field>
+
+        <field name="code">model.set_is_unvalid()</field>
+
+        <field name="user_id" ref="base.user_root" />
+
+        <field name="interval_number">10</field>
+
+        <field name="interval_type">minutes</field>
+
+        <field name="numbercall">-1</field>
+
+    </record>
+
+
+
+    <record model="ir.cron" id="ir_cron_scheduler_set_dacast_id">
+
+        <field name="name">Set dacast id</field>
+
+        <field name="model_id" ref="model_course_video" />
+
+        <field name="state">code</field>
+
+        <field name="code">model.set_dacast_id()</field>
+
+        <field name="user_id" ref="base.user_root" />
+
+        <field name="interval_number">10</field>
+
+        <field name="interval_type">days</field>
+
+        <field name="numbercall">-1</field>
+
+    </record>
+
+    <!-- <record model="ir.cron" id="ir_cron_scheduler_un_valid_subscription">
+
+        <field name="name">Set the course unvalid</field>
+
+        <field name="model_id" ref="model_subscription" />
+
+        <field name="state">code</field>
+
+        <field name="code">model.set_is_unvalid()</field>
+
+        <field name="user_id" ref="base.user_root" />
+
+        <field name="interval_number">1</field>
+
+        <field name="interval_type">days</field>
+
+        <field name="numbercall">-1</field>
+
+    </record> -->
+    <record model="ir.cron" id="ir_cron_scheduler_un_valid_section">
+
+        <field name="name">calculate duration</field>
+
+        <field name="model_id" ref="model_section" />
+
+        <field name="state">code</field>
+
+        <field name="code">model.cal_section_duration()</field>
+
+        <field name="user_id" ref="base.user_root" />
+
+        <field name="interval_number">1</field>
+
+        <field name="interval_type">days</field>
+
+        <field name="numbercall">-1</field>
+
+    </record>
+    <record model="ir.cron" id="get_data_for_session_status">
+
+        <field name="name">Set the course unvalid</field>
+
+        <field name="model_id" ref="model_session_status" />
+
+        <field name="state">code</field>
+
+        <field name="code">model.get_questin_and_grad()</field>
+
+        <field name="user_id" ref="base.user_root" />
+
+        <field name="interval_number">1</field>
+
+        <field name="interval_type">days</field>
+
+        <field name="numbercall">-1</field>
+
+    </record>
+
+</odoo>

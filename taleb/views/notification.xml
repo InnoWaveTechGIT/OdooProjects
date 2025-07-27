@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+
+        <record id="user_notifications_list_view_taleb" model="ir.ui.view">
+
+            <field name="name">User notifications List</field>
+
+            <field name="model">notifications</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                    <field name="comment" />
+                    <field name="user_id" />
+                    
+
+
+                </tree>
+
+            </field>
+
+        </record>
+
+
+        <record id="user_notifications_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">notifications Form</field>
+
+            <field name="model">notifications</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="notifications">
+
+
+                    <sheet>
+
+
+                        <group>
+
+
+                            <group>
+
+
+                                <field name="comment" />
+                                <field name="is_seen"  widget="boolean_toggle" />
+                                
+
+                            </group>
+
+
+                            <group>
+
+                                <field name="user_id" />
+                                <field name="data" />
+                                
+                            </group>
+                            <group>
+                            <field name="notification_type"/>
+                            </group>
+                           
+                        </group>
+
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+
+
+        <record id="notifications_action_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">notifications</field>
+
+            <field name="res_model">notifications</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{}</field>
+
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first user token Record! </p>
+
+            </field>
+<!-- <> -->
+        </record>
+
+        <menuitem id="taleb_user_notifications" name="notifications" sequence="9" parent="us_menu_item"
+            action="notifications_action_window_taleb" />
+
+    </data>
+
+</odoo>

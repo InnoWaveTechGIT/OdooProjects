@@ -1,0 +1,70 @@
+<!-- conversation_form_view.xml -->
+<!--  order="date desc" -->
+<odoo>
+<data>
+
+
+        <record model="ir.ui.view" id="conversation_form_view">
+            <field name="name">conversation.form.view</field>
+            <field name="model">support.conversation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="Support_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Messages">
+                                <field name="message_ids" mode="tree" >
+                                    <tree>
+                                        <field name="user_id"/>
+                                        <field name="body"/>
+                                        <field name="date"/>
+                                        
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    
+
+<!-- conversation_tree_view.xml -->
+
+
+        <record model="ir.ui.view" id="conversation_tree_view">
+            <field name="name">conversation.tree.view</field>
+            <field name="model">support.conversation</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="user_id"/>
+                    <field name="Support_id"/>
+                </tree>
+            </field>
+        </record>
+   
+
+
+
+<!-- conversation_action.xml -->
+
+=
+        <record model="ir.actions.act_window" id="conversation_action">
+            <field name="name">Conversations</field>
+            <field name="res_model">support.conversation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    
+
+
+<!-- conversation_menu.xml -->
+<menuitem id="support" name="Support" sequence="6" parent="teleb_root" />
+           
+
+ <menuitem id="conversation_menu_item" name="Conversation" sequence="10" parent="support"  action="conversation_action"/>
+
+ </data>
+</odoo>

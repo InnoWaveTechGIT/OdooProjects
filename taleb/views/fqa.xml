@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <!-- Define the view -->
+        <record model="ir.ui.view" id="fqa_tree_view">
+            <field name="name">FQA Tree View</field>
+            <field name="model">fqa</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="question"/>
+                    <field name="answer"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Define the form view -->
+        <record model="ir.ui.view" id="fqa_form_view">
+            <field name="name">FQA Form View</field>
+            <field name="model">fqa</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="question"/>
+                            <field name="answer"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Define the action -->
+        <record model="ir.actions.act_window" id="fqa_action">
+            <field name="name">FQA</field>
+            <field name="res_model">fqa</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- Define the menu item -->
+        <menuitem id="taleb_fqa" name="FQA" sequence="4" parent="us_menu_item" action="fqa_action" />
+    </data>
+</odoo>

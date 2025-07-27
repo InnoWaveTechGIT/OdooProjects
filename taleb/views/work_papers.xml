@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_work_papers_taleb_form" model="ir.ui.view">
+            <field name="name">work.papers.taleb.form</field>
+            <field name="model">work.papers.taleb</field>
+            <field name="arch" type="xml">
+                <form string="Work Papers Taleb">
+                    <sheet>
+                        <group>
+                            <field name="title" />
+                            <field name="course_id" />
+                            <field name="section_id" />
+                            <field name="order" />
+                        </group>
+                        <notebook>
+                            <page string="Work Papers">
+                                <field name="work_paper_ids" widget="one2many_list">
+                                    <tree editable="bottom">
+                                        <field name="title" />
+                                        <field name="question" filename="question_file_name"/>
+                                        <field name="answer" filename="answer_file_name"/>
+                                        <field name="question_file_name" invisible='1' />
+                                        <field name="answer_file_name" invisible='1' />
+                                        <button string='View Comments'
+                                            name="open_comments" type="object"
+                                        >
+                                            
+                                        </button>
+                                        <field name="order" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_work_papers_taleb_tree" model="ir.ui.view">
+            <field name="name">work.papers.taleb.tree</field>
+            <field name="model">work.papers.taleb</field>
+            <field name="arch" type="xml">
+                <tree string="Work Papers Taleb">
+                    <field name="title" />
+                    <field name="course_id" />
+                    <field name="section_id" />
+                    <field name="order" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_work_papers_taleb" model="ir.actions.act_window">
+            <field name="name">Work Papers Taleb</field>
+            <field name="res_model">work.papers.taleb</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="taleb_work_papers" name="Work Papers" sequence="98" parent="teleb_root" />
+        <menuitem id="taleb_work_papers1" name="Work Papers" sequence="1" parent="taleb_work_papers"
+            action="action_work_papers_taleb" />
+
+    </data>
+</odoo>

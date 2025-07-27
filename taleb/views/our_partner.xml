@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+
+        <record id="our_partner_view_taleb" model="ir.ui.view">
+
+            <field name="name">Our Partner </field>
+
+            <field name="model">our.partner</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                    <field name="name" />
+                    <field   name="image" />
+                    
+
+
+
+                </tree>
+
+            </field>
+
+        </record>
+        <record id="our_partner_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">Our partner</field>
+
+            <field name="model">our.partner</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="">
+
+
+                    <sheet>
+
+
+                     
+
+
+                            <group>
+
+
+                                <field name="name" />
+                                <field  class="image" name="image" widget="" filename="image_file_name"/> 
+                                <field name="image_path"></field>
+                                <field  name="image_file_name" />
+                               
+
+
+
+                            </group>
+
+
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+        
+        <record id="our_partner_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">Our partner</field>
+
+            <field name="res_model">our.partner</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{}</field>
+
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first user Partner Record! </p>
+
+            </field>
+        </record>
+        <menuitem id="our_partner__menu_item" name="Our Partner" sequence="5" parent="us_menu_item"
+            action="our_partner_window_taleb" />
+           
+    </data>
+   
+    </odoo>
+    

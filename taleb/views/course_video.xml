@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+
+        <record id="user_course_video_list_view_taleb" model="ir.ui.view">
+
+            <field name="name">User course.video List</field>
+
+            <field name="model">course.video</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                    <field name="Title" />
+
+
+                </tree>
+
+            </field>
+
+        </record>
+        
+
+        <record model="ir.ui.view" id="user_video_quiz_form_view">
+            <field name="name">user.video.quiz.form</field>
+            <field name="model">video.quiz</field>
+            <field name="arch" type="xml">
+                <form string="User Device">
+                    <group>
+                        <field name='question' widget="html"/>
+                        <field name='number_of_answers'/>
+                        <field name='answer1' widget="html"/>
+                        <field name='answer2' widget="html"/>
+                        <field name='answer3' widget="html" attrs="{'invisible':['|',('number_of_answers','=', '2'),('number_of_answers','=', False)]}"/>
+                        <field name='answer4' widget="html" attrs="{'invisible':[('number_of_answers','!=', '4')]}"/>
+                        <field name='hint'/>
+                        <field name='correct_answers'/>
+                    </group>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="user_course_video_form_view_taleb" model="ir.ui.view">
+
+            <field name="name">course.video Form</field>
+
+            <field name="model">course.video</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="Course Video">
+                    <header>
+
+                        <!-- <button name="get_dacast_id" string="Get Dacast ID" type="object" class="oe_highlight" attrs="{'invisible': [('dacast_id', '!=', False)]}" /> -->
+                        <button name="video_to_server" string="Save" type="object" class="oe_highlight" />
+                    </header>
+
+                    <sheet>
+
+
+                        <group>
+
+
+                            <group>
+                                
+
+                                <!-- <field name="title" /> -->
+                                <field name="Title"/>
+                                
+                                <field name="is_public" widget="boolean_toggle"/>
+
+
+                            </group>
+                            <group>
+                            <field name="video_order"/>
+                            </group>
+
+
+                            <group>
+                                <field name="video" class="oe_avatar" filename="video_file_name"/>
+                                
+                                <field name="course_id" />
+                                <field name="section_id" />
+                                <field name="video_size"/>
+
+                            </group>
+                            <group>
+                                <field name="embeded_code" />
+                                <field name="dacast_id" />
+                                <field name="duration" />
+                                <field name="video_file_path" />
+                                <field name="video_file_full_url" />
+                                <field name="script_code"/>                                
+
+                            </group>
+
+
+                        </group>
+                        <notebook>
+                           
+                            <page name="quiz" string="Quiz">
+                                <field name="quiz_ids">
+                                    <tree >
+                                        <field name='question' widget="html"/>
+                                        <field name='number_of_answers' />
+                                        <field name='answer1' widget="html"/>
+                                        <field name='answer2' widget="html"/>
+                                        <field name='answer3' widget="html" attrs="{'invisible':['|',('number_of_answers','=', '2'),('number_of_answers','=', False)]}"/>
+                                        <field name='answer4' widget="html" attrs="{'invisible':[('number_of_answers','!=', '4')]}"/>
+                                        <field name='hint'/>
+                                        <field name='correct_answers'/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                            <!-- for refrences  -->
+                                 <page name="Refrences" string="Refrences">
+                                <field name="refrences">
+                                    <tree editable="bottom">
+                                    <field name="selection" widget="selection">
+                <selection string="Add PDF file" value="pdf"/>
+                <selection string="Write in content field" value="content"/>
+            </field>
+                                    <field name="pdf_file" class="oe_avatar" filename="file_name" attrs="{'invisible': [('selection', '!=', 'pdf')]}"/>
+                                     <field name="file_name" />
+                                        
+                                    <field name="file_path" />
+                                       <field name="content" attrs="{'invisible': [('selection', '!=', 'content')]}"/>
+                                       <field name="refrence_name" />
+                                       
+                                       
+
+                                    </tree>
+                                </field>
+                                </page>
+
+                            <!-- end refrences  -->
+                        </notebook>
+                       
+
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+
+        <record id="view_group_my_session_by_course_id" model="ir.ui.view">
+        <field name="name">group_my_session</field>
+        <field name="model">course.video</field>
+
+        <field name="arch" type="xml">
+            <search>
+                
+                <field name="course_id"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Course Name" name="group_by_course_id" context="{'group_by': 'course_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+        <record id="course_video_action_window_taleb" model="ir.actions.act_window">
+
+            <field name="name">User Course Video</field>
+
+            <field name="res_model">course.video</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{'search_default_group_by_course_id': 1}</field>
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first user token Record! </p>
+
+            </field>
+
+        </record>
+
+        <menuitem id="taleb_user_courses_video" name="Course Video" sequence="6" parent="teleb_root" />
+        <menuitem id="taleb_user_courses_video1" name="Course Video" sequence="1" parent="taleb_user_courses_video" action="course_video_action_window_taleb" />
+
+
+    </data>
+
+</odoo>
