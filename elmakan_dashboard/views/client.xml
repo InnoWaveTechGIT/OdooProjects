@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="client_list_view_elmakan" model="ir.ui.view">
+        <field name="name">Client List</field>
+        <field name="model">client.elmakan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="title" />
+                <field name="text" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="client_form_view_elmakan" model="ir.ui.view">
+        <field name="name">client Form</field>
+        <field name="model">client.elmakan</field>
+        <field name="arch" type="xml">
+            <form string="client">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="title" />
+                        </group>
+                        <group>
+                            <field name="text" />
+                        </group>
+                        <group>
+                            <field name="create_date"/>
+                        </group>
+                        <group>
+                            <field name="write_date"/>
+                        </group>
+                        <group>
+                            <field name="state" />
+                            <field name="title_seo" />
+                            <field name="description_seo" />
+                            <field name="keywords_seo" />
+                        </group> 
+                    </group>
+                    <notebook>
+                        <page name="company" string="Companies">
+                            <field name="company_ids">
+                                <tree editable="bottom">
+                                    <field name='key' />
+                                    <field name="value" />
+                                    
+                                </tree>
+                            </field>
+
+                        </page>
+                        
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="client_action_window_elmakan" model="ir.actions.act_window">
+        <field name="name">client</field>
+        <field name="res_model">client.elmakan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first client Record! </p>
+        </field>
+    </record>
+
+    <menuitem id="client_menu_window_elmakan"
+        name='Client'
+        parent='almakaan_root'
+        action="client_action_window_elmakan"
+        sequence="12" />
+    
+
+</odoo>

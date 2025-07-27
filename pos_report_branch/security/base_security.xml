@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!--     Purchase Rule -->
+
+    <record id="purchase.purchase_order_comp_rule" model="ir.rule">
+        <field name="active" eval="False"/>
+    </record>
+
+    <record model="ir.rule" id="sh_purchase_order_comp_rule">
+        <field name="name">Purchase Order multi-company (custom)</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            [
+            '&amp;',
+            '|',
+            ('report_branch_id', '=', False),('report_branch_id', 'in', user.sh_allowed_branch_ids.ids),
+            '|',
+            ('company_id', '=', False),('company_id', 'in', company_ids)
+           ]
+        </field>
+    </record>
+
+    <!-- <record model="ir.rule" id="sh_purchase_order_rule">
+        <field name="name">Allowed purchase Order </field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="groups" eval="True"/>
+        <field name="domain_force">
+            [('warehouse_id','in', user.sh_allowed_branch_ids.sh_warehouse_id.ids)]
+        </field>
+    </record> -->
+
+    <record id="purchase.purchase_order_report_comp_rule" model="ir.rule">
+        <field name="active" eval="False"/>
+    </record>
+
+    <record model="ir.rule" id="sh_purchase_order_report_comp_rule">
+        <field name="name">Purchase Order Report multi-company (custom)</field>
+        <field name="model_id" ref="purchase.model_purchase_report"/>
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            [
+            '&amp;',
+            '|',
+            ('report_branch_id', '=', False),('report_branch_id', 'in', user.sh_allowed_branch_ids.ids),
+            '|',
+            ('company_id', '=', False),('company_id', 'in', company_ids)
+           ]
+        </field>
+    </record>
+
+    <!-- Warehouse Rule -->
+    <record model="ir.rule" id="stock_manager_rule">
+    	<field name="name">Stock allowed warehouses</field>
+        <field name="model_id" ref="stock.model_stock_warehouse"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('stock.group_stock_manager'))]" />
+    </record>
+
+    <record model="ir.rule" id="sh_warehouse_branch_rule">
+        <field name="name">Allowed Warehouse Branch</field>
+        <field name="model_id" ref="stock.model_stock_warehouse"/>
+        <field name="groups" eval="[(4, ref('stock.group_stock_user'))]"/>
+        <field name="domain_force">
+            [('sh_allowed_branch_ids','in', user.sh_allowed_branch_ids.ids)]
+        </field>
+    </record>
+
+
+    <!-- Pos config rule -->
+    <record model="ir.rule" id="pos_manager_rule">
+    	<field name="name">pos allowed Config</field>
+        <field name="model_id" ref="point_of_sale.model_pos_config"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('point_of_sale.group_pos_manager'))]" />
+    </record>
+
+    <record model="ir.rule" id="sh_pos_config_rule">
+        <field name="name">pos Allowed config </field>
+        <field name="model_id" ref="point_of_sale.model_pos_config"/>
+        <field name="groups" eval="[(4, ref('point_of_sale.group_pos_user'))]"/>
+        <field name="domain_force">
+            [('id','in', user.sh_allowed_branch_ids.pos_ids.ids)]
+        </field>
+    </record>
+
+    
+    <record model="ir.rule" id="sh_stock_picking_type_rule">
+        <field name="name">Allowed Stock picking </field>
+        <field name="model_id" ref="stock.model_stock_picking_type"/>
+        <field name="groups" eval="[(4, ref('stock.group_stock_user'))]"/>
+        <field name="domain_force">
+            [('warehouse_id','in', user.sh_allowed_branch_ids.sh_warehouse_id.ids)]
+        </field>
+    </record>
+
+        <record model="ir.rule" id="stock_picking_manager_rule">
+    	<field name="name">Allowed Stock picking </field>
+        <field name="model_id" ref="stock.model_stock_picking_type"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('stock.group_stock_manager'))]" />
+    </record>'
+
+</odoo>

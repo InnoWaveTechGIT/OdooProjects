@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template inherit_id='point_of_sale.report_saledetails' id="pos_order_cashier">
+            <xpath expr="//t[@id='taxe_sales']" position='after'>
+                <t t-if="orders" id="orders_cashier">
+                    <h3>Cashier and Payments</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th class="text-start">Name</th>
+                                <th class="text-end">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="orders" t-as="order">
+                                <td>
+                                    <span t-out="order.employee_id.name">0</span>
+                                </td>
+                                <td>
+                                    <span t-out="sum(order.payment_ids.mapped('amount'))">0</span>
+                                    <span t-out='currency["symbol"]'>$</span>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="oe_structure"></div>
+                </t>
+
+            </xpath>
+
+            <xpath expr="//t[@id='closing_session'][1]/table[@class='table table-sm'][1]/tbody[1]" position='replace'>
+                <t t-set="total_amount" t-value="0"/>
+                <t t-foreach="payments " t-as="method">
+                    <t t-if="method['count']">
+                        <tr>
+                            <td>
+                                <strong>
+                                    <span t-out="method['name']">Cash</span>
+                                </strong>
+                            </td>
+                            <td/>
+                            <td class="text-end">
+                                <span t-if="currency['position']">
+                                </span>
+                                <span t-else="">
+                                    <span t-out='currency["symbol"]'>$</span>
+
+                                </span>
+                            </td>
+
+                        </tr>
+                        <tr t-if="payments" t-foreach="method['cash_moves']" t-as="move">
+                            <t t-set="total_amount" t-value="total_amount + move['amount']"/>
+                            <td/>
+                            <td>
+                                <span t-out="move['name']">Cash Move 1</span>
+                            </td>
+                            <td class="text-end">
+                                <span t-if="currency['position']">
+                                    <span t-out="move['amount']"
+                                          t-options="{'widget': 'float', 'precision': currency['precision']}">50.00
+                                    </span>
+                                    <span t-out='currency["symbol"]'>$</span>
+                                </span>
+                                <span t-else="">
+                                    <span t-out='currency["symbol"]'>$</span>
+                                    <span t-out="move['amount']"
+                                          t-options="{'widget': 'float', 'precision': currency['precision']}">50.00
+                                    </span>
+                                </span>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-end">
+                                <strong>Total Amount:</strong>
+                            </td>
+                            <td class="text-end">
+                                <span t-esc="total_amount + method['total']"/>
+                                <span t-out='currency["symbol"]'>$</span>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </t>
+                </t>
+
+            </xpath>
+
+            <xpath expr="//div[@id='sales']" position="replace">
+                <div t-if="products" id="sales">
+                    <h3>Sales</h3>
+                    <div class="oe_structure"></div>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+<!--                                <th class="text-start">Product Category</th>-->
+                                <th class="text-start">Product</th>
+                                <th class="text-start">Customer Note</th>
+                                <th class="text-end">Quantity</th>
+                                <th class="text-end">Total (Tax excluded)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="orders" t-as="order">
+                                <tr t-foreach="order.lines" t-as="product">
+<!--                                    <t t-set="internal_reference"-->
+<!--                                       t-value="line['code'] and '[%s] ' % line['code'] or ''"/>-->
+                                     <td>
+                                        <span t-out="product.full_product_name"></span>
+                                    </td>
+                                    <td>
+<!--                                        <span t-out="internal_reference">Ref 876787</span>-->
+<!--                                        <span t-out="line['product_name']">Laptop model x</span>-->
+                                        <span t-out="product.customer_note"></span>
+                                    </td>
+                                     <td>
+                                        <span t-out="product.qty"></span>
+                                    </td>
+                                     <td>
+                                        <span t-out="round(product.price_subtotal,2)"></span>
+                                        <span t-out='currency["symbol"]'></span>
+                                    </td>
+                                </tr>
+
+                            </tr>
+
+                            <tr>
+                                <td style="background-color: #b1b1b1;">
+                                    <strong>Total</strong>
+                                </td>
+                                <td style="background-color: #b1b1b1;"/>
+                                <td class="text-end" style="background-color: #b1b1b1;">
+                                    <strong>
+                                        <span t-out="products_info['qty']">5</span>
+                                    </strong>
+                                </td>
+                                <td class="text-end" style="background-color: #b1b1b1;">
+                                    <t t-if="currency['position']">
+                                        <strong>
+                                            <span t-out='products_info["total"]'
+                                                  t-options="{'widget': 'float', 'precision': currency['precision']}">
+                                                10000
+                                            </span>
+                                            <span t-out='currency["symbol"]'>$</span>
+                                        </strong>
+                                    </t>
+                                    <t t-else="">
+                                        <strong>
+                                            <span t-out='currency["symbol"]'>$</span>
+                                            <span t-out='products_info["total"]'
+                                                  t-options="{'widget': 'float', 'precision': currency['precision']}">
+                                                1000
+                                            </span>
+                                        </strong>
+                                    </t>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </xpath>
+        </template>
+        <template id="report_payment_pos">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                            <h3>
+                                <strong id="payment_method">Payment Method:
+                                    <span t-field="o.payment_method_id.name">Cashh</span>
+                                </strong>
+                            </h3>
+
+                            <div class="mb-4 mt-3">
+                                <div name="session" class="row">
+                                    <div class="col-6" t-if="o.session_id">
+                                        Session:
+                                        <span t-field="o.session_id"></span>
+                                    </div>
+                                </div>
+                                <div class="oe_structure"></div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <t t-if="o.pos_order_id">
+                                            Order:
+                                        </t>
+                                        <span t-field="o.pos_order_id.name">Marc Demo</span>
+                                    </div>
+                                </div>
+                                <div class="oe_structure"></div>
+                                <div class="row">
+                                    <div class="col-6" t-if="o.amount">
+                                        Payment Amount:
+                                        <span t-field="o.amount"
+                                              t-options="{'widget': 'monetary', 'display_currency': o.currency_id}">50
+                                            USD
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="oe_structure"></div>
+                                <div class="row">
+                                    <div class="col-6" t-if="o.amount">
+                                        Date:
+                                        <span t-field="o.pos_order_id.date_order"
+                                        >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="oe_structure"></div>
+                                <div class="row">
+                                    <div class="col-6" t-if="o.amount">
+                                        Cashier:
+                                        <span t-field="o.pos_order_id.employee_id.name"
+                                        >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="oe_structure"></div>
+                                <div class="row">
+                                    <div class="col-6" t-if="o.amount">
+                                        Name :
+                                        <span t-field="o.pos_order_id.partner_id.name"
+                                        >
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+
+        </template>
+        <template id="pos_invoice" inherit_id="account.report_invoice_document">
+            <xpath expr="//div[@name='reference']" position="after">
+                <t t-if="o.ref">
+                    <t t-set="order" t-value="o.env['pos.order'].search([('name', '=', o.ref)], limit=1)"/>
+                    <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2"
+                         t-if="o.ref" name="cashier">
+                        <strong>Cashier:</strong>
+                        <br/>
+                        <span t-out="order.employee_id.name">Admin</span>
+                    </div>
+                </t>
+            </xpath>
+
+        </template>
+
+
+    </data>
+</odoo>

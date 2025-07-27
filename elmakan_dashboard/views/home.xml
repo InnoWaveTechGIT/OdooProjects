@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="Home_elmakan_list_view_elmakan" model="ir.ui.view">
+        <field name="name">Home List</field>
+        <field name="model">home.elmakan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="about_id" />
+                <field name="hero_id" />
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="Home_elmakan_form_view_elmakan" model="ir.ui.view">
+        <field name="name">Home Form</field>
+        <field name="model">home.elmakan</field>
+        <field name="arch" type="xml">
+            <form string="Home elmakan">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="about_id" />
+                        </group>
+                        <group>
+                            <field name="hero_id" />
+                        </group>
+                        <group>
+                            <field name="create_date"/>
+                        </group>
+                        <group>
+                            <field name="write_date"/>
+                        </group>
+                        <group>
+                            <field name="state" />
+                            <field name="title_seo" />
+                            <field name="description_seo" />
+                            <field name="keywords_seo" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="features" string="Features">
+                            <field name="features_ids">
+                                <tree editable="bottom">
+                                    <field name="title" />
+                                    <field name='link' />
+                                    <field name="slug" />
+                                    <field name="image" widget="image" class="oe_avatar" />
+                                    <field name="image_url" invisible="1"/>
+                                    <field name="image_alt" />
+                                </tree>
+                            </field>
+
+                        </page>
+                        <page name="content" string="Content">
+                            <field name="content_ids">
+                                <tree editable="bottom">
+                                    <field name='title' />
+                                    <field name='text' />
+                                    <field name="link" />
+                                </tree>
+                            </field>
+
+                        </page>
+                        <page name="label" string="Labels">
+                            <field name="label_content_ids">
+                                <tree editable="bottom">
+                                    <field name='title' />
+                                    <field name='slug' />
+                                    <field name="text" />
+                                    <field name ="link"/>
+                                    <field name="image" widget="image" class="oe_avatar" />
+                                    <field name="image_url" invisible="1"/>
+                                    <field name="image_alt" />
+                                </tree>
+                            </field>
+
+                        </page>
+                        
+                        
+                        
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="Home_elmakan_action_window_elmakan" model="ir.actions.act_window">
+        <field name="name">Home</field>
+        <field name="res_model">home.elmakan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first Home Record! </p>
+        </field>
+    </record>
+
+    <menuitem id="Home_elmakan_menu_window_elmakan"
+        name='Home'
+        parent='almakaan_root'
+        action="Home_elmakan_action_window_elmakan"
+        sequence="1" />
+    
+
+</odoo>

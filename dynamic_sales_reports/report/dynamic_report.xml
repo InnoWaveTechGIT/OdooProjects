@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="action_dynamic_report" model="ir.actions.report">
+            <field name="name">Dynamic Report </field>
+            <field name="model">dynamic.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">dynamic_reports.dynamic_template</field>
+            <field name="report_file">dynamic_reports.dynamic_template</field>
+            <field name="binding_model_id" ref="dynamic_reports.model_dynamic_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+</odoo>

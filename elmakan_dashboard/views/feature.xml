@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="feature_list_view_elmakan" model="ir.ui.view">
+        <field name="name">Feature List</field>
+        <field name="model">feature.elmakan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="slug" />
+                <field name="title" />
+                <field name="text" />
+                <field name="image" widget="image" class="oe_avatar" />
+                <field name="image_url" invisible="1" />
+                <!-- <field name="state" /> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="feature_form_view_elmakan" model="ir.ui.view">
+        <field name="name">Feature Form</field>
+        <field name="model">feature.elmakan</field>
+        <field name="arch" type="xml">
+            <form string="feature">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="title" />
+                            <field name="image" widget="image" class="oe_avatar" />
+                            <field name="image_url" invisible="1" />
+                            <field name="image_alt" />
+                        </group>
+                        <group>
+                            <field name="slug" />
+                        </group>
+                        <group>
+                            <field name="text" />
+                        </group>
+
+                    </group>
+                    <group>
+                        <group>
+                            <field name="create_date" />
+                        </group>
+                        <group>
+                            <field name="write_date" />
+                        </group>
+                        <group>
+                            <field name="title_seo" />
+                            <field name="description_seo" />
+                            <field name="keywords_seo" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="Content" string="Content">
+                            <field name="content_ids">
+                                <tree editable="bottom">
+                                    <field name='text' />
+                                    <field name="title" />
+                                    <field name='link' />
+                                    <field name="image" widget="image" class="oe_avatar" />
+                                    <field name="image_url" invisible="1" />
+                                    <field name="image_alt" />
+                                </tree>
+                            </field>
+
+                        </page>
+
+                        <page name="forms" string="Forms">
+                            <field name="form_ids">
+                                <tree editable="bottom">
+                                    <field name='name' />
+                                    <field name="email" />
+                                    <field name="phone" />
+                                    <field name="company_name" />
+                                    <field name="message" />
+
+                                </tree>
+                            </field>
+
+                        </page>
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="feature_action_window_elmakan" model="ir.actions.act_window">
+        <field name="name">Feature </field>
+        <field name="res_model">feature.elmakan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first Feature Record! </p>
+        </field>
+    </record>
+
+    <menuitem id="feature_menu_window_elmakan"
+        name='Features'
+        parent='almakaan_root'
+        action="feature_action_window_elmakan"
+        sequence="10" />
+
+
+</odoo>

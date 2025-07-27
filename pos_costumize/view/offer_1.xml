@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    
+    <record id="POS_ingetrit" model="ir.ui.view">
+        <field name="name">POS inherit</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[6]" position="after">  
+                <group >
+                    <field name="user_id" />
+                </group>            
+                        
+
+            </xpath>
+
+            
+
+            
+
+
+        </field>
+    </record>
+
+    <record id="POS_user_record_rule" model="ir.rule">
+        <field name="name">Record Rule for users</field>
+        <field ref="model_pos_config" name="model_id"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('point_of_sale.group_pos_user'))]"/>
+    </record>
+
+    <record id="POS_admin_record_rule1" model="ir.rule">
+        <field name="name">Record Rule for admins</field>
+        <field ref="model_pos_config" name="model_id"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('point_of_sale.group_pos_manager'))]"/>
+    </record>
+    
+    <record id="POS_admin_record_rule" model="ir.rule">
+        <field name="name">Record Rule for adminstrator</field>
+        <field ref="model_pos_config" name="model_id"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+    <record id="POS_order_admin_record_rule" model="ir.rule">
+        <field name="name">Record Rule for pos order admin</field>
+        <field ref="model_pos_order" name="model_id"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('point_of_sale.group_pos_manager'))]"/>
+    </record>
+    <record id="POS_order_adminstrator_record_rule" model="ir.rule">
+        <field name="name">Record Rule for pos order adminstrator</field>
+        <field ref="model_pos_order" name="model_id"/>
+        <field name="domain_force">[(1, '=',1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+    <record model="ir.ui.view" id="view_order_pos_custom">
+        <field name="name">pos.order.form.custom</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+          
+          <xpath expr="//sheet[1]/group[1]/field[3]" position="after">
+            
+            <field name="user_id" />
+          </xpath>
+
+        </field>
+      </record>
+
+
+    
+
+
+</odoo>

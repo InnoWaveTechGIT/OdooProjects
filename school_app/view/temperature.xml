@@ -1,0 +1,48 @@
+<!-- temperature_views.xml -->
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_temperature_form" model="ir.ui.view">
+            <field name="name">temperature.form</field>
+            <field name="model">school.temperature</field>
+            <field name="arch" type="xml">
+                <form string="Temperature">
+                    <sheet>
+                        <group>
+                            <field name="temperature"/>
+                            <field name="time"/>
+                            <field name="unit"/>
+                            <field name="date" invisible='1'/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_temperature_tree" model="ir.ui.view">
+            <field name="name">temperature.tree</field>
+            <field name="model">school.temperature</field>
+            <field name="arch" type="xml">
+                <tree string="Temperature">
+                    <field name="temperature"/>
+                    <field name="time"/>
+                    <field name="unit"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_temperature" model="ir.actions.act_window">
+            <field name="name">Temperature</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">school.temperature</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_temperature" name="Configration" parent="school_root" sequence="99"/>
+        <menuitem id="menu_temperature_list" name="Temperature List" parent="menu_temperature"
+                  action="action_temperature" sequence="2"/>
+    </data>
+</odoo>

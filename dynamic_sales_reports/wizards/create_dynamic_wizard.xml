@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="view_dynamic_wizard_form_inherit" model="ir.ui.view">
+            <field name="name">dynamic.wizard.wizard.form.inherit</field>
+            <field name="model">dynamic.wizard</field>
+            <field name="inherit_id" ref="dynamic_reports.view_dynamic_wizard_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_to']" position="after">
+                    <field name="pos_id"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

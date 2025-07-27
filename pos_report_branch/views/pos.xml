@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="pos_config_view_form" model="ir.ui.view">
+            <field name="name">pos_config_view_form</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_title')]" position="after">
+                    <field name="report_branch_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_report_pos_order_search" model="ir.ui.view">
+            <field name="name">view_report_pos_order_search</field>
+            <field name="model">report.pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_report_pos_order_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="inside">
+                    <separator/>
+                    <filter string="Branch" name="group_report_branch_id" context="{'group_by':'report_branch_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_pos_report_branchtree" model="ir.ui.view">
+            <field name="name">view.pos.report.branch.tree</field>
+            <field name="model">pos.report.branch</field>
+            <field name="type">tree</field>
+            <field name="mode">primary</field>
+            <field name="priority" eval="16" />
+            <field name="active" eval="True" />
+            <field name="arch" type="xml">
+                <tree string="model_tree">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form view for "model" -->
+        <record id="view_pos_report_branchform" model="ir.ui.view">
+            <field name="name">view.pos.report.branch.form</field>
+            <field name="model">pos.report.branch</field>
+            <field name="type">form</field>
+            <field name="mode">primary</field>
+            <field name="priority" eval="16" />
+            <field name="active" eval="True" />
+            <field name="arch" type="xml">
+                <form string="model_form">
+                    <header>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" />
+                            <h1>
+                                <field name="name" class="oe_inline" placeholder="name" />
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="pos_ids" widget="many2many_tags"/>
+                            <field name="sh_warehouse_id" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="sh_user_ids" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search view for "model" -->
+        <record id="view_pos_report_branchsearch" model="ir.ui.view">
+            <field name="name">view.pos.report.branch.search</field>
+            <field name="model">pos.report.branch</field>
+            <field name="type">search</field>
+            <field name="mode">primary</field>
+            <field name="priority" eval="16" />
+            <field name="active" eval="True" />
+            <field name="arch" type="xml">
+                <search string="model_search">
+                    <field name="name" />
+
+                </search>
+            </field>
+        </record>
+
+        <!-- Main window action for "model" -->
+        <record id="action_pos_report_branchact_window" model="ir.actions.act_window">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">POS Branches</field>
+            <field name="res_model">pos.report.branch</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <field name="domain">[]</field>
+            <field name="context"></field>
+            <field name="search_view_id" ref="view_pos_report_branchsearch" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new POS branch
+                </p>
+                <p>
+                </p>
+            </field>
+        </record>
+
+        <!-- Main menu for "model" -->
+        <record id="menu_pos_branch" model="ir.ui.menu">
+            <field name="name">POS Branches</field>
+            <field name="sequence" eval="10" />
+            <field name="action" ref="action_pos_report_branchact_window" />
+            <field name="parent_id" ref="base.menu_users" />
+        </record>
+
+    </data>
+    <record id="sh_inventory_user" model="ir.ui.view">
+        <field name="name">sh_stock_picking_field</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="sh_is_manager" invisible="1"/>
+            </field>
+            <field name="picking_type_id" position='replace'>
+                <field name="picking_type_id" attrs="{'invisible': [('hide_picking_type', '=', True)], 'readonly': ['|',('state', '!=', 'draft'),('sh_is_manager','=', False)]}"/>
+            </field>
+            <xpath expr="//field[@name='location_id'][2]" position="replace">
+                <field name="location_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('picking_type_code', '=', 'incoming')], 'readonly': [('sh_is_manager','=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='location_dest_id'][2]" position="replace">
+                <field name="location_dest_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')], 'readonly': [('sh_is_manager','=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

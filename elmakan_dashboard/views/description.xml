@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="description_list_view_elmakan" model="ir.ui.view">
+        <field name="name">Description List</field>
+        <field name="model">description.elmakan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="text" />
+                <field name="title" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="description_form_view_elmakan" model="ir.ui.view">
+        <field name="name">Description Form</field>
+        <field name="model">description.elmakan</field>
+        <field name="arch" type="xml">
+            <form string="Description">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="title" />
+                        </group>
+                        <group>
+                            <field name="text" />
+                        </group>
+                        <group> 
+                            <field name="description"/>
+                        </group>
+                        
+                        
+                    </group>
+                    <group>
+                        <group>
+                            <field name="create_date"/>
+                        </group>
+                        <group>
+                            <field name="write_date"/>
+                            <field name="title_seo" />
+                            <field name="description_seo" />
+                            <field name="keywords_seo" />
+                        </group>
+                    </group>    
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="description_action_window_elmakan" model="ir.actions.act_window">
+        <field name="name">Description</field>
+        <field name="res_model">description.elmakan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first description Record! </p>
+        </field>
+    </record>
+
+    <!-- <menuitem id="description_menu_window_elmakan"
+        name='Descriptions'
+        parent='almakaan_root'
+        action="description_action_window_elmakan"
+        sequence="8" /> -->
+    
+
+</odoo>

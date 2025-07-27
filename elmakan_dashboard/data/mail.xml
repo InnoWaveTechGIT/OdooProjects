@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data noupdate="1">
+    <record id="mail_elmakan_data" model="mail.elmakan">
+        <field name="company_email">sdowgroup@gmail.com</field>
+        <field name="app_key">pfrdijdgbpqdhuas</field>
+    </record>
+</data>

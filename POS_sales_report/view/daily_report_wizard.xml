@@ -1,0 +1,29 @@
+<odoo>
+    <record id="view_daily_report_wizard_form" model="ir.ui.view">
+        <field name="name">daily.report.wizard.form</field>
+        <field name="model">daily.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Daily Report">
+                <group>
+                    <field name="date"/>
+                </group>
+                <footer>
+                    <button name="generate_pdf" string="Generate PDF" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_daily_pos_report_wizard" model="ir.actions.act_window">
+
+            <field name="name">POS Report</field>
+            <field name="res_model">daily.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref='view_daily_report_wizard_form' />
+            <field name="target">new</field>
+        </record>
+
+    <menuitem id="POS_orderdaily_reports" name="POS Orders Report" sequence="33" parent="point_of_sale.menu_point_of_sale" action="action_daily_pos_report_wizard"/>
+
+
+</odoo>

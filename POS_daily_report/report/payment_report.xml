@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="action_report_payment_pos" model="ir.actions.report">
+            <field name="name">Payment Pos</field>
+            <field name="model">pos.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pos_order_cashier_report.report_payment_pos</field>
+            <field name="report_file">pos_order_cashier_report.report_payment_pos</field>
+            <field name="binding_model_id" ref="point_of_sale.model_pos_payment"/>
+            <field name="binding_type">report</field>
+        </record>
+
+</odoo>

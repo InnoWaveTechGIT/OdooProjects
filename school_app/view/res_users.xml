@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="userinherit_form_school" model="ir.ui.view">
+        <field name="name">userinherit_form_school</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//div[3]" position="after">
+                <group>
+                    <group>
+                        <field name="bin_fields" />
+                        <field name="user_type" />
+                        <field name="student_ids" widget = 'many2many_tags'/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Action for Teachers -->
+    <record id="action_teacher_users" model="ir.actions.act_window">
+        <field name="name">Teachers</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_type', '=', 'Teacher')]</field>
+    </record>
+
+    <!-- Action for Students -->
+    <record id="action_student_users" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_type', '=', 'Student')]</field>
+    </record>
+    
+    <!-- Menu for Teachers -->
+    <menuitem id="menu_teacher_users"
+              name="Teachers"
+              parent="school_app.school_root"
+              action="action_teacher_users"/>
+
+    <!-- Menu for Students -->
+    <menuitem id="menu_student_users"
+              name="Students"
+              parent="school_app.school_root"
+              action="action_student_users"/>
+
+</odoo>

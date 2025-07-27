@@ -1,0 +1,30 @@
+<odoo>
+
+    <template id="payment_callback_page"
+        name="Myfatoorah payment_callback_template">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="col-md-12">
+                        <h1>Payment Successful</h1>
+                        <p>Thank you for your payment.</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="payment_error_page"
+        name="Myfatoorah payment_error_template">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="col-md-12">
+                        <h1>Soory</h1>
+                        <p>Payment Failed! Please try again.</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

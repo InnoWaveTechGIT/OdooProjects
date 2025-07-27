@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="mail_list_view_elmakan" model="ir.ui.view">
+        <field name="name">mail List</field>
+        <field name="model">mail.elmakan</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="company_email" />
+                <field name="app_key" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="mail_form_view_elmakan" model="ir.ui.view">
+        <field name="name">mail Form</field>
+        <field name="model">mail.elmakan</field>
+        <field name="arch" type="xml">
+            <form string="mail">
+
+                <sheet>
+                <h4>Transmitter Information :</h4>
+                    <group>
+                    
+                        <group>
+                            <field name="company_email" />
+                        </group>
+                        <group>
+                            <field name="app_key" />
+                        </group>
+                        
+                    </group>
+                </sheet>
+                <sheet>    
+                    <h4>Contact US Email :</h4>  
+                    <group> 
+                        <group>
+                            <field name='contact_us_email'/>
+                        </group>
+                    </group>
+                </sheet>
+                <sheet>
+                    <notebook>
+                        <page name="Feature Information" string="Feature Information">
+                            <field name="feature_ids">
+                                <tree editable="bottom">
+                                    <field name='feature_id' />
+                                    <field name="email" />
+                                    
+                                </tree>
+                            </field>
+
+                        </page>
+                        
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="mail_action_window_elmakan" model="ir.actions.act_window">
+        <field name="name">mail elmakan </field>
+        <field name="res_model">mail.elmakan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first Mail Record! </p>
+        </field>
+    </record>
+
+    <menuitem id="setting_menu_window_elmakan"
+        name='Setting'
+        parent='almakaan_root'
+        sequence="40" />
+
+    <menuitem id="mail_menu_window_elmakan"
+        name='Communication settings'
+        parent='setting_menu_window_elmakan'
+        action="mail_action_window_elmakan"
+        sequence="1" />
+
+</odoo>

@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record id="view_dynamic_wizard_form_inherit" model="ir.ui.view">
+            <field name="name">dynamic.wizard.wizard.form.inherit</field>
+            <field name="model">dynamic.wizard</field>
+            <field name="inherit_id" ref="dynamic_reports.view_dynamic_wizard_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_to']" position="after">
+                    <field name="pos_id" widget="many2many_tags" attrs="{ 'invisible': [('report_type', 'not in', ['0', '1','2'])]}" groups="base.group_user"/>
+                    <field name="payment_id" widget="many2many_tags" attrs="{ 'invisible': [('report_type', 'not in', ['0', '1','2'])]}" groups="base.group_user"/>
+                    <field name="category_id" widget="many2many_tags"
+                           attrs="{ 'invisible': [('report_type', 'not in', ['0', '1'])]}" groups="base.group_user"/>
+                    <field name="partner_id" widget="many2many_tags" attrs="{ 'invisible': [('report_type', 'not in', ['0', '1','2'])]}" groups="base.group_user"/>
+                    <field name="employee_id" widget="many2many_tags"
+                           attrs="{ 'invisible': [('report_type', 'not in', ['0', '1','2'])]}" groups="base.group_user"/>
+                    <field name="product_id" widget="many2many_tags" attrs="{ 'invisible': [('report_type', 'not in', ['0', '1','2'])]}" groups="base.group_user"/>
+                    <field name="company_id" widget="many2many_tags" attrs="{ 'invisible': [('report_type', 'not in', ['0', '1','2'])]}" groups="base.group_user"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

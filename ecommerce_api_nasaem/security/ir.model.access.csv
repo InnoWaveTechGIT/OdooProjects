@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+id_user_token_nasaem,name_user_token_nasaem,model_user_token_nasaem,,1,1,1,1
+id_banner_nasaem,name_banner_nasaem,model_banner_nasaem,,1,1,1,1
+id_promotion_nasaem,name_promotion_nasaem,model_promotion_nasaem,,1,1,1,1
+

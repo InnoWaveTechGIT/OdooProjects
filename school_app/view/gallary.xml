@@ -1,0 +1,53 @@
+<!-- images_school_app_views.xml -->
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_images_school_app_form" model="ir.ui.view">
+            <field name="name">images.school.app.form</field>
+            <field name="model">images.school.app</field>
+            <field name="arch" type="xml">
+                <form string="Images School App">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="image" widget="image" class="oe_avatar" options = "{'size':False}"/>
+                            <field name="medium_image" widget="image" class="oe_avatar" invisible = "1"/>
+                            <field name="small_image" widget="image" class="oe_avatar" invisible = "1"/>
+                            <field name="very_small_image" widget="image" class="oe_avatar" invisible = "1"/>
+                            <field name="thumbnail_image" widget="image" class="oe_avatar" invisible = "1"/>
+                            <field name="status" />
+                            <field name="class_id" attrs="{'invisible': [('status', '=', 'Public')]}"/>
+                            <field name="student_ids2" attrs="{'invisible': [('status', '=', 'Public')]}" widget="many2many_tags" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_images_school_app_tree" model="ir.ui.view">
+            <field name="name">images.school.app.tree</field>
+            <field name="model">images.school.app</field>
+            <field name="arch" type="xml">
+                <tree string="Images School App">
+                    <field name="name" />
+                    <field name="image" widget="image" class="oe_avatar" options="{'zoom': true, 'size': [100,]}"/>
+                    <field name="status" />
+                    
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_images_school_app" model="ir.actions.act_window">
+            <field name="name">Images School App</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">images.school.app</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_images_school_app_list" name="Gallary" parent="menu_images_school_app"
+            action="action_images_school_app" />
+    </data>
+</odoo>

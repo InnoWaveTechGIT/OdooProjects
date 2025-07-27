@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="labelcontent_list_view_elmakan" model="ir.ui.view">
+        <field name="name">label content List</field>
+        <field name="model">labelcontent.elmakan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="title" />
+                <field name="text" />
+                <!-- <field name="state" /> -->
+                <field name="slug" />
+                <field name="image" widget="image" class="oe_avatar" />
+                <field name="image_url" invisible="1"/>
+                
+            </tree>
+        </field>
+    </record>
+
+    <record id="labelcontent_form_view_elmakan" model="ir.ui.view">
+        <field name="name">label content elmakan Form</field>
+        <field name="model">labelcontent.elmakan</field>
+        <field name="arch" type="xml">
+            <form string="label content elmakan">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="title" />
+                
+                        </group>
+                        <group>
+                            <field name="slug" />
+                        </group>
+                        <group>
+                            <field name="text" />
+                        </group>
+                        <group>
+                            <field name="image" widget="image" class="oe_avatar" />
+                            <field name="image_url" invisible="1"/>
+                            <field name="image_alt" />
+                        </group>    
+                        <group>
+                            <field name="create_date"/>
+                        </group>
+                        <group>
+                            <field name="write_date"/>
+                        </group>
+                        
+                        <group>
+                            <field name="title_seo" />
+                            <field name="description_seo" />
+                            <field name="keywords_seo" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="content" string="Contents">
+                            <field name="content_ids">
+                                <tree editable="bottom">
+                                    <field name="title" />
+                                    <field name='text' />
+                                    <field name="image" widget="image" class="oe_avatar" />
+                                    <field name="image_url" invisible="1"/>
+                                    <field name="image_alt" />
+                                </tree>
+                            </field>
+
+                        </page>
+                        <page name="slider" string="Sliders">box_ids
+                            <field name="slider_ids">
+                                <tree editable="bottom">
+                                    <field name="title" />
+                                    <field name='text' />
+                                    <field name="image" widget="image" class="oe_avatar" />
+                                    <field name="image_url" invisible="1"/>
+                                    <field name="image_alt" />
+                                </tree>
+                            </field>
+
+                        </page>
+
+                        <page name="boxs" string="Boxs">
+                            <field name="box_ids">
+                                <tree editable="bottom">
+                                    <field name="title" />
+                                    <field name='text' />
+                                </tree>
+                            </field>
+
+                        </page>
+                        
+                        
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="labelcontent_action_window_elmakan" model="ir.actions.act_window">
+        <field name="name">label content</field>
+        <field name="res_model">labelcontent.elmakan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first Label Content Record! </p>
+        </field>
+    </record>
+
+    <menuitem id="labelcontent_elmakan_menu_window"
+        name='Label Content'
+        parent='almakaan_root'
+        action="labelcontent_action_window_elmakan"
+        sequence="11" />
+    
+
+</odoo>

@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="contact_us_elmakan_list_view_elmakan" model="ir.ui.view">
+        <field name="name">Contact US List</field>
+        <field name="model">contact.us.elmakan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="contact_us_elmakan_form_view_elmakan" model="ir.ui.view">
+        <field name="name">Contact US Form</field>
+        <field name="model">contact.us.elmakan</field>
+        <field name="arch" type="xml">
+            <form string="contact us elmakan">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="email" />
+                            <field name="Phone" />
+                            <field name="create_date" />
+                        </group>
+                        <group>
+                            <field name="write_date" />
+                        </group>
+                        <group>
+                            <field name="state" />
+                            <field name="title_seo" />
+                            <field name="description_seo" />
+                            <field name="keywords_seo" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="locations" string="Locations">
+                            <field name="location_ids">
+                                <tree editable="bottom">
+                                    <field name='region' />
+                                    <field name="city" />
+                                    <field name="address" />
+                                    <field name="phone" />
+                                    <field name="fax" />
+                                    <field name="poBoxNumber" />
+                                    <field name="poBoxLocation" />
+                                    <field name="email" />
+
+                                </tree>
+                            </field>
+
+                        </page>
+                        <page name="ourAgents" string="OurAgents">
+                            <field name="ourAgents_ids">
+                                <tree editable="bottom">
+                                    <field name='region' />
+                                    <field name="name" />
+                                    <field name="address" />
+                                    <field name="phone" />
+                                    <field name="fax" />
+                                    <field name="mobile" />
+                                    <field name="email" />
+
+                                </tree>
+                            </field>
+
+                        </page>
+                        <page name="forms" string="Forms">
+                            <field name="form_ids">
+                                <tree editable="bottom">
+                                    <field name='name' />
+                                    <field name="email" />
+                                    <field name="phone" />
+                                    <field name="company_name" />
+                                    <field name="message" />
+
+                                </tree>
+                            </field>
+
+                        </page>
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="contact_us_elmakan_action_window_elmakan" model="ir.actions.act_window">
+        <field name="name">Contact US</field>
+        <field name="res_model">contact.us.elmakan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first Contact US Record! </p>
+        </field>
+    </record>
+
+    <menuitem id="contact_us_elmakan_menu_window_elmakan"
+        name='Contact US '
+        parent='almakaan_root'
+        action="contact_us_elmakan_action_window_elmakan"
+        sequence="12" />
+
+
+</odoo>

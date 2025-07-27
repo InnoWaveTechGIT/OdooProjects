@@ -1,0 +1,55 @@
+<!-- students_school_app_views.xml -->
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_students_school_app_form" model="ir.ui.view">
+            <field name="name">students.school.app.form</field>
+            <field name="model">students.school.app</field>
+            <field name="arch" type="xml">
+                <form string="students School App">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="parent_id" />
+                                <field name="class_id" />
+
+                            </group>
+                            <group>
+                                <field name="image" widget="image" class="oe_avatar" />
+                                <field name="code" />
+                            </group>
+
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_students_school_app_tree" model="ir.ui.view">
+            <field name="name">students.school.app.tree</field>
+            <field name="model">students.school.app</field>
+            <field name="arch" type="xml">
+                <tree string="students School App">
+                    <field name="name" />
+                    <field name="parent_id" />
+                    <field name="class_id" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_students_school_app" model="ir.actions.act_window">
+            <field name="name">students School App</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">students.school.app</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_students_school_app_list" name="Students" parent="menu_temperature"
+            action="action_students_school_app" />
+    </data>
+</odoo>

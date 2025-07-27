@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template inherit_id='point_of_sale.report_saledetails' id="pos_order_cashier_sales">
+            <xpath expr="//table[@class='table table-sm'][3]" position="after">
+                <t t-if="pos_report" id="orders_cashier">
+                    <!-- <span t-out="pos_report"></span> -->
+                    <h3>POS Details</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th class="text-start">POS</th>
+                                <th class="text-start">Amount</th>
+                                <th class="text-start">QTY</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="pos_report" t-as="order">
+                                <td class="text-start">
+                                    <span t-out="order['pos_id']"></span>
+                                </td>
+                                <td class="text-start">
+                                    <span t-out="order['total_amount']"></span>
+                                </td>
+                                <td class="text-start">
+                                    <span t-out="order['total_quantity']"></span>
+                                </td>
+                                
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="oe_structure"></div>
+
+                    <h3>Invoice Details</h3>
+
+
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th class="text-start">Name</th>
+                                <th class="text-start">Cash</th>
+                                <th class="text-start">Bank</th>
+                                <th class="text-start">Customer</th>
+                                <th class="text-start">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="invoices" t-as="invoice">
+                                <td class="text-start">
+                                    <span t-out="invoice['name']"></span>
+                                </td>
+                                <td class="text-start">
+                                    <span t-out="invoice['cash']"></span>
+                                </td>
+                                <td class="text-start">
+                                    <span t-out="invoice['bank']"></span>
+                                </td>
+                                <td class="text-start">
+                                    <span t-out="invoice['customer']"></span>
+                                </td>
+                                <td class="text-start">
+                                    <span t-out="invoice['total_amount']"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <t >
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th class="text-start">Product Name</th>
+                                    <th class="text-start">Amount</th>
+                                    <th class="text-start">QTY</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="invoices" t-as="invoice">
+                                <tr t-foreach="invoice['details']" t-as="det">
+                                    <td class="text-start">
+                                        <span t-out="det['name']"></span>
+                                    </td>
+                                    <td class="text-start">
+                                        <span t-out="det['qty']"></span>
+                                    </td>
+                                    <td class="text-start">
+                                        <span t-out="det['sub_total']"></span>
+                                    </td>
+                                </tr>
+                            </t>
+                            </tbody>
+                        </table>
+                        </t>
+                    
+                    
+                </t>
+
+            </xpath>
+
+
+        </template>
+        
+
+
+    </data>
+</odoo>

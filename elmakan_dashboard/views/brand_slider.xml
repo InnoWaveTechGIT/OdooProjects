@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="brand_slider_list_view_elmakan" model="ir.ui.view">
+        <field name="name">Brand Slider List</field>
+        <field name="model">brand.slider.elmakan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="title" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="brand_slider_form_view_elmakan" model="ir.ui.view">
+        <field name="name">Brand Slider Form</field>
+        <field name="model">brand.slider.elmakan</field>
+        <field name="arch" type="xml">
+            <form string="brand slider">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="title" />
+                        </group>
+                        <group>
+                            <field name="text" />
+                        </group>
+                        <group>
+                            <field name="image" widget="image" class="oe_avatar" />
+                            <field name="image_url" invisible="1"/>
+                            <field name="image_alt" />
+                        </group>
+                        <group>
+                            <field name="state" />
+                        </group>
+                        <group>
+                            <field name="create_date"/>
+                        </group>
+                        <group>
+                            <field name="write_date"/>
+    
+                        </group>
+                        
+                    </group>
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="brand_slider_action_window_elmakan" model="ir.actions.act_window">
+        <field name="name">Brand Slider</field>
+        <field name="res_model">brand.slider.elmakan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first brand slider Record! </p>
+        </field>
+    </record>
+
+    <menuitem id="brand_slider_menu_window_elmakan"
+        name='Brand Slider'
+        parent='almakaan_root'
+        action="brand_slider_action_window_elmakan"
+        sequence="9" />
+    
+
+</odoo>

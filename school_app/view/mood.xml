@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_student_Mood_form" model="ir.ui.view">
+            <field name="name">student.mood.form</field>
+            <field name="model">student.mood</field>
+            <field name="arch" type="xml">
+                <form string="Student Mood">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                            </group>
+                            <group>
+                                <field name="image" widget="image" class="oe_avatar" options="{'zoom': true, 'size': [100,]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_student_Mood_tree" model="ir.ui.view">
+            <field name="name">student.mood.tree</field>
+            <field name="model">student.mood</field>
+            <field name="arch" type="xml">
+                <tree string="Student Mood">
+                    <field name="name" />
+
+                    <field name="image" widget="image" class="oe_avatar" options="{'zoom': true, 'size': [100,]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_student_Mood" model="ir.actions.act_window">
+            <field name="name">Student Mood</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">student.mood</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_student_Mood_list" name="Student Mood" parent="menu_temperature"
+            action="action_student_Mood" />
+    </data>
+</odoo>

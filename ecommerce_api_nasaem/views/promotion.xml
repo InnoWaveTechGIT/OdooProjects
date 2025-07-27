@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+
+        <record id="promotion_list_view_nasaem" model="ir.ui.view">
+
+            <field name="name">promotion List</field>
+
+            <field name="model">promotion.nasaem</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <tree>
+
+                    <field name="title" />
+
+                </tree>
+
+            </field>
+
+        </record>
+
+
+        <record id="promotion_form_view_nasaem" model="ir.ui.view">
+
+            <field name="name">promotion Form</field>
+
+            <field name="model">promotion.nasaem</field>
+
+
+            <field name="arch" type="xml">
+
+
+                <form string="promotion">
+
+
+                    <sheet>
+
+
+                        <group>
+
+
+                            <group>
+
+                                <field name="title" />
+                                <field name="text" />
+                                <field name="is_visible" />
+
+                            </group>
+
+
+                            <group>
+                                
+                                <field name="image" />
+                                <field name="image_url" />
+                            </group>
+
+                        </group>
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+        </record>
+
+
+        <record id="promotion_action_window_nasaem" model="ir.actions.act_window">
+
+            <field name="name">promotion</field>
+
+            <field name="res_model">promotion.nasaem</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="context">{}</field>
+
+
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first promotion Record! </p>
+
+            </field>
+
+        </record>
+
+        <menuitem id="nasaem_promotion" name="promotion" sequence="99" parent="nasaem_root"  />
+        <menuitem id="nasaem_promotion1" name="promotion" sequence="2" parent="nasaem_promotion" action="promotion_action_window_nasaem" />
+
+    </data>
+
+</odoo>
