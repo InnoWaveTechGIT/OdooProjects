@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Define the form view for the Tender model -->
+    <record id="view_tender_delivery_form123" model="ir.ui.view">
+        <field name="name">tender.form</field>
+        <field name="model">tender.delivery.plan</field>
+        <field name="arch" type="xml">
+            <form string="Delivery Plan" create="False">
+
+                <sheet>
+                    <group>
+                        <group>
+
+                            <field name="tender_number"/>
+                            <field name="total_awarded"/>
+
+
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Details">
+                            <field name="delivery_ids" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="customer_id"/>
+                                    <field name="nubco_order_id"/>
+                                    <button name="action_open_order" type="object" icon="fa-list" role="img" title="Show this order details"/>
+                                    <field name="total_awarded"/>
+                                    <field name="release_plan"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Define the list view for the Tender model -->
+    <record id="view_tender_delivery_tree123" model="ir.ui.view">
+        <field name="name">tender.tree</field>
+        <field name="model">tender.delivery.plan</field>
+        <field name="arch" type="xml">
+            <tree create="False">
+                <field name="tender_number"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="total_awarded"/>
+                <field name="status"/>
+                <field name="company_id"/>
+                <!-- Add other fields as needed -->
+            </tree>
+        </field>
+    </record>
+    <record id="view_tender_delivery_search" model="ir.ui.view">
+        <field name="name">tender_deliverry_plan_search</field>
+        <field name="model">tender.delivery.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="tender_number" string="Tender NO" />
+                <field name="status"/>
+                <filter name="filter_draft" string="Open" domain="[('status', '=', 'open')]" />
+                <filter name="filter_in_progress" string="Close" domain="[('status', '=', 'close')]" />
+                 <group expand="1">
+                     <filter name="status" string="Status"  context="{'group_by': 'status'}"/>
+                     <filter name="tender_number" string="Tender NO" context="{'group_by': 'tender_number'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_tender_delivery123452" model="ir.actions.act_window">
+        <field name="name">Delivery Plan</field>
+        <field name="res_model">tender.delivery.plan</field>
+        <field name="view_mode">tree,form</field>
+
+    </record>
+
+
+
+
+
+    <menuitem id="menu_tender4" name="Tender Delivery Plan" parent="menu_report" action="action_tender_delivery123452"/>
+</odoo>

@@ -1,0 +1,76 @@
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+   <field name="name">
+       res.config.settings.view.form.inherit.e_invoice
+   </field>
+   <field name="model">res.config.settings</field>
+   <field name="priority" eval="15"/>
+   <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+   <field name="arch" type="xml">
+       <xpath expr="//block[@name='default_taxes_setting_container']" position="after">
+            <block title="Syrian E-invoice  Settings" name="Syrian_E_invoice">
+                   <setting string="Tax API Integration"
+                            id="e_invoice_setting"  company_dependent="1" >
+                       <field name="e_invoice_type"/>
+                       <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="e_invoice_api_url" class="col-lg-3 o_light_label"/>
+                                    <field class="w-50" name="e_invoice_api_url"/>
+                                </div>
+                           <div class="row mt16">
+                               <label for="e_invoice_user_name" class="col-lg-3 o_light_label"/>
+                                    <field class="w-50" name="e_invoice_user_name"/>
+                                </div>
+                           <div class="row mt16">
+                               <label for="e_invoice_secret" class="col-lg-3 o_light_label"/>
+                                    <field class="w-50" name="e_invoice_secret"/>
+                                </div>
+                           <div class="row mt16">
+                               <label for="e_invoice_tax_id" class="col-lg-3 o_light_label"/>
+                                    <field class="w-50" name="e_invoice_tax_id"/>
+                                </div>
+                            <div class="row mt16" invisible="1">
+                               <label for="e_invoice_token" class="col-lg-3 o_light_label" invisible="1"/>
+                                    <field class="w-50" name="e_invoice_token" invisible="1"/>
+                                </div>
+                           <div class="row mt16" invisible="1">
+                               <label for="e_invoice_token_test" class="col-lg-3 o_light_label" invisible="1"/>
+                                    <field class="w-50" name="e_invoice_token_test" invisible="1"/>
+                                </div>
+                           <div class="row mt16">
+                                <button name="connection_to_server_e_invoice" string="Test Connection" type="object"/>
+                                </div>
+                            </div>
+
+                   </setting>
+               </block>
+       </xpath>
+       <xpath expr="//setting[@id='default_taxes'][1]" position="before">
+            <setting id="default_taxes" string="Syrian Default Taxes" company_dependent="1" help="Default Required taxes to be applied " title="These taxes are set in any new product created." documentation="/applications/finance/accounting/taxation/taxes/default_taxes.html">
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label string="Sales Tax" for="e_invoice_sale_tax" class="col-lg-3 o_light_label"/>
+                                        <field name="e_invoice_sale_tax" domain="[('type_tax_use', 'in', ('sale', 'all'))]"/>
+                                    </div>
+                                    <div class="row">
+                                        <label string="Purchase Tax" for="e_invoice_purchase_tax" class="col-lg-3 o_light_label"/>
+                                        <field name="e_invoice_purchase_tax" domain="[('type_tax_use', 'in', ('purchase', 'all'))]"/>
+                                    </div>
+
+                                </div>
+            </setting>
+       </xpath>
+   </field>
+</record>
+
+    <record id="res_config_settings_action" model="ir.actions.act_window">
+   <field name="name">Configuration</field>
+   <field name="type">ir.actions.act_window</field>
+   <field name="res_model">res.config.settings</field>
+   <field name="view_mode">form</field>
+   <field name="target">inline</field>
+   <field name="context">{'module' : 'l10n_sy_edi'}</field>
+</record>
+
+
+</odoo>

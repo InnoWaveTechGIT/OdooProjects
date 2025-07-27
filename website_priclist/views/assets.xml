@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_frontend1997" name="Website Pricelist Assets">
+    <inherit_id>web.assets_frontend</inherit_id>
+    <xpath expr="." position="inside">
+        <script type="text/javascript" src="/website_priclist/static/src/js/products.js"/>
+    </xpath>
+</template>
+
+</odoo>

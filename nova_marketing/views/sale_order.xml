@@ -1,0 +1,82 @@
+<odoo>
+    <record id="view_work_marketing_form123" model="ir.ui.view">
+        <field name="name">tender.form</field>
+        <field name="model">work.invite.nova</field>
+        <field name="arch" type="xml">
+            <form string="Marketing">
+
+                <sheet>
+
+                    <group>
+                        <group string = 'Executive Stage'>
+
+                            <field name="name"/>
+                            <field name="owner_id"/>
+                            <field name="state"/>
+                        </group>
+                        <group string="Campaigns">
+                            <field name="progress"/>
+                            <field name="description"/>
+                            <field name="date"/>
+                            <field name="kpis"/>
+                            <field name="files" widget="many2many_binary"/>
+                            <field name="actions"  />
+
+
+                        </group>
+                        <group>
+                            <field name="Customer_satisfaction_level"/>
+                            <field name="Increase_engagement_with_content"/>
+                            <field name="compared_to"/>
+                            <field name="valid"/>
+                        </group>
+                    </group>
+<!--                    <notebook>-->
+<!--                        <page string="Details">-->
+<!--                            <field name="nubco_ids" widget="one2many_list">-->
+<!--                                <tree editable="top">-->
+<!--                                    <field name="product_id"/>-->
+<!--                                    <field name="pre_inst"/>-->
+<!--                                    <field name="inst"/>-->
+<!--                                    <field name="comm"/>-->
+<!--                                    <field name="warr_2_cust"/>-->
+<!--                                    <field name="warr_from_supp"/>-->
+<!--                                    <field name="anticipated_warranty_cost"/>-->
+<!--                                    <field name="ppm_main"/>-->
+
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </page>-->
+<!--                    </notebook>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Define the list view for the Tender model -->
+    <record id="view_view_work_marketing_tree123" model="ir.ui.view">
+        <field name="name">tender.tree</field>
+        <field name="model">work.invite.nova</field>
+        <field name="arch" type="xml">
+            <tree>
+                    <field name="name"/>
+                    <field name="owner_id"/>
+                    <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_nova_marketing" model="ir.actions.act_window">
+        <field name="name">Marketing</field>
+        <field name="res_model">work.invite.nova</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new equipment
+            </p>
+        </field>
+    </record>
+    <menuitem id="nova_mark" name="Marketing" sequence="1"/>
+        <menuitem id="nova_mark1" name="Marketing" parent="nova_mark" action="action_nova_marketing"/>
+<!--        <menuitem id="custom_report_pivot2" name="Expense Summary" parent="custom_report_pivot1" />-->
+
+    </odoo>

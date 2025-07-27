@@ -1,0 +1,35 @@
+# Copyright 2018 ACSONE SA/NV
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+
+{
+    "name": "School APP",
+    "summary": """ """,
+    "version": "0.1",
+    "license": "LGPL-3",
+    "author": "Perla Tech",
+    "website": "",
+    "depends": ["base" ,"web"],
+    "data": [        
+        'security/ir.model.access.csv',
+        'view/student_report.xml',
+        'view/temperature.xml',
+        'view/album.xml',
+        'view/behavior.xml',
+        'view/drinks.xml',
+        'view/events.xml',
+        'view/gallary.xml',
+        'view/health.xml',
+        'view/meals.xml',
+        'view/mood.xml',
+        'view/year.xml',
+        'view/class.xml',
+        'view/home_work.xml',
+        'view/subject.xml',
+        'view/res_users.xml',
+        'view/messages.xml',
+        # 'view/product.template.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

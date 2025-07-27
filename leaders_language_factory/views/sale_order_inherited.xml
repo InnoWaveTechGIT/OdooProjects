@@ -1,0 +1,100 @@
+<odoo>
+    <data>
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="opportunity_id" readonly="True"/>
+                    <field name="is_interpretation" readonly="True"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="replace">
+                    <field name="payment_terms" readonly="1"/>
+                    <field name="commitment_date" readonly="1"/>
+<!--                    <field name="delivery_type" invisible="is_interpretation"/>-->
+<!--                    <field name="used_papers" invisible="delivery_type=='0' or is_interpretation"/>-->
+                </xpath>
+                <xpath expr="//field[@name='validity_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='product_template_id']" position="attributes">
+                    <attribute name="options">{'no_quick_create':True,'no_open':True,'no_create_edit':True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='product_template_id']" position="after">
+                    <field name="source_language"/>
+                    <field name="target_language"/>
+                    <field name="order_id" column_invisible="1"/>
+                      <field name="source_attachment_ids" widget="many2many_binary"/>
+                     <field name="target_attachment_ids" widget="many2many_binary" column_invisible="(parent.is_interpretation) or (parent.state != 'sale')"/>
+                        <field name="service_status" widget="badge"  column_invisible="(parent.is_interpretation) or (parent.state != 'sale')"/>
+
+                    <field name="estimated_number_of_pages" column_invisible="parent.is_interpretation==True"/>
+                    <field name="estimated_number_of_words" column_invisible="parent.is_interpretation==True"/>
+                </xpath>
+                <xpath expr="//page[@name='order_lines']//tree//field[@name='product_template_id']"
+                       position="attributes">
+                    <attribute name='string'>Service</attribute>
+                </xpath>
+                <xpath expr="//page[@name='order_lines']//tree//field[@name='price_unit']" position="attributes">
+                    <attribute name='string'>Rate</attribute>
+                </xpath>
+                <xpath expr="//page[@name='order_lines']//tree//field[@name='name']" position="attributes">
+                    <attribute name='column_invisible'>True</attribute>
+                </xpath>
+                 <xpath expr="//page[@name='order_lines']//tree//field[@name='qty_delivered']" position="attributes">
+                    <attribute name='column_invisible'>True</attribute>
+                </xpath>
+                <xpath expr="//page[@name='order_lines']//tree//field[@name='qty_invoiced']" position="attributes">
+                    <attribute name='column_invisible'>True</attribute>
+                </xpath>
+                <xpath expr="//page[@name='order_lines']//tree//field[@name='product_uom_qty']" position="attributes">
+                    <attribute name='column_invisible'>parent.is_interpretation==False</attribute>
+                </xpath>
+                <xpath expr="//page[@name='order_lines']//tree//field[@name='product_uom_qty']" position="before">
+                    <field name="description" column_invisible="parent.is_interpretation==False"/>
+                </xpath>
+                <xpath expr="//page[@name='order_lines']//tree//field[@name='product_uom_qty']" position="after">
+                    <field name="period_in_days" column_invisible="parent.is_interpretation==False"/>
+                </xpath>
+                <xpath expr="//button[@name='action_cancel']" position="attributes">
+                    <attribute name='invisible'>"1"</attribute>
+                </xpath>
+                <xpath expr="//button[@id='send_by_email']" position="replace">
+                    <button name="action_quotation_download" id="download" string="Download as PDF" type="object"/>
+
+                    <button name="%(log_sales_project_note_action)d" string="Log note to project manager" type="action"
+                            class="btn-primary"
+                            title="Log note to project manager"
+                            invisible="(state != 'sale') or (is_interpretation==True)"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="sale_order_tree_inherit" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="widget">many2one_avatar_user</attribute>
+                </xpath>
+                <xpath expr="//field[@name='activity_ids']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='commitment_date']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='commitment_date']" position="after">
+                    <field name="related_project"/>
+                    <field name="project_status" decoration-info="True" widget="badge"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

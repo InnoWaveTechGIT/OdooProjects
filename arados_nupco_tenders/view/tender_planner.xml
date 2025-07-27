@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_tender_planner_tree123" model="ir.ui.view">
+        <field name="name">tender.tree</field>
+        <field name="model">tender.planner</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="part_no"/>
+                <field name="product_id" domain="[('id', '=', product_ids)]"/>
+                <button name="last_wining_price" icon="fa-pencil-square-o" type="object"
+                        title="Last Winning Price" readonly="not last_winnig_price"></button>
+                <field name="selling_factor"/>
+                <field name="nubco_order_id" column_invisible="1"/>
+                <field name="nubco_order_line_id" column_invisible="1"/>
+                <field name="last_winnig_price" column_invisible="1"/>
+                <field name="unit_price" />
+                <field name="total_price" />
+                <field name="GP" />
+                <field name="comparison_id" column_invisible="1"/>
+                <field name="negotiation_id" column_invisible="1"/>
+                <button name="last_compartion" icon="fa-info-circle" type="object"
+                        title=" Price comparison " readonly="not comparison_id" string="Comparison"></button>
+
+                <button name="negotiation_price" icon="fa-pencil-square-o" type="object"
+                        title="Negotiation Price" string="Negotiation"></button>
+                <field name="target_disc"/>
+                <field name="target_amount"/>
+                <field name="target_per"/>
+                <field name="product_ids" column_invisible="1"/>
+
+
+
+
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_tender_planner123452" model="ir.actions.act_window">
+        <field name="name">Tenders Planner</field>
+        <field name="res_model">tender.planner</field>
+        <field name="view_mode">tree</field>
+
+    </record>
+
+
+    <menuitem id="menu_tender_planner" name="Tender Planner" parent="tender_root" action="action_tender_planner123452"/>
+</odoo>

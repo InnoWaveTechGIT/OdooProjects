@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+   <t t-name="button_sale.ListView.Buttons" t-inherit="web.ListView.Buttons">
+
+       <xpath expr="//div[hasclass('o_list_buttons')]" position="after">
+
+           <button class="oe_stat_button btn-sm" type="object" icon="fa-shopping-cart" t-on-click="ShowSupplier">
+                Supplier
+            </button>
+           <button class="oe_stat_button btn-sm" type="object" icon="fa-shopping-cart" t-on-click="ShowBarcode">
+                Barcode
+            </button>
+           <button class="oe_stat_button btn-sm" type="object" icon="fa-shopping-cart" t-on-click="ShowTender">
+                Tender
+            </button>
+
+       </xpath>
+   </t>
+</templates>

@@ -1,0 +1,26 @@
+<odoo>
+    <!-- Report Action -->
+    <report
+        id="report_invoice_label_action"
+        model="account.move"
+        string="Invoice Label"
+        report_type="qweb-pdf"
+        file="print_labels_invoice.report_invoice_label_template"
+        name="print_labels_invoice.report_invoice_label_template"
+        print_report_name="'Invoice Label - %s' % (object.name)"
+    />
+    <!-- Report Template -->
+    <template id="report_invoice_label_template">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="oe_structure">
+                    <h2>Invoice: <t t-esc="doc.name"/></h2>
+                    <p>Customer: <t t-esc="doc.partner_id.name"/></p>
+                    <p>Date: <t t-esc="doc.invoice_date"/></p>
+                    <p>Total: <t t-esc="doc.amount_total"/></p>
+                    <!-- Add more fields as needed for your label -->
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

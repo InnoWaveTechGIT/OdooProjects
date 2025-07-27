@@ -1,0 +1,21 @@
+<odoo>
+    <template id="website_dialogue" name="Website Dialogue">
+        <div class="website-dialogue">
+            <div class="website-dialogue-overlay"></div>
+            <div class="website-dialogue-content">
+                <div class="website-dialogue-header">
+                    <h3>Available Pricelists</h3>
+                    <button type="button" class="close-dialogue">&#215;</button>
+                </div>
+                <div class="website-dialogue-body">
+                    <t t-foreach="pricelists" t-as="pricelist">
+                        <div class="pricelist-item">
+                            <h4 t-esc="pricelist.display_name"></h4>
+                            <p t-esc="pricelist.description"></p>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

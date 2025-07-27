@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_student_Drinks_form" model="ir.ui.view">
+            <field name="name">student.drink.form</field>
+            <field name="model">student.drink</field>
+            <field name="arch" type="xml">
+                <form string="Student Drinks">
+                    <sheet>
+                        <group>
+
+
+                            <group>
+                                <field name="name" />
+
+                                <field name="image" widget="image" class="oe_avatar"/>
+                            </group>
+
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_student_Drinks_tree" model="ir.ui.view">
+            <field name="name">student.drink.tree</field>
+            <field name="model">student.drink</field>
+            <field name="arch" type="xml">
+                <tree string="Student Drinks">
+                    <field name="name" />
+
+                    <field name="image" widget="image" class="oe_avatar"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_student_Drinks" model="ir.actions.act_window">
+            <field name="name">Student Drinks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">student.drink</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_student_Drinks_list" name="Student Drinks" parent="menu_temperature"
+            action="action_student_Drinks" />
+    </data>
+</odoo>

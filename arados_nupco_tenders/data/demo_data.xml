@@ -1,0 +1,8 @@
+<odoo>
+    <data noupdate="1">
+        <record model="documents.folder" id="folder_data">
+            <field name="name">Tenders</field>
+            <!-- Add more fields if needed -->
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_student_Meals_form" model="ir.ui.view">
+            <field name="name">meals.school.app.form</field>
+            <field name="model">meals.school.app</field>
+            <field name="arch" type="xml">
+                <form string="Student Meals">
+                    <sheet>
+                        <notebook>
+                            <page string="Breakfast">
+                                <group>
+                                    <group>
+                                        <field name="date_time" />
+                                        <field name="breakfast" />
+                                        <field name="duration_1" />
+                                        <field name="duration_12" />
+                                        <field name="color_picker1" widget="color" />
+                                        <field name="image_1" widget="image"  />
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Lunch">
+                                <group>
+                                    <group>
+                                        <field name="lunch" />
+                                        <field name="duration_2" />
+                                        <field name="duration_22" />
+                                        <field name="color_picker2" widget="color" />
+                                        <field name="image_2" widget="image"  />
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Snack">
+                                <group>
+                                    <group>
+                                        <field name="snack" />
+                                        <field name="duration_3" />
+                                        <field name="duration_32" />
+                                        <field name="color_picker3" widget="color" />
+                                        <field name="image_3" widget="image" />
+                                        
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_student_Meals_tree" model="ir.ui.view">
+            <field name="name">meals.school.app.tree</field>
+            <field name="model">meals.school.app</field>
+            <field name="arch" type="xml">
+                <tree string="Student Meals">
+                    <field name="breakfast" />
+                    <field name="lunch" />
+                    <field name="snack" />
+                    <field name="date_time" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_student_Meals" model="ir.actions.act_window">
+            <field name="name">Student Meals</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">meals.school.app</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_student_Meals_list" name="Student Meals" parent="menu_temperature"
+            action="action_student_Meals" />
+    </data>
+</odoo>

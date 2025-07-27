@@ -1,0 +1,9 @@
+<odoo>
+    <data noupdate="1">
+        <record model="account.edi.format" id="folder_data">
+            <field name="name">Syrian Tax Authority</field>
+            <field name="code">SY_Tax</field>
+            <!-- Add more fields if needed -->
+        </record>
+    </data>
+</odoo>

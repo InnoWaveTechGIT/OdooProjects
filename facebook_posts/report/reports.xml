@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <template id="sale_order_inherit" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//t//t//t[3]" position="inside">
+                <div t-field="doc.phone"/>
+                <div t-field="doc.email"/>
+            </xpath>
+
+            <xpath expr="//th[@name='th_description']" position="before">
+                <th name="th_school" class="text-center">School</th>
+            </xpath>
+
+
+            <xpath expr="//t[1]/td[@name='td_name']" position="before">
+                <td class="text-center" name="td_school">
+                    <span t-field="line.school_id"/>
+                </td>
+            </xpath>
+            <xpath expr="//th[@name='th_description']" position="before">
+                <th name="th_category" class="text-center">Categories</th>
+            </xpath>
+            <xpath expr="//t[1]/td[@name='td_name']" position="before">
+                <td class="text-center" name="td_category">
+                    <span t-field="line.product_template_id.public_categ_ids"/>
+                </td>
+            </xpath>
+
+            <xpath expr="//t[1]/td[@name='td_subtotal']" position="replace">
+                <td t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
+                    <!-- <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/> -->
+                    <span t-field="line.price_total"/>
+                </td>
+            </xpath>
+
+        </template>
+
+    </data>
+</odoo>

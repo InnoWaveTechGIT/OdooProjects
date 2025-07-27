@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+id_vps_serverq,name_vps_server1,model_vps_server,group_vps_server_admin,1,1,1,1
+id_vps_server,name_vps_server,model_vps_server,group_vps_server_user,1,0,0,0
+
+id_cpanel_serverq,name_cpanel_server1,model_cpanel_server,group_vps_server_admin,1,1,1,1
+id_cpanel_server,name_cpanel_server,model_cpanel_server,group_vps_server_user,1,0,0,0

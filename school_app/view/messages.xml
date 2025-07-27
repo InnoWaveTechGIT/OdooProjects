@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record id="view_school_conversation_form" model="ir.ui.view">
+            <field name="name">school.conversation.form</field>
+            <field name="model">school.conversation</field>
+            <field name="arch" type="xml">
+                <form string="Conversation">
+                    <sheet>
+                        <group>
+                            <field name="user_id" />
+                        </group>
+                        <notebook>
+                            <page string="Messages">
+                                <field name="message_ids" mode="tree">
+                                    <tree editable="bottom">
+                                        <field name="user_id" />
+                                        <field name="body" />
+                                        <field name="date" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_school_conversation_tree" model="ir.ui.view">
+            <field name="name">school.conversation.tree</field>
+            <field name="model">school.conversation</field>
+            <field name="arch" type="xml">
+                <tree string="Conversations">
+                    <field name="user_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_school_conversation" model="ir.actions.act_window">
+            <field name="name">Conversations</field>
+            <field name="res_model">school.conversation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_school_conversation_tree" />
+        </record>
+        <menuitem id="menu_student_messages" name="Student Conversation"
+            parent="menu_student_report"
+            action="action_school_conversation" />
+    </data>
+</odoo>

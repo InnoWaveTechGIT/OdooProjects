@@ -1,0 +1,109 @@
+<!-- views/vps_views.xml -->
+<odoo>
+    <record id="view_vps_server_form" model="ir.ui.view">
+        <field name="name">vps.server.form</field>
+        <field name="model">vps.server</field>
+        <field name="arch" type="xml">
+            <form string="VPS Server">
+                <sheet>
+                    <group>
+                        <group>
+                        <field name="ip_address"/>
+                        <field name="password" />
+                        <field name="domain"/>
+                        <field name="admin_password"/>
+                        <field name="master_password"/>
+                        <field name="creation_date"/>
+                        <field name="renew_date"/>
+<!--                        <field name="odoo_charter"/>-->
+                    </group>
+                        <group>
+                        <field name="name"/>
+<!--                        <field name="cpannel" />-->
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_vps_server_tree" model="ir.ui.view">
+        <field name="name">vps.server.tree</field>
+        <field name="model">vps.server</field>
+        <field name="arch" type="xml">
+            <tree string="VPS Servers">
+                <field name="ip_address"/>
+                <field name="domain"/>
+                <field name="creation_date"/>
+                <field name="renew_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_vps_server" model="ir.actions.act_window">
+        <field name="name">VPS Servers</field>
+        <field name="res_model">vps.server</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="vps_server_menu" name="VPS Management" sequence="10"/>
+    <menuitem id="vps_server_submenu" name="Servers" parent="vps_server_menu" action="action_vps_server" sequence="10"/>
+
+
+
+<!--    +=====================-->
+
+    <record id="view_cpanel_server_form" model="ir.ui.view">
+        <field name="name">cpanel.server.form</field>
+        <field name="model">cpanel.server</field>
+        <field name="arch" type="xml">
+            <form string="VPS Server">
+                <sheet>
+                    <group>
+                        <group>
+                        <field name="name"/>
+                        <field name="password" />
+                        <field name="cpanel"/>
+                        <field name="creation_date"/>
+
+                    </group>
+                        <group>
+
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cpanel_server_tree" model="ir.ui.view">
+        <field name="name">cpanel.server.tree</field>
+        <field name="model">cpanel.server</field>
+        <field name="arch" type="xml">
+            <tree string="VPS Servers">
+                <field name="name"/>
+                <field name="cpanel"/>
+                <field name="creation_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_cpanel_server" model="ir.actions.act_window">
+        <field name="name">VPS Servers</field>
+        <field name="res_model">cpanel.server</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="cpanel_server_submenu" name="Cpanel Servers" parent="vps_server_menu" action="action_cpanel_server" sequence="10"/>
+</odoo>
+

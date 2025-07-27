@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--        <report-->
+    <!--            id="report_order_daily_filter12"-->
+    <!--            string="Filtered Orders Report"-->
+    <!--            model="pos.order"-->
+    <!--            report_type="qweb-pdf"-->
+    <!--            name="POS_daily_report.report_daily_sales"-->
+    <!--            file="POS_daily_report.report_daily_sales"-->
+    <!--            attachment_use="False"-->
+    <!--        />-->
+    <record id="report_order_daily_filter12" model="ir.actions.report">
+        <field name="name">Order Report</field>
+        <field name="model">pos.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">POS_daily_report.report_daily_sales</field>
+        <field name="report_file">POS_daily_report.report_daily_sales</field>
+        <field name="print_report_name">Order Report</field>
+        <!--       <field name="binding_model_id" ref="point_of_sale.model_pos_order"/>-->
+        <field name="binding_type">report</field>
+    </record>
+    <template id="report_daily_sales">
+        <t t-call="web.external_layout">
+            <style>
+                td {
+                text-align: center;
+                }
+            </style>
+            <div class="container">
+                <main>
+
+                    <h1>Daily Sales Report</h1>
+
+                    <div>
+                        <table class="order-table" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Label</th>
+                                    <th>Amount</th>
+                                    <th>Journal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <t t-esc="str(sessions[-1]['start_at'])"/>
+                                    </td>
+                                    <td>
+                                        Start Balance
+                                    </td>
+
+
+                                    <td>
+                                        <t t-esc="round(sessions[-1]['cash_register_balance_start'], 2)"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="sessions[-1]['move_id']">
+                                            <t t-esc="sessions[-1]['move_id'][1]"/>
+                                        </t>
+                                        <t t-else="">
+
+                                        </t>
+                                    </td>
+
+                                </tr>
+                                <t t-foreach="cash" t-as="session">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="str(session['date'])"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="session['payment_ref']"/>
+                                        </td>
+
+
+                                        <td>
+                                            <t t-esc="round(session['amount'], 2)"/>
+                                        </td>
+                                        <td>
+                                            <t t-if="session['journal_id']">
+                                                <t t-esc="session['journal_id'][1]"/>
+                                            </t>
+                                            <t t-else="">
+
+                                            </t>
+                                        </td>
+
+                                    </tr>
+
+
+                                </t>
+                                <tr>
+                                    <td>
+                                        <t t-esc="str(sessions[-1]['stop_at'])"/>
+                                    </td>
+                                    <td>
+                                        End Balance
+                                    </td>
+
+
+                                    <td>
+                                        <t t-esc="round(sessions[-1]['cash_register_balance_end_real'], 2)"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="sessions[-1]['move_id']">
+                                            <t t-esc="sessions[-1]['move_id'][1]"/>
+                                        </t>
+                                        <t t-else="">
+
+                                        </t>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="pos-section">
+
+
+                        <table class="order-table" width="100%">
+
+                            <tbody>
+                                <tr>
+                                    <td colspan="4">
+                                        <table class="product-table" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Quantity</th>
+                                                    <th>Customer Note</th>
+                                                    <th>Disc%</th>
+                                                    <th>Subtotal</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="prod" t-as="product">
+                                                    <tr>
+                                                        <td>
+                                                            <t t-esc="product['name']"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="product['quantity']"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="product['customer_note']"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="product['discount']"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="product['subtotal']"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="pos-section">
+
+
+                        <table class="order-table" width="100%">
+
+                            <tbody>
+                                <tr>
+                                    <td colspan="4">
+                                        <table class="product-table" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Invoice</th>
+                                                    <th>Cash</th>
+                                                    <th>Bank</th>
+                                                    <th>Customer Account</th>
+                                                    <th>Total</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="invoice" t-as="product">
+                                                    <tr>
+                                                        <td>
+                                                            <t t-esc="product['name']"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="product['cash']"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="product['bank']"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="product['customer']"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="product['total']"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <tr>
+                                <td><strong>Total:</strong></td>
+                                <td><t t-esc="inv_det_cash['sum_cash']"/></td>
+                                <td><t t-esc="inv_det_cash['sum_bank']"/></td>
+                                <td><t t-esc="inv_det_cash['sum_customer']"/></td>
+                                <td><strong>Total:</strong></td>
+                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div>
+
+                        <!--                            <div class="totals">-->
+                        <!--                                <p>Total Cash : <t t-esc="total_cash"/></p>-->
+                        <!--                                <p>Total Bank : <t t-esc="total_bank"/></p>-->
+                        <!--                                <p>Total Quantity: <t t-esc="total_quantity"/></p>-->
+                        <!--                                <p>Invoices Numbers: <t t-esc="total"/></p>-->
+
+                        <!--                            </div>-->
+                    </div>
+
+                </main>
+            </div>
+        </t>
+    </template>
+</odoo>

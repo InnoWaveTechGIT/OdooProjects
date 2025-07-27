@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record id="view_discount_wizard_form" model="ir.ui.view">
+            <field name="name">discount.wizard.form</field>
+            <field name="model">discount.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Add Discount">
+                    <group>
+                        <field name="sale_order_id" />
+                        <field name="discount_percentage" />
+                    </group>
+                    <footer>
+                        <button name="apply_discount" string="Apply Discount" type="object"
+                            class="btn-primary" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//header[1]" position="inside">
+                    <button name="open_discount_wizard"
+                        string="Add Discount" type="object" class="btn-primary" invisible="state in ['sale', 'done','cancel'] or is_discount == True "  >
+                    </button>
+
+                </xpath>
+
+                <xpath expr="//sheet[1]/group[1]/group[1]/field[1]" position="after">
+                    <field name="is_discount" />
+
+                </xpath>
+                <xpath expr="//notebook" position="after">
+                    <group>
+                        <field name="discount_percentage" readonly='1' /> 
+                    </group>
+                </xpath>
+               
+
+            </field>
+        </record>
+    </data>
+</odoo>

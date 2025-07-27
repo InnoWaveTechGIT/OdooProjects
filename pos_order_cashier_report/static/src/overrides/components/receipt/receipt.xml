@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="ReceiptHeader" t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('cashier')]" position="inside">
+            <div>Customer : <t t-esc="props.data.partner"/></div>
+            <t t-if="props.data.invoice_name">
+            <div>Invoice  : <t t-esc="props.data.invoice_name"/></div>
+             </t>
+
+            <!--            <t t-if="props.data.order_referance_data22">-->
+            <!--                            <div>Invoice : <t t-esc="props.data.order.posreferance"/></div>-->
+
+            <!--            </t>-->
+        </xpath>
+    </t>
+
+    <t t-name="pos_order_cashier_report.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="./div[@class='pos-receipt'][1]/div[@class='pos-receipt-order-data'][1]" position="replace">
+           <div class="pos-receipt-order-data">
+                <p>Odoo Point of Sale</p>
+               <!--                <div t-esc="props.data.pos_session_id" />-->
+               <div id="order-date" t-esc="props.data.date"/>
+            </div>
+        </xpath>
+
+
+
+
+    </t>
+</templates>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wizard_quote_wizard_form" model="ir.ui.view">
+        <field name="name">custom.quote.wizard.form</field>
+        <field name="model">quote.wizard</field>
+        <field name="arch" type="xml">
+            <form string="New Quotation ">
+                <group>
+                    <field name="tender_id" readonly="1"/>
+                    <field name="customer_id"  domain="[('id', 'in', customer_ids)]"/>
+                    <field name="date_from" widget="daterange" options='{"end_date_field": "date_to"}' required="date_from or date_to" />
+                            <field name="date_to" invisible="1" required="date_from"/>
+                    <field name="ref" />
+                    <field name="customer_ids" widget='many2many_tags' invisible="1"/>
+                </group>
+                <footer>
+                    <button name="action_Create_quot" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

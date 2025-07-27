@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="sequence_crm_lead_counter" model="ir.sequence">
+            <field name="name">CRM Lead Counter</field>
+            <field name="code">crm.lead.counter</field>
+            <field name="prefix">CR</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+        </record>
+  </data>
+</odoo>

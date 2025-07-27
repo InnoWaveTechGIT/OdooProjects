@@ -1,0 +1,23 @@
+<odoo>
+    <template id="report_saleorder_customized" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@class='col-auto col-3 mw-100 mb-2'][4]" position="after">
+            <div t-if="doc.discount_amount" class="col-auto col-3 mw-100 mb-2">
+                <strong>Discount Amount:</strong>
+                <br/>
+                <t t-esc="doc.discount_amount"/>
+            </div>
+            <div t-if="doc.total_amount_after_discount" class="col-auto col-3 mw-100 mb-2">
+                <strong>Total Amount After Discount:</strong>
+                <br/>
+                <t t-esc="doc.total_amount_after_discount"/>
+            </div>
+        </xpath>
+    </template>
+
+
+</odoo>
+
+
+
+
+

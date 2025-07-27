@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <template id="pricelist_selection_dialog" name="Pricelist Selection Dialog">
+            <div class="modal-body">
+                <select id="pricelist_selector">
+                    <t t-foreach="pricelists" t-as="pricelist">
+                        <option t-att-value="pricelist.id"><t t-esc="pricelist.name"/></option>
+                    </t>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirm_pricelist">Confirm</button>
+            </div>
+        </template>
+
+        <template id="website_homepage" inherit_id="website.homepage">
+            <xpath expr="//div[@id='wrap']" position="inside">
+
+                <button id="pricelist_selector_button" class="btn btn-primary">Select Pricelist</button>
+            </xpath>
+        </template>
+    </data>
+</odoo>

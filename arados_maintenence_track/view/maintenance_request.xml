@@ -1,0 +1,312 @@
+<!-- Custom Kanban View -->
+<odoo>
+    <record id="view_maintenance_request_kanban_custom123" model="ir.ui.view">
+        <field name="name">maintenance.equipment.kanban.custom</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="color"/>
+                <field name="lot_id"/>
+                <field name="technician_user_id"/>
+                <field name="owner_user_id"/>
+                <field name="category_id"/>
+                <field name="serial_no"/>
+                <field name="model"/>
+                <field name="maintenance_ids"/>
+                <field name="maintenance_open_count"/>
+                <field name="activity_ids"/>
+                <field name="activity_state"/>
+                <progressbar field="activity_state" colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"/>
+                <templates>
+                    <t t-name="kanban-tooltip">
+                        <ul class="oe_kanban_tooltip">
+                            <li t-if="record.serial_no.raw_value"><b>Serial Number:</b> <t t-esc="record.serial_no.value"/></li>
+                            <li t-if="record.model.raw_value"><b>Model Number:</b> <t t-esc="record.model.value"/></li>
+                        </ul>
+                    </t>
+                    <t t-name="kanban-menu">
+                        <t t-if="widget.editable"><a role="menuitem" type="edit" class="dropdown-item">Edit...</a></t>
+                        <t t-if="widget.deletable"><a role="menuitem" type="delete" class="dropdown-item">Delete</a></t>
+                        <div role="separator" class="dropdown-divider"/>
+                        <div role="separator" class="dropdown-header">Record Colour</div>
+                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                    </t>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="{{!selection_mode ? 'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) : ''}} oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content" tooltip="kanban-tooltip">
+                                <div class="o_kanban_record_top">
+                                    <b class="o_kanban_record_title"><field name="name"/><small><span t-if="record.model.raw_value"> (<field name="model"/>)</span></small></b>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div ><field name="product_id"/></div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div ><field name="lot_id"/></div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <div class="badge text-bg-danger" t-if="!selection_mode and record.maintenance_open_count.raw_value">
+                                            <t t-out="record.maintenance_open_count.raw_value"/> Request
+                                        </div>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <div class="o_kanban_inline_block" t-if="!selection_mode">
+                                            <field name="activity_ids" widget="kanban_activity"/>
+                                        </div>
+                                        <field name="owner_user_id" widget="many2one_avatar_user"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="view_maintenance_request_tree_custom123" model="ir.ui.view">
+        <field name="name">maintenance.equipment.tree.custom</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="arch" type="xml">
+            <tree string="maintenance equipment" multi_edit="1" sample="1">
+                <field name="message_needaction" column_invisible="True"/>
+                <field name="name"/>
+                <!-- <field name="active" invisible="1"/> -->
+                <field name="assign_date" groups="base.group_no_one"/>
+                <field name="product_id" column_invisible="True"/>
+                <field name="lot_id"/>
+                <field name="technician_user_id"/>
+                <field name="category_id"/>
+                <field name="partner_id" column_invisible="True"/>
+                <field name="company_id" column_invisible="True"/>
+<!--                <field name="production_company_id" column_invisible="True"/>-->
+                <field name="activity_exception_decoration" widget="activity_exception"/>
+            </tree>
+
+        </field>
+    </record>
+    <record id="view_maintenance_request_form_custom123" model="ir.ui.view">
+        <field name="name">maintenance.equipment.form.custom</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="arch" type="xml">
+            <form string="Maintenance Request">
+
+                <field name="company_id" invisible="1"/>
+                <field name="category_id" invisible="1"/>
+
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" string="Name" placeholder="e.g. LED Monitor"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="maintenance_for1"></field>
+                            <field name="product_id" />
+                            <field name="lot_id"  />
+                            <field name="warranty_start" />
+                            <field name="warranty_end" />
+                            <field name="warranty_status" />
+<!--                            <field name="archive" invisible="1"/>-->
+                            <field name="recurrent"  />
+                            <label for="repeat_every"  invisible="not recurrent"/>
+                            <field name="repair_order_id" invisible="1"/>
+<!--                            <field name="production_company_id" invisible="1"/>-->
+
+
+                            <div  class="d-flex" invisible="not recurrent">
+                                <field name="repeat_every"  class="me-2" style="max-width: 2rem !important;"/>
+                                <field name="repeat_unit"  class="me-2" style="max-width: 4rem !important;"/>
+                                <field name="repeat_type"  class="me-2" style="max-width: 15rem !important;"/>
+                                <field name="repeat_until" invisible="repeat_type != 'until'" required="repeat_type == 'until'" class="me-2"/>
+                            </div>
+<!--                            <field name="maintenance_type" widget="radio"/>-->
+                        </group>
+                        <group>
+                            <field name="reference" />
+                            <field name="partner_id" />
+                            <field name="maintenance_team_id" string="Maintenance Team"/>
+                            <field name="technician_user_id" string="Technician"/>
+                            <field name="assign_date" string="Assigned Date"/>
+                            <field name="effective_date"/>
+<!--                            <field name="schedule_date" />-->
+                            <field name="under_warranty" invisible="1"/>
+<!--                            <field name="request_date" readonly="True" field_id="request_date_0"/>-->
+<!--                            <field name="done" invisible="1" field_id="done_0"/>-->
+<!--                            <field name="close_date" readonly="True" invisible="not done" field_id="close_date_0"/>-->
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="note" placeholder="Internal Notes"/>
+                        </page>
+                        <page string="Maintenance" name="maintenance">
+                            <group>
+                                <group name="statistics">
+                                    <label for="expected_mtbf" string="Expected Mean Time Between Failure"/>
+                                    <div class="o_row">
+                                        <field name="expected_mtbf" /> days
+                                    </div>
+                                    <label for="mtbf" string="Mean Time Between Failure"/>
+                                    <div class="o_row">
+                                        <field name="mtbf" readonly="1"/> days
+                                    </div>
+                                    <label for="estimated_next_failure" string="Estimated Next Failure"/>
+                                    <div class="o_row">
+                                        <field name="estimated_next_failure"/>
+                                    </div>
+                                    <field name="latest_failure_date" string="Latest Failure" readonly="1"/>
+                                    <label for="mttr" string="Mean Time To Repair"/>
+                                    <div class="o_row">
+                                        <field name="mttr"/> days
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+
+        </field>
+
+    </record>
+    <record model="ir.actions.act_window" id="action_assigned">
+        <field name="name">Under Warranty Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">maintenance.equipment</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('maintenance_for1', '=', 'warranty')]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_maintenance_request_kanban_custom123')}),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_maintenance_request_tree_custom123')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_maintenance_request_form_custom123')})]"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                لانشاء مكلف جديد اضغط على زر الانشاء.
+            </p>
+        </field>
+    </record>
+
+
+
+    <record model="ir.actions.act_window" id="maintenance.hr_equipment_action">
+        <field name="domain">[('is_warranty', '=', False)]</field>
+    </record>
+    <record model="ir.actions.act_window" id="action_assigned1">
+        <field name="name">Under Warranty Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">maintenance.equipment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('maintenance_for1', '=', 'warranty')]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_maintenance_request_tree_custom123')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_maintenance_request_form_custom123')})]"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                لانشاء مكلف جديد اضغط على زر الانشاء.
+            </p>
+        </field>
+    </record>
+                <menuitem id="maintenance_under" name="Under Warranty Products" sequence="1" parent="maintenance.menu_maintenance_title" action="action_assigned"/>
+
+
+    <record id="hr_equipment_request_view_form123" model="ir.ui.view">
+        <field name="name">maintenance.request.form.custom</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="create_repair" string="Create Repair" type="object" class="btn-primary" invisible="repair_order_id or maintenance_for1 != 'warranty'"/>
+
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+                <div name="button_box"  class="oe_button_box">
+                    <button class="oe_stat_button" type="object"
+                            name="action_open_repair_order" string="Repair Order"  invisible="not repair_order_id">
+                    </button>
+                </div>
+
+            </xpath>
+            <xpath expr="//sheet[1]/group[1]/group[1]" position="replace">
+                <group>
+
+                            <field name="maintenance_for1"></field>
+                            <field name="product_id" />
+                            <field name="lot_id" invisible="maintenance_for1 != 'warranty'" />
+                            <field name="warranty_start" invisible="maintenance_for1 != 'warranty'"/>
+                            <field name="warranty_end" invisible="maintenance_for1 != 'warranty'"/>
+                            <field name="warranty_status" invisible="maintenance_for1 != 'warranty'"/>
+                            <field name="archive" invisible="1"/>
+
+                            <label for="recurring_maintenance" invisible="maintenance_type == 'corrective'"/>
+                            <div class="d-inline-flex" invisible="maintenance_type == 'corrective'">
+                                <field name="recurring_maintenance" nolabel="1" class="ms-0" style="width: fit-content;"/>
+                            </div>
+                            <label for="repeat_interval" invisible="not recurring_maintenance"/>
+                            <div class="d-flex" invisible="not recurring_maintenance">
+                                <field name="repeat_interval" required="True" class="me-2" style="max-width: 2rem !important;"/>
+                                <field name="repeat_unit" required="True" class="me-2" style="max-width: 4rem !important;"/>
+                                <field name="repeat_type" required="True" class="me-2" style="max-width: 15rem !important;"/>
+                                <field name="repeat_until" invisible="repeat_type != 'until'" required="repeat_type == 'until'" class="me-2"/>
+                            </div>
+
+                            <field name="repair_order_id" invisible="1"/>
+                    <field name="employee_id" invisible="1"/>
+                             <field name="production_company_id" invisible="1"/>
+
+                            <field name="priority" widget="priority" invisible="maintenance_for1 == 'warranty'"/>
+                            <field name="email_cc" string="Email cc" groups="base.group_no_one" invisible="maintenance_for1 == 'warranty'"/>
+                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company" invisible="maintenance_for1 == 'warranty'"/>
+
+
+
+                            <field name="maintenance_type" widget="radio"/>
+                </group>
+            </xpath>
+            <xpath expr="//sheet[1]/group[1]/group[2]" position="replace">
+                <group>
+                            <field name="reference" />
+                            <field name="partner_id" />
+                            <field name="maintenance_team_id" string="Maintenance Team"/>
+                            <field name="user_id" string="Technician"/>
+                            <field name="employee_id" invisible="1"/>
+                            <field name="assigned_date" string="Assigned Date"/>
+                            <field name="effective_date"/>
+                            <field name="schedule_date" />
+                            <field name="under_warranty" invisible="1"/>
+                            <field name="request_date" readonly="True" field_id="request_date_0"/>
+<!--                            <field name="done" invisible="1" field_id="done_0"/>-->
+                            <field name="close_date" readonly="True"  field_id="close_date_0"/>
+
+                        </group>
+            </xpath>
+
+
+        </field>
+
+
+
+    </record>
+
+    <record id="hr_equipment_request_view_search_calender123" model="ir.ui.view">
+        <field name="name">maintenance.request.form.custom</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[2]" position="inside">
+                <field name="lot_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

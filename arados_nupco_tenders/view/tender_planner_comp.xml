@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_price_comparison_tree123" model="ir.ui.view">
+        <field name="name">tender.tree</field>
+        <field name="model">price.comparison</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="planner_id" invisible="1"/>
+                        <field name="trend_price"/>
+                        <field name="private_prices"/>
+
+                    </group>
+                    <group>
+
+                    </group>
+
+                </group>
+                <notebook>
+                    <page string="LWP">
+                        <group>
+                            <group>
+                                <field name="tender_1"/>
+                                <field name="tender_2"/>
+                                <field name="tender_Company"/>
+                            </group>
+
+                            <group>
+
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_price_comparison123452" model="ir.actions.act_window">
+        <field name="name">Tenders Planner</field>
+        <field name="res_model">price.comparison</field>
+        <field name="view_mode">form</field>
+
+    </record>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+id_work_action,work_action,model_work_action,,1,1,1,1
+id_work_invite_nova,work_invite_nova,model_work_invite_nova,,1,1,1,1
+
+

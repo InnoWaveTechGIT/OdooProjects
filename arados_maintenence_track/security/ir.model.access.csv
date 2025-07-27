@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+id_work_details_repair,name_work_details_repair,model_work_details_repair,,1,1,1,1
+id_action_details_repair,name_action_details_repair,model_action_details_repair,,1,1,1,1
+id_action_parts_repair,name_action_parts_repair,model_action_parts_repair,,1,1,1,1
+
+

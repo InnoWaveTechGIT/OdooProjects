@@ -1,0 +1,56 @@
+<!-- images_school_app_views.xml -->
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_album_school_app_form" model="ir.ui.view">
+            <field name="name">images.school.app.form</field>
+            <field name="model">album.school.app</field>
+            <field name="arch" type="xml">
+                <form string="Images School App">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="status"/>
+                            <field name="class_id" attrs="{'invisible': [('status', '=', 'Public')]}"/>
+                            <field name="student_ids" attrs="{'invisible': [('status', '=', 'Public')]}" widget="many2many_tags" />
+                        </group>
+                        <notebook>
+                            <page string="Images">
+                                <field name="image_ids">
+                                    <tree editable="bottom">
+                                        <field name="image" class="oe_avatar"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_album_school_app_tree" model="ir.ui.view">
+            <field name="name">images.school.app.tree</field>
+            <field name="model">album.school.app</field>
+            <field name="arch" type="xml">
+                <tree string="Images School App">
+                    <field name="name"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_images_school_app1" model="ir.actions.act_window">
+            <field name="name">Images School App</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">album.school.app</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_images_school_app" name="Gallary" parent="school_root" sequence="2"/>
+        <menuitem id="menu_images_school_app_list1" name="Album" parent="menu_images_school_app"
+                  action="action_images_school_app1"/>
+    </data>
+</odoo>

@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <!-- View for the AdditionalPapersWizard model -->
+        <record id="add_discount_wizard_form_view" model="ir.ui.view">
+            <field name="name">discount.invoice.wizard.form</field>
+            <field name="model">discount.invoice.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <p>
+                            Select discount amount
+                        </p>
+                    </header>
+                    <group>
+                        <field name="discount" />
+                    </group>
+                    <footer>
+                        <button name="confirm" string="Save" type="object" class="btn-primary"/>
+                        <button name="cancel" string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_invoice_form_custom">
+          <field name="name">account.move.form.custom</field>
+          <field name="model">account.move</field>
+          <field name="inherit_id" ref="account.view_move_form"/>
+          <field name="arch" type="xml">
+            <xpath expr="//button[@class='oe_highlight'][2]" position="after">
+              <button name="open_add_discount_wizard" string="Add Discount" class="oe_highlight" type="object" invisible="invisible_discount == True "/>
+            </xpath>
+            <xpath expr="//group[@id='header_right_group'][1]/field[1]" position="after">
+              <field name="invisible_discount" invisible="1"/>
+              <field name="discount_amount" invisible="1"/>
+              <field name="positive_product_prices" invisible="1"/>
+              <field name="grand_total_words" />
+            </xpath>
+
+          </field>
+        </record>
+        <!-- Action for opening the AdditionalPapersWizard form view -->
+        <record id="action_add_discount_wizard" model="ir.actions.act_window">
+            <field name="name">Select Additional Papers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">discount.invoice.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="add_discount_wizard_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

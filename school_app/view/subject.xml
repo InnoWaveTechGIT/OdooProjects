@@ -1,0 +1,46 @@
+<!-- images_school_app_views.xml -->
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_subject_school_app_form" model="ir.ui.view">
+            <field name="name">images.school.app.form</field>
+            <field name="model">subject.school.app</field>
+            <field name="arch" type="xml">
+                <form string="Images School App">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="teacher_id"/>
+                           
+                        </group>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_subject_school_app_tree" model="ir.ui.view">
+            <field name="name">images.school.app.tree</field>
+            <field name="model">subject.school.app</field>
+            <field name="arch" type="xml">
+                <tree string="Images School App">
+                    <field name="name"/>
+                    <field name="teacher_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="actionsubject_school_app1" model="ir.actions.act_window">
+            <field name="name">Images School App</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">subject.school.app</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menusubject_school_app_list1" name="Subjects" parent="menu_temperature"
+                  action="actionsubject_school_app1"/>
+    </data>
+</odoo>

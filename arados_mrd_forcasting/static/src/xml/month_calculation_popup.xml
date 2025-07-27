@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+
+<!--    <t t-name="button_sale.ListView.Buttons_selection" t-inherit="web.ListView.Selection">-->
+
+<!--    </t>-->
+   <t t-name="button_sale.ListView.Buttons" t-inherit="web.ListView.Buttons">
+
+       <xpath expr="//div[hasclass('o_list_buttons')]" position="after">
+
+           <button class="oe_stat_button btn-sm" type="object" icon="fa-shopping-cart" t-on-click="onTestClick">
+                AVG Sales Month
+            </button>
+           <button class="oe_stat_button btn-sm" type="object" icon="fa-shopping-cart" t-on-click="onTestClick1">
+                MRD GOAL
+            </button>
+
+           <button class="oe_stat_button btn-sm" type="object" icon="fa-shopping-cart" t-on-click="ShowVendor">
+                Vendor
+            </button>
+       </xpath>
+   </t>
+</templates>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wizard_supplier_form" model="ir.ui.view">
+        <field name="name">custom.wizard.form</field>
+        <field name="model">filter.supplier.wizard</field>
+        <field name="arch" type="xml">
+            <form string="ADD Supplier">
+                <group>
+                    <field name="customer_id"/>
+
+                </group>
+                <footer>
+                    <button name="get_supplier_record" string="Show" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_wizard_barcode_form" model="ir.ui.view">
+        <field name="name">custom.wizard.form</field>
+        <field name="model">filter.barcode.wizard</field>
+        <field name="arch" type="xml">
+            <form string="ADD Barcode">
+                <group>
+                    <field name="barcode"/>
+
+                </group>
+                <footer>
+                    <button name="get_barcode_record" string="Show" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_wizard_tender_form" model="ir.ui.view">
+        <field name="name">custom.wizard.form</field>
+        <field name="model">filter.tender.wizard</field>
+        <field name="arch" type="xml">
+            <form string="ADD Tender">
+                <group>
+                    <field name="tender_id"/>
+
+                </group>
+                <footer>
+                    <button name="get_tender_record" string="Show" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

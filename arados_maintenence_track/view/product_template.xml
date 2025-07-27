@@ -1,0 +1,32 @@
+<odoo>
+
+       <record id="product_template_inventory_inherit12" model="ir.ui.view">
+        <field name="name">product_template_inventory_inherit12</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[4]" position="after">
+                <group>
+                    <field name="warranty" groups="stock.group_stock_manager" invisible="tracking == 'none'"/>
+                    <label groups="stock.group_stock_manager" for="warranty_date" invisible="warranty == False"/>
+                                    <div groups="stock.group_stock_manager" class="o_row" invisible="warranty == False">
+                                        <field name="warranty_date" groups="stock.group_stock_manager" invisible="warranty == False"/> Years after receipt
+                                    </div>
+
+                </group>
+
+            </xpath>
+<!--            <xpath expr="//field[@name='property_stock_inventory']" position="after">-->
+<!--                <field name="recurrent"  groups="stock.group_stock_manager" invisible="warranty == False"/>-->
+<!--                <label for="repeat_every" groups="stock.group_stock_manager" invisible="not recurrent"/>-->
+
+<!--                <div groups="stock.group_stock_manager" class="d-flex" invisible="not recurrent">-->
+<!--                    <field name="repeat_every"  class="me-2" style="max-width: 2rem !important;"/>-->
+<!--                    <field name="repeat_unit"  class="me-2" style="max-width: 4rem !important;"/>-->
+<!--                    <field name="repeat_type"  class="me-2" style="max-width: 15rem !important;"/>-->
+<!--                    <field name="repeat_until" invisible="repeat_type != 'until'" required="repeat_type == 'until'" class="me-2"/>-->
+<!--                </div>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+</odoo>

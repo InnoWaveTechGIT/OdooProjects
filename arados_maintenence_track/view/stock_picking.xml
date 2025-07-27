@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_stock_picking_operation_tree_inherit156" model="ir.ui.view">
+        <field name="name">stock.move.line.operations.tree.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box'][1]" position="inside">
+                <button name="action_get_warranty" string="Warranty" invisible="len_warranty  == 0 or state != 'done'" icon="fa-file" type="object" class="oe_stat_button">
+                    <field  name="len_warranty" widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="//sheet[1]/group[1]/group[1]/field[3]" position="after">
+                <field  name="warranty_ids" invisible="1"/>
+            </xpath>
+<!--            -->
+        </field>
+    </record>
+</odoo>

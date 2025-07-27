@@ -1,0 +1,51 @@
+<odoo>
+    <record id="view_order_form_inherited" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_button_box'][1]" position="inside">
+                        <button class="oe_stat_button" type="object" icon="fa-file-text-o"
+                                name="action_open_order" string="Orders" invisible="not nupco_po_number">
+                        </button>
+                </xpath>
+                <xpath expr="//sheet[1]/group[1]/group[2]" position="after">
+                        <group name="tender">
+
+                            <field name="order_ids" widget="many2many_tags" invisible="1" />
+                            <field name="nupco_po_number" domain="[('id', '=', order_ids)]" readonly="not order_ids"/>
+                            <field name="order_ids" widget="many2many_tags" invisible="1" />
+                            <field name="has_tender" invisible="1" />
+
+                            <field name="tender_order_id" invisible="not nupco_po_number"/>
+                        </group>
+                    <group name="tender_date">
+                            <field name="date_from" widget="daterange" options='{"end_date_field": "date_to"}' required="date_from or date_to" />
+                            <field name="date_to" invisible="1" required="date_from"/>
+                        <field name="ref" invisible="not nupco_po_number"/>
+                        </group>
+                </xpath>
+                <xpath expr="//tree[1]/field[13]" position="after">
+                    <field name="po_number" column_invisible="parent.has_tender"/>
+                    <field name="manufacturer_id" column_invisible="parent.has_tender"/>
+                    <field name="sd" column_invisible="True" />
+                    <field name="has_tender" column_invisible="True"/>
+                    <field name="catalogue_no" column_invisible="parent.has_tender"/>
+                    <field name="production_date" column_invisible="parent.has_tender"/>
+                    <field name="expiry_date" column_invisible="parent.has_tender"/>
+                    <field name="lot_id" readonly='1' column_invisible="parent.has_tender"/>
+                    <field name="Item_code" column_invisible="parent.has_tender"/>
+                </xpath>
+            </field>
+    </record>
+    <record id="action_order_quote_tender234" model="ir.actions.act_window">
+        <field name="name">Quote Win Items</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('nubco', '=', True)]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('sale.view_quotation_tree_with_onboarding')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_order_form_inherited')})]"/>
+    </record>
+    <menuitem id="menu_tender3" name="Quote Win Items" parent="menu_tender" action="action_order_quote_tender234"/>
+</odoo>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="crm_lead_view_form_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//header[1]" position="before">-->
+<!--                    <div name="button_box" >-->
+<!--                        <button class="oe_stat_button" type="object" icon="fa-shopping-cart"-->
+<!--                                name="action_open_sale_order" >-->
+<!--                            <field string="Sale Oeders" name="len_order_id" widget="statinfo"/>-->
+
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </xpath>-->
+                <xpath expr="//header[1]" position="replace">
+
+                        <header>
+                            <button name="action_accept" string="Accept" type="object" class="btn-primary" invisible="is_nego == True"/>
+                            <button name="action_reject" string="Reject" type="object" class="btn-secondary" invisible="is_nego == True"/>
+                            <button name="create_quotation" string="Create Quotation" type="object" class="btn-primary" invisible="is_nego == False or is_quotation == True"/>
+                            <field name="stage_id" widget="statusbar_duration" options="{'fold_field': 'fold'}"  invisible="not active or type == 'lead'" on_change="1" can_create="True" can_write="True" field_id="stage_id_0"/>
+                        </header>
+
+                </xpath>
+                <xpath expr="//sheet[1]" position="replace">
+                    <sheet>
+                        <div name="button_box"  class="oe_button_box">
+                        <button class="oe_stat_button" type="object" icon="fa-shopping-cart"
+                                name="action_open_sale_order" >
+                            <field string="Sale Oeders" name="len_order_id" widget="statinfo"/>
+
+                        </button>
+                        </div>
+
+                        <style>
+                            .oe_title {
+                                display: flex;
+                                width: 100%;
+                            }
+
+                            .oe_title h1 {
+                                width: 50%;
+                                box-sizing: border-box;
+                                padding: 0 10px; /* Add padding for spacing */
+                            }
+
+                            .oe_title field {
+                                width: 50%;
+                                box-sizing: border-box;
+                                padding: 0 10px; /* Add padding for spacing */
+                            }
+                        </style>
+
+                        <div class="oe_title">
+                            <field name="customer_logo" widget="image" class="oe_avatar"/>
+                            <h1>
+                                <field name="name" readonly="1" />
+                            </h1>
+                            <field name="order_id" invisible="1" />
+                            <field name="user_id" widget="many2one_avatar"/>
+                            <field name="len_order_id"  invisible="1"/>
+
+                        </div>
+
+                        <group>
+                        <group string="CLIENT INFO" style="color: #714B67;">
+                            <field name="client_type" widget="radio" options="{'horizontal': true}" style="color: black;" />
+                            <field name="company_name" style="color: black;border-bottom: 1px solid #714B67;"
+                                invisible="client_type not in ['2']"/>
+                            <field name="company_name" string="Client Name" style="color: black;border-bottom: 1px solid #714B67;"
+                                invisible="client_type not in ['1']"/>
+                            <field name="Company_sector" style="color: black;border-bottom: 1px solid #714B67;" invisible="client_type not in ['2']"/>
+                            <field name="gender" style="color: black;border-bottom: 1px solid #714B67;" invisible="client_type not in ['1']"/>
+                            <field name="active" invisible="1" style="color: black;"/>
+                            <field name="probability" invisible="1" style="color: black;"/>
+                            <field name="type" invisible="1"/>
+                            <field name="team_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="is_nego" invisible="1"/>
+                            <field name="is_quotation" invisible="1"/>
+                            <field name="tag_ids" invisible="1"/>
+                            <field name="text_for_kanban" invisible="1"/>
+                            <field name="service_id" invisible="1"/>
+
+                            <field name="source" widget="many2many_binary" invisible="1"/>
+
+
+
+                        </group>
+                        <group string="CONTACT INFO" style="color: #714B67;">
+                            <field name="contact_name" style="color: black;border-bottom: 1px solid #714B67;" invisible="client_type not in ['2']"/>
+                            <field name="email_address" style="color: black;border-bottom: 1px solid #714B67;"/>
+                            <field name="phone" style="color: black;border-bottom: 1px solid #714B67;"/>
+                            <field name="source_lang_selection" invisible="1"/>
+                            <field name="target_lang_selection" invisible="1"/>
+                            <field name="lang" style="color: black;border-bottom: 1px solid #714B67;" invisible="client_type not in ['1']" />
+                        </group>
+                        <group string="PROJECT INFO" style="color: #714B67;">
+                            <field name="service_type" widget="radio" options="{'horizontal': true}" style="color: black;"/>
+                            <field name="delivery_type" widget="radio" options="{'horizontal': true}" style="color: black;"/>
+                            <field name="service_industry" style="color: black;border-bottom: 1px solid #714B67;"/>
+                        </group>
+
+                            <group string="TIME INFO" style="color: #714B67;">
+                            <field name="priority_work" widget="radio" options="{'horizontal': true}" style="color: black;"/>
+                            <field name="deadline" style="color: black;border-bottom: 1px solid #714B67;"/>
+                            <field name="payment_terms" style="color: black;border-bottom: 1px solid #714B67;"/>
+                        </group>
+                    </group>
+
+                        <notebook>
+                            <page string="Service" name="service">
+                                <field name="service_ids" >
+                                    <tree editable="top">
+                                        <field name="source" widget="many2many_binary"/>
+                                        <field name="service_id" options="{'nocreate': true}"/>
+                                        <field name="source_lang"/>
+                                        <field name="target_lang"/>
+                                        <field name="words"/>
+                                        <field name="pages"/>
+                                        <field name="Rate"/>
+                                        <field name="vat"/>
+                                        <field name="disc"/>
+                                        <field name="total"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Client Notes" name="internal_notes">
+                                <field name="description" placeholder="Add a description..." />
+                            </page>
+                            <page string="My Notes" name="internal_notes">
+                                <field name="my_description" placeholder="Add a description..." />
+                            </page>
+
+
+                        </notebook>
+                    </sheet>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="quick_create_opportunity_form_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.form.quick.create.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.quick_create_opportunity_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expected_revenue']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='priority']" position="replace">
+                    <label for="timeline"/>
+                    <field name="timeline"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="crm_case_kanban_view_leads_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.kanban.lead.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@class='oe_kanban_details'][1]" position="before">
+                    <field name="customer_logo" widget="image" class="oe_avatar" style="max-width: 100px; max-height: 100px;"/>
+
+                </xpath>
+                <xpath expr="//div[@class='oe_kanban_content flex-grow-1'][1]/div[4]" position="replace">
+
+
+                </xpath>
+                <xpath expr="//div[@class='oe_kanban_footer'][1]" position="replace">
+
+                </xpath>
+                <xpath expr="//div[@class='o_kanban_record_subtitle'][1]" position="replace">
+                         <div class="oe_kanban_details">
+                        <strong class="o_kanban_record_title"><field name="service_id" style="font-weight: bold;"/></strong>
+                    </div>
+                    <div class="oe_kanban_details">
+                        <br/>
+                    </div>
+                    <div class="oe_kanban_details">
+                        <field name="text_for_kanban"/>
+                    </div>
+                </xpath>
+
+                <xpath expr="//kanban//header//button[@name='action_generate_leads']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="crm_stage_form_inherit" model="ir.ui.view">
+            <field name="name">crm.stage.form.inherit</field>
+            <field name="model">crm.stage</field>
+            <field name="inherit_id" ref="crm.crm_stage_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='is_won']" position="after">
+                    <field name="is_lost"/>
+                    <field name="is_negotiation"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="crm_stage_tree_inherit" model="ir.ui.view">
+            <field name="name">crm.stage.tree.inherit</field>
+            <field name="model">crm.stage</field>
+            <field name="inherit_id" ref="crm.crm_stage_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='is_won']" position="after">
+                    <field name="is_lost"/>
+                    <field name="is_negotiation"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

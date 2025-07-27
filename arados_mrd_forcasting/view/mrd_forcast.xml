@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_mrd_forcasting_tree" model="ir.ui.view">
+            <field name="name">mrd.forcasting.tree</field>
+            <field name="model">mrd.forcasting</field>
+            <field name="arch" type="xml">
+                <tree string="MRD Forcasting" editable="top" js_class="button_in_tree">
+                    <header>
+                        <button name="action_create_purchase_order" string="Ordrer All" type="object" />
+                    </header>
+                    <field name="part_no"/>
+                    <field name="product_id" />
+                    <field name="avg_sales"/>
+                    <field name="months_to_cal" column_invisible="1"/>
+                    <field name="qty_on_hand"/>
+                    <field name="goal_mrd_fu" column_invisible="1"/>
+                    <field name="goal_mrd"/>
+                    <field name="is_officer" column_invisible="1"/>
+                    <field name="manager_opinion"  readonly="is_officer == False"/>
+                    <field name="Notes"  readonly="is_officer == False"/>
+                    <field name="reserved_out"/>
+                    <field name="in_transit"/>
+                    <field name="pending"/>
+                    <field name="balance"/>
+                    <field name="min_quan"/>
+                    <field name="to_order"/>
+                    <field name="vendor" optional="hide"/>
+                    <field name="lead_time" optional="hide"/>
+                    <button name="create_po"  string='Order Once' type="object" icon="fa-truck">
+                    </button>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mrd_forcasting_tree12" model="ir.ui.view">
+            <field name="name">mrd.forcasting.tree</field>
+            <field name="model">mrd.forcasting</field>
+            <field name="arch" type="xml">
+                <tree string="MRD Forcasting" editable="top" js_class="button_in_tree">
+                    <field name="part_no"/>
+                    <field name="product_id" />
+                    <field name="avg_sales"/>
+                    <field name="months_to_cal" column_invisible="1"/>
+                    <field name="qty_on_hand"/>
+                    <field name="goal_mrd_fu" column_invisible="1"/>
+                    <field name="goal_mrd"/>
+                    <field name="is_officer" column_invisible="1"/>
+                    <field name="manager_opinion"  readonly="is_officer == False"/>
+                    <field name="reserved_out"/>
+                    <field name="in_transit"/>
+                    <field name="pending"/>
+                    <field name="balance"/>
+                    <field name="min_quan"/>
+                    <field name="to_order"/>
+                    <field name="vendor" optional="hide"/>
+                    <field name="lead_time" optional="hide"/>
+                    <button name="create_po"  string='Order Once' type="object" icon="fa-truck">
+                    </button>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="mrd_forcasting_search_view" model="ir.ui.view">
+            <field name="name">mrd.forcasting.search</field>
+            <field name="model">mrd.forcasting</field>
+            <field name="arch" type="xml">
+                <search string="MRD Forecasting Search">
+                    <field name="product_id" string="Product"/>
+                    <field name="part_no" string="Barcode"/>
+                </search>
+            </field>
+        </record>
+        <record id="mrd_action_window_arados" model="ir.actions.act_window">
+            <field name="name">MRD</field>
+            <field name="res_model">mrd.forcasting</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first Record! </p>
+
+            </field>
+
+        </record>
+        <record id="mrd_action_window_arados12" model="ir.actions.act_window">
+            <field name="name">MRD</field>
+            <field name="res_model">mrd.forcasting</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_vendor_id': active_id}</field>
+            <field name="help" type="html">
+
+                <p class="o_view_nocontent_smiling_face">Create your first Record! </p>
+
+            </field>
+
+        </record>
+
+        <menuitem id="MRD_menu" name="MRD Forecasting" sequence="4" parent="stock.menu_stock_procurement" action="mrd_action_window_arados"/>
+
+
+
+    </data>
+</odoo>

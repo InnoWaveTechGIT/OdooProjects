@@ -1,0 +1,50 @@
+<odoo>
+    <record id="hr_employee_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.inherit.over_time_Form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='coach_id']" position="after">
+                <field name="overtime_ability" widget="boolean_button"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_employee_tree_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.inherit.over_time</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="overtime_ability" widget="boolean_button"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="hr_employee_search_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.inherit.over_time</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[6]" position="after">
+                <filter name="over_time_ability_filter97" string="OverTime Ability"
+                        domain="[('overtime_ability', '=', True)]"/>
+            </xpath>
+            <xpath expr="//group[1]/filter[1]" position="after">
+                <filter name="over_time_ability_group" string="OverTime Ability" domain="[]"
+                        context="{'group_by': 'overtime_ability'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+        <field name="name">Employees</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">kanban,tree,form,activity,graph,pivot,hierarchy</field>
+        <field name="context">{'search_default_over_time_ability_filter97': 1}</field>
+    </record>
+
+
+</odoo>

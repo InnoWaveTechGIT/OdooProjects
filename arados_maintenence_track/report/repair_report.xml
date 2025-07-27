@@ -1,0 +1,532 @@
+<odoo>
+
+    <record id="action_report_repair_template" model="ir.actions.report">
+        <field name="name">Repair Report</field>
+        <field name="model">repair.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arados_maintenence_track.pdf_report_template</field>
+        <field name="report_file">arados_maintenence_track.pdf_report_template</field>
+        <field name="binding_model_id" ref="repair.model_repair_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="pdf_report_template">
+        <t t-name="arados_maintenence_track.pdf_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <div>
+                            <style>
+                                table {
+                                border-collapse: collapse;
+                                width: 100%;
+                                }
+
+                                table td {
+                                padding: 5px;
+                                text-align: center;
+                                }
+
+                                .checkbox-container {
+                                display: inline-block;
+                                margin-left: 20px;
+                                }
+
+                                body,
+                                html {
+                                margin: 0;
+                                padding: 0;
+                                }
+
+                                .page {
+                                margin: 0;
+                                padding: 0;
+                                height: 100vh;
+                                position: relative;
+                                }
+
+                                .header-container {
+                                margin: 0;
+                                padding: 0;
+                                }
+
+                                .header-container img {
+                                width: 100%;
+                                display: block; /* Ensure the image behaves as a block element */
+                                }
+                                .fixed-bottom-image {
+                                position: fixed;
+                                bottom: 10px;
+                                left: 0;
+                                width: 100%;
+                                height: 150px;
+                                display: block;
+                                margin-bottom: 50px;
+                                }
+                                .footer{
+                                margin-bottom: 50px;
+                                bottom: 10px;
+                                }
+
+
+                            </style>
+                            <div>
+                                <div class="header">
+                                    <img src="/arados_maintenence_track/static/header.png" alt="Header Image"
+                                         style="width: 100%;"/>
+                                </div>
+                                <table width="100%">
+                                    <tr style="background-color:black;color:white;" class="p-1">
+                                        <td style="text-align:left">
+                                            General Details
+                                        </td>
+                                        <td style="text-align:right">
+                                            بيانات عامة
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div style="width: 100%;">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>التاريخ</span>
+                                            <br/>
+                                            <strong>Date:
+
+
+                                            </strong>
+                                            <u style="text-decoration: underline; text-decoration-color: gray;">
+                                                <t t-esc="o.schedule_date.date()"/>
+                                            </u>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span>اسم المهندس</span>
+                                            <br/>
+                                            <strong>Eng name:
+
+                                            </strong>
+
+                                            <u style="text-decoration: underline; text-decoration-color: gray;">
+                                                <t t-esc="o.user_id.name"/>
+                                            </u>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span>رقم التقرير</span>
+                                            <br/>
+                                            <strong>Report No:
+
+                                            </strong>
+
+                                            <u style="text-decoration: underline; text-decoration-color: gray;">
+                                                <t t-esc="o.name"/>
+                                            </u>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <span>اسم العميل</span>
+                                            <br/>
+                                            <p>Customer Name:
+
+
+                                                <u style="text-decoration: underline; text-decoration-color: gray;">
+                                                    <t t-esc="o.partner_id.name"/>
+                                                </u>
+                                            </p>
+                                        </div>
+                                        <div class="col-6">
+                                            <span>رقم الفاتورة</span>
+                                            <br/>
+                                            <strong>INV NO: ................</strong>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <span>المنطقة</span>
+                                                    <br/>
+                                                    <span>Region:</span>
+                                                </div>
+                                                <div class="col-9"
+                                                     style="display: flex; align-items: flex-end;margin-top: 30px;">
+                                                    <t t-foreach="['East', 'West', 'Central', 'South']" t-as="region">
+                                                        <label style="margin-right: 20px; display: inline-block; vertical-align: bottom;">
+                                                            <input type="checkbox" t-att-checked="o.region == region"
+                                                                   disabled="disabled"/>
+                                                            <t t-esc="region"/>
+                                                        </label>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <span>المدينة</span>
+                                            <br/>
+                                            <strong>City:
+                                            </strong>
+                                            <u style="text-decoration: underline; text-decoration-color: gray;">
+                                                <t t-esc="o.partner_id.state_id.name"/>
+                                            </u>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <span>اسم الجهاز</span>
+                                        <br/>
+                                        <p>Equip:
+
+                                            <u style="text-decoration: underline; text-decoration-color: gray;">
+                                                <t t-esc="o.product_id.name"/>
+                                            </u>
+
+
+                                        </p>
+                                    </div>
+                                    <div class="col-4">
+                                        <span>رقم التسلسل</span>
+                                        <br/>
+                                        <p>S/N#:
+
+
+                                            <u style="text-decoration: underline; text-decoration-color: gray;">
+                                                <t t-esc="o.lot_id.name"/>
+                                            </u>
+
+                                        </p>
+                                    </div>
+                                    <div class="col-4">
+                                        <span>الشركة الصانعة</span>
+                                        <br/>
+                                        <strong>MFR:
+                                        </strong>
+                                        <u style="text-decoration: underline; text-decoration-color: gray;">
+                                            <t t-esc="o.product_id.country_of_origin.name"/>
+                                        </u>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!--                                <div class="col-2" style="display: flex; align-items: center; font-size: x-small">-->
+                                    <!--                                    <t t-foreach="['UNDER W.W.O.S.P']" t-as="region">-->
+                                    <!--                                        <tr style="border: none;">-->
+                                    <!--                                            <td style="border: none; padding: 0;width:30px">-->
+                                    <!--                                                <span>تحت الضمان بدون قطع الغيار</span>-->
+                                    <!--                                                <br/>-->
+                                    <!--                                                <p t-esc="region"/>-->
+                                    <!--                                            </td>-->
+                                    <!--                                            <td style="width: 40px; border: none; padding: 0;">-->
+                                    <!--                                                <input type="checkbox" t-att-checked="o.under_wwosr == True" disabled="disabled" style="transform: scale(0.7);"/>-->
+                                    <!--                                            </td>-->
+                                    <!--                                        </tr>-->
+                                    <!--                                    </t>-->
+                                    <!--                                </div>-->
+                                    <div class="col-2" style="display: flex; align-items: center; font-size: x-small">
+                                        <t t-foreach="['UNDER W.W.O.S.P']" t-as="region">
+                                            <tr style="border: none;">
+                                                <td style="border: none; padding: 0;">
+                                                    <span style="display: inline-block;">تحت الضمان بدون قطع الغيار
+                                                    </span>
+                                                    <br/>
+                                                    <t t-esc="region"/>
+                                                    <input type="checkbox" t-att-checked="o.under_wwosr == True"
+                                                           disabled="disabled"
+                                                           style="transform: scale(0.7); margin-left: 5px;"/>
+                                                    <!--<p t-esc="region" style="display: inline-block; margin-left: 5px;"/>-->
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </div>
+                                    <div class="col-2" style="display: flex; align-items: center; font-size: x-small">
+                                        <t t-foreach="['UNDER W.W.S.P']" t-as="region">
+                                            <tr style="border: none;">
+                                                <td style="border: none; padding: 0;">
+                                                    <span>تحت الضمان مع قطع الغيار</span>
+                                                    <br/>
+                                                    <t t-esc="region"/>
+                                                </td>
+                                                <td style="width: 50px; border: none; padding: 0;">
+                                                    <input type="checkbox" t-att-checked="o.under_wwsp == True"
+                                                           disabled="disabled" style="transform: scale(0.7);"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </div>
+                                    <div class="col-2" style="display: flex; align-items: center; font-size: x-small">
+                                        <t t-foreach="['P.P.M']" t-as="region">
+                                            <tr style="border: none;">
+                                                <td style="border: none; padding: 0;">
+                                                    <span>تركيب</span>
+                                                    <br/>
+                                                    <t t-esc="region"/>
+                                                </td>
+                                                <td style="width: 50px; border: none; padding: 0;">
+                                                    <input type="checkbox" t-att-checked="o.ppm == True"
+                                                           disabled="disabled" style="transform: scale(0.7);"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </div>
+                                    <div class="col-2" style="display: flex; align-items: center; font-size: x-small">
+                                        <t t-foreach="['INSTALLATION']" t-as="region">
+                                            <tr style="border: none;">
+                                                <td style="border: none; padding: 0;">
+                                                    <span>تركيب</span>
+                                                    <br/>
+                                                    <t t-esc="region"/>
+                                                </td>
+                                                <td style="width: 50px; border: none; padding: 0;">
+                                                    <input type="checkbox" t-att-checked="o.INSTALLATION == True"
+                                                           disabled="disabled" style="transform: scale(0.7);"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </div>
+                                    <div class="col-2" style="display: flex; align-items: center; font-size: x-small">
+                                        <t t-foreach="['CONTRACT']" t-as="region">
+                                            <tr style="border: none;">
+                                                <td style="border: none; padding: 0;">
+                                                    <span>عقد صيانة</span>
+                                                    <br/>
+                                                    <t t-esc="region"/>
+                                                </td>
+                                                <td style="width: 50px; border: none; padding: 0;">
+                                                    <input type="checkbox" t-att-checked="o.CONTRACT == True"
+                                                           disabled="disabled" style="transform: scale(0.7);"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </div>
+                                    <div class="col-2" style="display: flex; align-items: center; font-size: x-small">
+                                        <t t-foreach="['S.INVOICE']" t-as="region">
+                                            <tr style="border: none;">
+                                                <td style="border: none; padding: 0;">
+                                                    <span>فاتورة</span>
+                                                    <br/>
+                                                    <span t-esc="region"/>
+                                                </td>
+                                                <td style="width: 50px; border: none; padding: 0;">
+                                                    <input type="checkbox" t-att-checked="o.INVOICE == True"
+                                                           disabled="disabled" style="transform: scale(0.7);"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </div>
+                                </div>
+                                <!--                        <div class="row">-->
+                                <!--                        </div>-->
+                                <table width="100%">
+                                    <tr style="background-color:black;color:white;" class="p-1">
+                                        <td style="text-align:left">
+                                            Work Details
+                                        </td>
+                                        <td style="text-align:right">
+                                            تفاصيل العمل
+                                        </td>
+                                    </tr>
+                                    <tbody>
+                                        <t t-set="order_line_number" t-value="1"/>
+                                        <t t-foreach="o.work_details_ids" t-as="line">
+                                            <tr>
+                                                <td colspan="2" style="border: 1px dotted;">
+                                                    <span style="float: right;">
+                                                        <t t-esc="order_line_number"/>
+                                                    </span>
+                                                    <p style="margin-right: 20px;text-align: right;">
+                                                        <t t-esc="line.name"/>
+                                                    </p>
+                                                    <!--                        <span style="float: right;"><t t-esc="order_line_number" t-options='{"widget": "arabic"}'/></span>-->
+                                                    <t t-set="order_line_number" t-value="order_line_number + 1"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <table width="100%">
+                                    <tr style="background-color:black;color:white;" class="p-1">
+                                        <td style="text-align:left">
+                                            Action Taken
+                                        </td>
+                                        <td style="text-align:right">
+                                            ما تم انجازه
+                                        </td>
+                                    </tr>
+                                    <tbody>
+                                        <t t-set="order_line_number" t-value="1"/>
+                                        <t t-foreach="o.action_taken_ids" t-as="line">
+                                            <tr>
+                                                <td colspan="2" style="border: 1px dotted;">
+                                                    <span style="float: right;">
+                                                        <t t-esc="order_line_number"/>
+                                                    </span>
+                                                    <p style="margin-right: 20px;text-align: right;">
+                                                        <t t-esc="line.name"/>
+                                                    </p>
+                                                    <!--                        <span style="float: right;"><t t-esc="order_line_number" t-options='{"widget": "arabic"}'/></span>-->
+                                                    <t t-set="order_line_number" t-value="order_line_number + 1"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <div class="row" style="width:100%">
+                                    <div class="col-6">
+                                        <table width="100%">
+                                            <tr style="background-color:black;color:white;" class="p-1">
+                                                <td style="text-align:left">
+                                                    Parts Used
+                                                </td>
+                                                <td style="text-align:right"/>
+                                                <td style="text-align:right">
+                                                    القطع المستخدمة
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table style="width: 100%;">
+                                            <!-- Table headers -->
+                                            <tr>
+                                                <th>
+                                                    <span>رقم القطعة</span>
+                                                    <br/>
+                                                    <p>Part NO</p>
+                                                </th>
+                                                <th>
+                                                    <span>وصف القطعة</span>
+                                                    <br/>
+                                                    <p>Part Description</p>
+                                                </th>
+                                                <th>
+                                                    <span>
+                                                        الكمية
+                                                    </span>
+                                                    <br/>
+                                                    <p>QTY</p>
+                                                </th>
+                                            </tr>
+                                            <t t-foreach="o.move_ids" t-as="move_line">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="move_line.product_id.barcode"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="move_line.product_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="move_line.quantity"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </table>
+                                    </div>
+                                    <div class="col-6">
+                                        <table width="100%">
+                                            <tr style="background-color:black;color:white;" class="p-1">
+                                                <td style="text-align:left">
+                                                    Parts
+                                                </td>
+                                                <td style="text-align:right">
+                                                    قطع الغيار المطلوبة
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table style="width: 100%;">
+                                            <!-- Table headers -->
+                                            <tr>
+                                                <th>
+                                                    <span>رقم القطعة</span>
+                                                    <br/>
+                                                    <p>Part NO</p>
+                                                </th>
+                                                <th>
+                                                    <span>وصف القطعة</span>
+                                                    <br/>
+                                                    <p>Part Description</p>
+                                                </th>
+                                                <th>
+                                                    <span>
+                                                        الكمية
+                                                    </span>
+                                                    <br/>
+                                                    <p>QTY</p>
+                                                </th>
+                                            </tr>
+                                            <t t-foreach="o.parts_ids" t-as="move_line">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="move_line.product_id.barcode"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="move_line.product_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="move_line.quantity"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <table width="100%">
+                                    <tr style="background-color:black;color:white;" class="p-1">
+                                        <td style="text-align:left">
+                                            Signature
+                                        </td>
+                                        <td style="text-align:right">
+                                            التوقيعات
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 100%;">
+                                    <!-- Table headers -->
+                                    <tr>
+                                        <th style="width: 33%; text-align: center;">
+                                            <span>توقيع العميل</span>
+                                            <br/>
+                                            <p>Director sign</p>
+                                        </th>
+                                        <th style="width: 33%; text-align: center;">
+                                            <span>ختم العميل</span>
+                                            <br/>
+                                            <p>Stamp</p>
+                                        </th>
+                                        <th style="width: 33%; text-align: center;">
+                                            <span>توقيع القائم بالعمل</span>
+                                            <br/>
+                                            <p>Engineer Sign</p>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 33%;  height: 33%; text-align: center;">
+
+                                        </td>
+                                        <td style="width: 33%; height: 33%; text-align: center;">
+
+                                        </td>
+                                        <td style="display: flex;  height: 33%;align-items: center">
+                                            <t t-if="o.user_id.sign_signature">
+                                                <img t-att-src="image_data_uri(o.user_id.sign_signature)"
+                                                     style="max-height: 2cm; max-width: 6cm"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="footer" style="width: 100%; bottom: 10px; height: auto; overflow: visible;">
+                                <img src="/arados_maintenence_track/static/footer.png" alt="Footer Image"
+                                     style="width: 100%; height: 300px; margin-bottom: 50px;"/>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

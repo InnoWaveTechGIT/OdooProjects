@@ -1,0 +1,58 @@
+<!-- events_school_app_views.xml -->
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_events_school_app_form" model="ir.ui.view">
+            <field name="name">events.school.app.form</field>
+            <field name="model">events.school.app</field>
+            <field name="arch" type="xml">
+                <form string="Events School App">
+                    <sheet>
+                        <group>
+                            <field name="event_type" />
+                            <field name="name" />
+                            <field name="description" />
+                            <field name="start_time" />
+                            <field name="end_time" />
+                            <!-- <field name="status" /> -->
+                            <field name="class_id"
+                                attrs="{'invisible': [('event_type', '=', 'Public')]}" />
+                            <field name="student_ids"
+                                attrs="{'invisible': [('event_type', '=', 'Public')]}"
+                                widget="many2many_tags" />
+                            <field name="image" widget="image" class="oe_avatar"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_events_school_app_tree" model="ir.ui.view">
+            <field name="name">events.school.app.tree</field>
+            <field name="model">events.school.app</field>
+            <field name="arch" type="xml">
+                <tree string="Events School App">
+                    <field name="event_type" />
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="start_time" />
+                    <field name="end_time" />
+                    <field name="image" widget="image" class="oe_avatar"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_events_school_app" model="ir.actions.act_window">
+            <field name="name">Events School App</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">events.school.app</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_events_school_app_list" name="Events" parent="menu_temperature"
+            action="action_events_school_app" />
+    </data>
+</odoo>

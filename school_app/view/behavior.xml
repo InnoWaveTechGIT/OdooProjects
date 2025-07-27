@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_student_behavior_form" model="ir.ui.view">
+            <field name="name">student.behavior.form</field>
+            <field name="model">student.behavior</field>
+            <field name="arch" type="xml">
+                <form string="Student Behavior">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="image" widget="image" class="oe_avatar"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_student_behavior_tree" model="ir.ui.view">
+            <field name="name">student.behavior.tree</field>
+            <field name="model">student.behavior</field>
+            <field name="arch" type="xml">
+                <tree string="Student Behavior">
+                    <field name="name"/>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_student_behavior" model="ir.actions.act_window">
+            <field name="name">Student Behavior</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">student.behavior</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_student_behavior_list" name="Student Behavior" parent="menu_temperature"
+                  action="action_student_behavior"/>
+    </data>
+</odoo>

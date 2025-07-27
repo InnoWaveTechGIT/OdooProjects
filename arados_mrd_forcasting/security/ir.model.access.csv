@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+id_mrd_forcasting,name_mrd_forcasting,model_mrd_forcasting,,1,1,1,1
+id_add_month_wizard,name_add_month_wizard,model_add_month_wizard,,1,1,1,1
+id_add_goal_wizard,name_add_goal_wizard,model_add_goal_wizard,,1,1,1,1
+id_add_vendor_wizard,name_add_vendor_wizard,model_add_vendor_wizard,,1,1,1,1
+
