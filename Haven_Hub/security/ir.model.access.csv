@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_user_token_haven,user_token_haven,model_user_token_haven,,1,1,1,1
+access_about_us_haven,about_us_haven,model_about_us_haven,,1,1,1,1
+
+

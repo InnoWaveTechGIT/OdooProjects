@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_tender_order_form12" model="ir.ui.view">
+        <field name="name">nupco.orders</field>
+        <field name="model">nupco.orders</field>
+        <field name="arch" type="xml">
+            <form string="Tender">
+                <header>
+                    <button name="generate_excel_file" string="Export" type="object" class="btn-primary"/>
+                    <button name="open_excel_import_wizard" string="Import" type="object" class="btn-primary"/>
+                    <button name="get_total_page_awarded" string="Calculate total" type="object" class="btn-primary"/>
+                    <button name="new_quotaion" string="New Quote" type="object" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button class="oe_stat_button" type="object" icon="fa-shopping-cart"
+                                name="action_open_sale_order" invisible="not len_order_id">
+                            <field string="Sale Orders" name="len_order_id" widget="statinfo"/>
+
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="action_open_tender" string="Tender" invisible="not tender_id">
+
+                        </button>
+                    </div>
+
+
+                    <group>
+                        <group>
+
+                            <field name="name" invisible="1"/>
+                            <field name="tender_id" invisible="1"/>
+                            <field name="customer_id"/>
+                            <field name="len_order_id" invisible="1"/>
+                            <field name="po_number"/>
+                            <field name="tender_no"/>
+                            <field name="responsible"/>
+                            <field name="date_from" widget="daterange" options='{"end_date_field": "date_to"}'
+                                   required="date_from or date_to"/>
+                            <field name="date_to" invisible="1" required="date_from"/>
+                            <field name="validity"/>
+                        </group>
+                        <group>
+                            <field name="tags_ids" widget='many2many_tags'/>
+                            <field name="customer_ids" widget='many2many_tags' invisible="1"/>
+                            <field name="company_id"/>
+                            <field name="sale_ids" invisible="1" widget='many2many_tags'/>
+                            <field name="total_award_values"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Win Items">
+                            <field name="nubco_ids" widget="one2many_list">
+                                <list editable="top">
+                                    <field name="customer_id"/>
+                                    <field name="customer_ref"/>
+                                    <field name="etimad"/>
+                                    <field name="contract_item_no"/>
+                                    <field name="purchasing_document"/>
+                                    <field name="po_item"/>
+                                    <field name="nubco_serial" string="NUPCO Trade Code"/>
+                                    <field name="cust_gen_code"/>
+                                    <field name="nubco_material"/>
+                                    <field name="nubco_material_des" string="Generic Mat Descript"/>
+                                    <field name="quantity" string="Ordered Quantity"/>
+                                    <field name="uom_id"/>
+                                    <field name="price" string="Net Price"/>
+                                    <field name="per_unit"/>
+                                    <field name="net_price_per"/>
+                                    <field name="net_order_value"/>
+                                    <field name="tax_value"/>
+                                    <field name="vat_id" string="Tax Percentage"/>
+                                    <field name="delivery_address_id"/>
+                                    <field name="nupco_delivery_date"/>
+                                    <field name="delivery_no"/>
+                                    <field name="plant"/>
+                                    <field name="product_id"/>
+                                    <field name="sd" column_invisible="1"/>
+                                    <field name="manufacturer_id"/>
+                                    <field name="manufacturing_country"/>
+                                    <field name="product_packaging" domain="[('product_id', '=', product_id)]"/>
+                                    <field name="moq"/>
+                                    <field name="volume"/>
+                                    <field name="manufacture_process_local"/>
+                                    <field name="temp"/>
+                                    <field name="first_lead"/>
+                                    <field name="lead_time"/>
+                                    <field name="max_num_of_shipp"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Total">
+                            <field name="nubco_total_ids" widget="one2many_list">
+                                <list editable="top">
+                                    <field name="customer_id"/>
+                                    <field name="total_award_values"/>
+                                </list>
+                            </field>
+
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Define the list view for the Tender model -->
+    <record id="view_tender_order_list12" model="ir.ui.view">
+        <field name="name">tender.list</field>
+        <field name="model">nupco.orders</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="customer_id"/>
+                <field name="po_number"/>
+                <field name="responsible"/>
+                <field name="company_id"/>
+                <field name="total_award_values"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_order_tender234" model="ir.actions.act_window">
+        <field name="name">NUPCO Orders</field>
+        <field name="res_model">nupco.orders</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_tender_order_list12')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_tender_order_form12')})]"/>
+    </record>
+
+    <menuitem id="menu_tender2" name="NUPCO Orders" parent="menu_tender" action="action_order_tender234"/>
+</odoo>

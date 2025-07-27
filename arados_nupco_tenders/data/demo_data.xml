@@ -1,0 +1,18 @@
+<odoo>
+    <data noupdate="1">
+        <record model="documents.document" id="folder_data">
+            <field name="name">Tenders</field>
+            <field name="type">folder</field>
+            <field name="access_via_link">view</field>
+            <field name="is_pinned_folder">True</field>
+        </record>
+        <record model="res.config.settings" id="res_config_settings_custom_adrerss">
+            <field name="group_sale_delivery_address" eval="1"/>
+        </record>
+        <function model="res.config.settings" name="execute">
+            <value eval="[ref('res_config_settings_custom_adrerss')]"/>
+        </function>
+
+    </data>
+</odoo>
+

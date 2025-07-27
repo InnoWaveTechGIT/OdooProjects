@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="action_report_account_activities_template" model="ir.actions.report">
+            <field name="name">Account Activities</field>
+            <field name="model">loyalty.history</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">mazady_reports.external_layout_account_activity_report</field>
+            <field name="report_file">mazady_reports.external_layout_account_activity_report</field>
+            <field name="binding_model_id" ref="loyalty.model_loyalty_history"/>
+            <field name="binding_type">report</field>
+        </record>
+        <template id="external_layout_account_activity_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <h2 style="text-align: center;">Account Activity Details</h2>
+
+                    <style>
+                        .partner-table {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                        width: 100%;
+                        margin-bottom: 10px;
+                        }
+                        .partner-table th, .partner-table td {
+                        border: 1px solid black;
+                        text-align: center;
+                        padding: 8px;
+                        }
+                        .summary-table {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                        width: 50%;
+                        margin-bottom: 30px;
+                        float: right;
+                        }
+                        .summary-table th, .summary-table td {
+                        border: 1px solid black;
+                        text-align: center;
+                        padding: 8px;
+                        font-weight: bold;
+                        }
+                        .partner-header {
+                        background-color: #f2f2f2;
+                        padding: 10px;
+                        margin: 20px 0 10px 0;
+                        font-weight: bold;
+                        font-size: 1.2em;
+                        width: 100%;
+                        clear: both;
+                        }
+                        .page {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                        width: 100%;
+                        }
+                        .summary-section {
+                        width: 100%;
+                        margin-bottom: 30px;
+                        clear: both;
+                        }
+                        .partner-section {
+                        width: 100%;
+                        clear: both;
+                        }
+                    </style>
+
+                    <div class="page">
+                        <!-- First group records by partner -->
+                        <t t-set="grouped_data" t-value="{}"/>
+                        <t t-foreach="docs" t-as="record">
+                            <t t-set="partner_name" t-value="record.partner_id.name or 'Unknown'"/>
+                            <t t-if="grouped_data.get(partner_name) is None">
+                                <t t-set="grouped_data" t-value="{**grouped_data, **{partner_name: []}}"/>
+                            </t>
+                            <t t-set="grouped_data"
+                               t-value="{**grouped_data, **{partner_name: grouped_data[partner_name] + [record]}}"/>
+                        </t>
+
+                        <!-- Then display each partner's section -->
+                        <t t-foreach="grouped_data.items()" t-as="partner">
+                            <div class="partner-section">
+                                <!-- Partner header moved here, outside both tables -->
+                                <div class="partner-header">
+                                    Partner:
+                                    <span t-esc="partner[0]"/>
+                                </div>
+
+                                <!-- Transaction table -->
+                                <table class="partner-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Withdraw </th>
+                                            <th>Cancelled Amount </th>
+                                            <th>Deposit</th>
+                                            <th>Transaction Date</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="counter" t-value="1"/>
+
+
+                                        <t t-foreach="partner[1]" t-as="record">
+                                            <tr>
+                                                <td>
+                                                    <span t-esc="counter"/>
+                                                </td>
+                                                <t t-set="counter" t-value="counter+1"/>
+                                                <td>
+                                                    <span t-field="record.used"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="record.cancelled_amount"/>
+
+                                                </td>
+                                                <td>
+                                                    <span t-field="record.issued"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="record.create_date"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="record.description"/>
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    <span t-field="record.status"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+
+                                <!-- Summary table -->
+                                <div class="summary-section">
+                                    <table class="summary-table">
+                                        <tbody>
+                                            <t t-set="total_issued" t-value="0"/>
+                                            <t t-set="total_used" t-value="0"/>
+                                            <t t-foreach="partner[1]" t-as="record">
+                                                <t t-set="total_issued" t-value="total_issued + (record.issued or 0)"/>
+                                                <t t-set="total_used" t-value="total_used + (record.used or 0)"/>
+                                            </t>
+                                            <tr>
+                                                <th>Summary</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Deposit</td>
+                                                <td>
+                                                    <span t-esc="total_issued"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Withdraw</td>
+                                                <td>
+                                                    <span t-esc="total_used"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total</td>
+                                                <td>
+                                                    <span t-esc="record.card_id.total_balance"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Blocked</td>
+                                                <td>
+                                                    <span t-esc="record.card_id.blocked_balance"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Available</td>
+                                                <td>
+                                                    <span t-esc="record.card_id.points_display"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

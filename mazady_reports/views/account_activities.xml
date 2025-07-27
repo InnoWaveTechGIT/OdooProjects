@@ -1,0 +1,74 @@
+<odoo>
+    <record id="search_view_for_loyalty_history" model="ir.ui.view">
+        <field name="name">loyalty.history</field>
+        <field name="model">loyalty.history</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="create_date" string="Transaction Date"/>
+                <field name="description"/>
+                <field name="partner_id"/>
+                <filter string="wallet_deposit_transaction" name="desc1"
+                        domain="[('description','=', 'wallet_deposit_transaction')]"/>
+                <filter string="wallet_withdraw_request" name="desc2"
+                        domain="[('description','=', 'wallet_withdraw_request')]"/>
+                <filter string="wallet_withdraw_transaction_for_subscription" name="desc3"
+                        domain="[('description','=', 'wallet_withdraw_transaction_for_subscription')]"/>
+                <filter string="wallet_withdraw_transaction_for_paid_feature" name="desc4"
+                        domain="[('description','=', 'wallet_withdraw_transaction_for_paid_feature')]"/>
+                <filter string="contract_withdraw_transaction" name="desc5"
+                        domain="[('description','=', 'contract_withdraw_transaction')]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Transaction Date" name="Create Date" context="{'group_by': 'create_date'}"/>
+                    <filter string="Partner" name="partner" context="{'group_by': 'partner_id'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="view_account_activities_tree_custom123" model="ir.ui.view">
+        <field name="name">Account Activities</field>
+        <field name="model">loyalty.history</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="id"/>
+                <field name="used" string="Withdraw"/>
+                <field name="cancelled_amount"/>
+                <field name="issued" string="Deposit"/>
+                <field name="cancelled_amount"/>
+                <field name="create_date" string="Transaction Date"/>
+                <field name="partner_id_subid" string="User ID"/>
+                <field name="partner_id" string="User Name"/>
+                <field name="description"/>
+                <field name="status"/>
+
+
+
+            </list>
+
+        </field>
+    </record>
+
+
+    <record id="account_activities_action1" model="ir.actions.act_window">
+        <field name="name">Account Activities</field>
+        <field name="res_model">loyalty.history</field>
+        <field name="view_mode">list</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_account_activities_tree_custom123')})]
+            "/>
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <h1>No Coupons Found.</h1>
+            <p>There haven't been any coupons generated yet.</p>
+        </field>
+    </record>
+
+
+    <menuitem id="menu_account_activities"
+              action="account_activities_action1"
+              parent="menu_Doworks_reports"
+              sequence="3"/>
+</odoo>

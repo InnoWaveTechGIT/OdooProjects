@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_excel_export_wizard_form" model="ir.ui.view">
+            <field name="name">excel.export.wizard.form</field>
+            <field name="model">excel.export.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Import Excel Data">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+
+                            </group>
+                            <group>
+                                <field name="loyality_id" invisible="1"/>
+                                <field name="partner_id" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="export_excel_data_from_contact" string="Export" type="object" class="btn-primary" invisible="loyality_id"/>
+                        <button name="export_excel_data" string="Export" type="object" class="btn-primary" invisible="partner_id"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_tender_lastprice_list123" model="ir.ui.view">
+        <field name="name">tender.list</field>
+        <field name="model">tender.planner.last.price</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group string="Product">
+                        <field name="part_no"/>
+                        <field name="product_id"/>
+                        <field name="uom_id"/>
+                        <field name="price"/>
+                        <field name="discount"/>
+                        <field name="NET"/>
+                        <field name="supplier_id" readonly="1"/>
+
+                    </group>
+                    <group string="NUPCO Product">
+                        <field name="nubco_order_line_id" invisible="1"/>
+                        <field name="Nupco_Code"/>
+                        <field name="description"/>
+                        <field name="group"/>
+                        <field name="init_qty"/>
+                        <field name="nupco_uom"/>
+                    </group>
+
+                </group>
+                <notebook>
+                    <page string="Tenders">
+                        <field name="tender_ids">
+                            <list editable="top">
+                                <field name="tender_id"/>
+                                <field name="price_1"/>
+                                <field name="price_2"/>
+                                <field name="company_price"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Supplier Price Each">
+                        <group>
+                            <group>
+                                <field name="supplier_price"/>
+                                <field name="currency_id"/>
+                                <field name="landed_cost"/>
+                                <field name="Finance_fator"/>
+                            </group>
+
+                            <group>
+                                <field name="bm_factor"/>
+                                <field name="unit_cost_in_SAR"/>
+                                <field name="total_cost"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_tender_lastprice123452" model="ir.actions.act_window">
+        <field name="name">Tenders Planner</field>
+        <field name="res_model">tender.planner.last.price</field>
+        <field name="view_mode">form</field>
+
+    </record>
+
+
+    <record id="view_tender_Nego_list123" model="ir.ui.view">
+        <field name="name">tender.list</field>
+        <field name="model">price.negotiation</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="prev_price"/>
+                        <field name="curr_price"/>
+
+                    </group>
+                    <group>
+
+                    </group>
+
+                </group>
+
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_tender_Nego123452" model="ir.actions.act_window">
+        <field name="name">Negotiation Price</field>
+        <field name="res_model">price.negotiation</field>
+        <field name="view_mode">form</field>
+
+    </record>
+</odoo>

@@ -1,0 +1,22 @@
+<odoo>
+  <data>
+
+    <record id="res_partner_view_form_inherit1" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="open_excel_export_wizard" data-hotkey="q" string="Export Wallet excel"
+                            class="btn-primary" type="object"/>
+                </header>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+  </data>
+</odoo>

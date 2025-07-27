@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+        <record id="service_request_view_pivot" model="ir.ui.view">
+        <field name="name">account.move.line.view.pivot</field>
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Expense">
+                <field name="date" type="col" interval="month"/>
+                <field name="group" type="row"/>
+                <field name="balance" type="measure"/>
+                <field name="balance_percentage" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+        <record model="ir.ui.view" id="custom_report_graph_view">
+                            <field name="name">account.move.line.view.pivot</field>
+                            <field name="model">account.move.line</field>
+                            <field name="arch" type="xml">
+                                    <graph >
+                                        <field name="balance_percentage" group="True"/>
+                                        <field name="balance" operator="*"/>
+                                    </graph>
+                            </field>
+                     </record>
+       <record id="action_account_move_line_report" model="ir.actions.act_window">
+            <field name="name">Custom Report</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_mode">pivot,graph</field>
+            <field name="domain">[('account_type', 'in', ['expense_depreciation', 'expense'])]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('service_request_view_pivot')}),
+                (0, 0, {'view_mode': 'graph', 'view_id': ref('custom_report_graph_view')})]"/>
+        </record>
+        <menuitem id="custom_report_pivot" name="Custom Report" parent="accountant.menu_accounting" />
+        <menuitem id="custom_report_pivot1" name="Expenses" parent="custom_report_pivot" />
+        <menuitem id="custom_report_pivot2" name="Expense Summary" parent="custom_report_pivot1" action="action_account_move_line_report"/>
+
+
+        <record id="view_account_move_formv_inherit" model="ir.ui.view">
+            <field name="name">sale.order.tree.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@id='invoice_tab'][1]/field[1]/list[1]" position="inside">
+                        <field name="balance" column_invisible="True"/>
+                                        <field name="balance_percentage" column_invisible="True"/>
+                                        <field name="balance_percentage1" column_invisible="True"/>
+
+
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

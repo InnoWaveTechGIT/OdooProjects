@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="subscription_plan_day" model="sale.subscription.plan" forcecreate="0">
+            <field name="name">Daily</field>
+            <field name="billing_period_value">1</field>
+            <field name="billing_period_unit">day</field>
+        </record>
+
+        <record id="subscription_plan_week" model="sale.subscription.plan" forcecreate="0">
+            <field name="name">Weekly</field>
+            <field name="billing_period_value">1</field>
+            <field name="billing_period_unit">week</field>
+        </record>   
+
+        <record id="day_product" model="product.template" forcecreate="0">
+            <field name="name">Mark Service (Daily)</field>
+            <field name="subscription_unit">day</field>
+            <field name="recurring_invoice">True</field>
+            <field name="type">service</field>
+        </record> 
+
+        <record id="week_product" model="product.template" forcecreate="0">
+            <field name="name">Mark Service (Weekly)</field>
+            <field name="subscription_unit">week</field>
+            <field name="recurring_invoice">True</field>
+            <field name="type">service</field>
+        </record> 
+
+        <record id="month_product" model="product.template" forcecreate="0">
+            <field name="name">Mark Service (Monthly)</field>
+            <field name="subscription_unit">month</field>
+            <field name="recurring_invoice">True</field>
+            <field name="type">service</field>
+        </record> 
+
+        <record id="year_product" model="product.template" forcecreate="0">
+            <field name="name">Mark Service (Yearly)</field>
+            <field name="subscription_unit">year</field>
+            <field name="recurring_invoice">True</field>
+            <field name="type">service</field>
+        </record> 
+
+        <record id="contract_product" model="product.template" forcecreate="0">
+            <field name="name">Contract</field>
+            <field name="is_contract">True</field>
+            <field name="type">service</field>
+        </record> 
+
+        <record id="commission_product" model="product.template" forcecreate="0">
+            <field name="name">Commission</field>
+            <field name="is_commission">True</field>
+            <field name="type">service</field>
+        </record> 
+        
+    </data>
+</odoo>

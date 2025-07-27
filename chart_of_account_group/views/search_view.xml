@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+       
+
+    <record id="tree_view_chart_of_account" model="ir.ui.view">
+        <field name="name">account.account.operations.tree.inherit</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[13]" position="after">
+                
+                <field name="group_maz" column_invisible="1"/>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="search_view_chart_of_account" model="ir.ui.view">
+        <field name="name">account.account.operations.search.inherit</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[1]/filter[1]" position="after">
+                <filter string="Group" name="Group" domain="" context="{'group_by':'group_maz'}"/>
+
+            </xpath>
+        </field>
+    </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,90 @@
+<odoo>
+  <data>
+
+    <record id="loyalty_card_view_form_inherit" model="ir.ui.view">
+        <field name="name">loyalty.card.view.form.inherit</field>
+        <field name="model">loyalty.card</field>
+        <field name="inherit_id" ref="loyalty.loyalty_card_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="before">
+                <group>
+                    <!-- <label string="Blocked Balance" for="blocked_balance"/> -->
+                    <field name="blocked_balance" readonly="1"/>
+                    <!-- <label string="Blocked Deposit Balance" for="blocked_deposit_balance"/> -->
+                    <field name="blocked_deposit_balance" readonly="1"/>                    
+                </group>
+            </xpath>
+           <!-- <xpath expr="//field[@name='history_ids']//list//field[@name='order_id']" position="before">
+               <field name="order_model"/>
+           </xpath>  -->
+           <xpath expr="//field[@name='history_ids']//list//field[@name='issued']" position="replace">
+               <field name="issued" sum="Total"/>
+           </xpath>            
+           <xpath expr="//field[@name='history_ids']//list//field[@name='used']" position="replace">
+               <field name="used" sum="Total"/>
+           </xpath>                      
+           <xpath expr="//field[@name='history_ids']//list//field[@name='used']" position="after">
+               <field name="withdraw_request" sum="Total"/>
+               <field name="deposit_request" sum="Total"/>
+               <field name="cancelled_amount" sum="Total"/>
+           </xpath>
+           <xpath expr="//field[@name='history_ids']//list//field[@name='create_date']" position="before">
+               <field name="status"/>
+           </xpath>           
+        </field>
+    </record>
+
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">view.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">          
+            <xpath expr="//field[@name='category_id']" position="after">           
+                <field name="subID" readonly="1"/>
+                <field name="shipping_company" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_only_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.only.form.view.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">          
+            <xpath expr="//field[@name='default_code']" position="after">           
+                <field name="subscription_unit"/>
+            </xpath>
+            <xpath expr="//field[@name='default_code']" position="after">           
+                <field name="seller_id" readonly="1"/>
+                <field name="mazaady_product_id" readonly="1"/>
+            </xpath>            
+        </field>
+    </record>
+
+    <record id="view_account_journal_form_inherit" model="ir.ui.view">
+        <field name="name">view.account.journal.form.inherit</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">          
+            <xpath expr="//field[@name='type']" position="after">           
+                <field name="journal_type" string="Journal Type"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_payment_form_inherit" model="ir.ui.view">
+        <field name="name">view.account.payment.form.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">           
+                <field name="ref_model" invisible="1"/>
+            </xpath>        
+            <field name="memo" position="attributes">
+                <attribute name="readonly">[ref_model != False]</attribute>
+            </field>
+        </field>
+    </record>
+
+  </data>
+</odoo>

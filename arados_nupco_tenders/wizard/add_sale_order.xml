@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_add_sale_order_wizard_form" model="ir.ui.view">
+        <field name="name">custom.quote.wizard.form</field>
+        <field name="model">add.sale.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="account_id" readonly="1" invisible="1"/>
+                    <field name="action" widget="radio"/>
+                    <field name="date_from" widget="daterange" options='{"end_date_field": "date_to"}'
+                           required="date_from or date_to" invisible="action == '2'"/>
+                    <field name="date_to" invisible="1" required="date_from"/>
+                    <field name="ref" invisible="action == '2'"/>
+                    <field name="sale_id" domain="[('id', '=', sale_ids)]" invisible="action == '1'"/>
+                    <field name="sale_ids" widget="many2many_tags" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="link_with_saleorder" string="Add" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

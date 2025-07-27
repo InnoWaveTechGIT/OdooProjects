@@ -1,0 +1,80 @@
+<odoo>
+
+    <record id="sales_statment_search_view_inherit" model="ir.ui.view">
+        <field name="name">sale.subscription.report.search.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="product_Description"/>
+                <field name="product_id"/>
+                <field name="tax_id"/>
+                <field name="partner_id"/>
+                <filter name="invoice_date" string="Order Date" date="date_order"/>
+                <filter string="Paid" domain="[('service_type', '=', 'paid_feature')]" name="my_sale_orders_filter"/>
+                <filter string="Subscription" domain="[('service_type', '=', 'subscription')]" name="my_sale_orders_filter"/>
+            </xpath>
+
+        </field>
+    </record>
+<record id="sale_subscription_primary_form_view_inherit1" model="ir.ui.view">
+    <field name="name">sale.order.view.form.inherit</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//sheet[1]/group[1]/group[2]" position="inside">
+            <field name="product_id" invisible="1"/>
+            <field name="product_Description" invisible="1"/>
+            <field name="Price_unit" invisible="1"/>
+            <field name="tax_id" invisible="1"/>
+
+            <field name="Product_uom_qty" invisible="1"/>
+            <field name="price_total" invisible="1"/>
+        </xpath>
+
+    </field>
+</record>
+
+
+<record id="sale_subscription_report_analysis_view_tree123" model="ir.ui.view">
+    <field name="name">sale.subscription.report.view.list</field>
+    <field name="model">sale.order</field>
+    <field name="arch" type="xml">
+        <list string="Subscription Analysis" create="0" delete="0"
+              type="object">
+            <field name="date_order"/>
+            <field name="service_type"/>
+            <field name="origin_order_id" optional="hide"/>
+            <field name="name"/>
+            <field name="partner_sub_id"/>
+            <field name="partner_id"/>
+            <field name="product_id"/>
+            <field name="product_Description"/>
+            <field name="Price_unit"/>
+            <field name="tax_id"/>
+            <field name="price_tax"/>
+            <field name="Product_uom_qty"/>
+            <field name="price_total"/>
+
+        </list>
+    </field>
+</record>
+<record id="sale_subscription_report_analysis_action1" model="ir.actions.act_window">
+<field name="name">Sales Statement Report</field>
+<field name="res_model">sale.order</field>
+<field name="view_mode">list,form</field>
+<field name="view_ids" eval="[(5, 0, 0),
+    (0, 0, {'view_mode': 'list', 'view_id': ref('sale_subscription_report_analysis_view_tree123')}),
+    (0, 0, {'view_mode': 'form', 'view_id': ref('sale.view_order_form')})
+]"/>
+<field name="context">{'create': False, 'search_default_filter_progress': 1,
+    'search_default_filter_paused': 1, 'search_default_recurring': 1, 'search_default_non_recurring': 0}</field>
+<field name="domain">[('is_subscription', '=', True), ('subscription_state', 'not in', ['2_renewal', '5_renewed'])]</field>
+</record>
+
+
+<menuitem id="menu_sale_subscription_report"
+          action="sale_subscription_report_analysis_action1"
+          parent="menu_Doworks_reports"
+          sequence="5"/>
+</odoo>

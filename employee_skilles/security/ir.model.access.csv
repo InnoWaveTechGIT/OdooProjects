@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_skill_manager,employee.skill,model_employee_skill,hr.group_hr_manager,1,1,1,1
+access_employee_skill_line_manager,employee.skill.line,model_employee_skill_line,hr.group_hr_manager,1,1,1,1
+access_employee_skill_wizard,employee_skill_wizard,model_employee_skill_wizard,hr.group_hr_manager,1,1,1,1
+
+
+access_employee_skill_manager1,employee.skill,model_employee_skill,hr.group_hr_user,1,0,0,0
+access_employee_skill_line_manager1,employee.skill.line,model_employee_skill_line,hr.group_hr_user,1,0,0,0
+access_employee_skill_wizard1,employee_skill_wizard,model_employee_skill_wizard,hr.group_hr_user,0,0,0,0
+

@@ -1,0 +1,43 @@
+<odoo>
+    <record id="loyalty_card_view_form_inherit1" model="ir.ui.view">
+        <field name="name">loyalty.card.view.form.inherit</field>
+        <field name="model">loyalty.card</field>
+        <field name="inherit_id" ref="loyalty.loyalty_card_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="open_excel_export_wizard" data-hotkey="q" string="Export"
+                            class="btn-primary" type="object"/>
+                </header>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="loyalty_card_action1" model="ir.actions.act_window">
+        <field name="name">Customer Wallet</field>
+        <field name="res_model">loyalty.card</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <h1>No Coupons Found.</h1>
+            <p>There haven't been any coupons generated yet.</p>
+        </field>
+    </record>
+    <menuitem id="menu_Doworks_reports"
+              name="Dowroks Reports"
+              parent="accountant.menu_accounting"
+              sequence="5"/>
+
+    <menuitem id="menu_loyalty_card_customer_and_vendors1"
+              action="loyalty_card_action1"
+              parent="account.menu_finance_receivables"
+              sequence="1"/>
+
+    <menuitem id="menu_loyalty_card_customer_and_vendors2"
+              action="loyalty_card_action1"
+              parent="account.menu_finance_payables"
+              sequence="1"/>
+
+
+</odoo>

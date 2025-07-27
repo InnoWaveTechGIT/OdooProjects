@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Define the form view for the Tender model -->
+    <record id="view_tender_bme_form123" model="ir.ui.view">
+        <field name="name">tender.form</field>
+        <field name="model">tender.bme.approval</field>
+        <field name="arch" type="xml">
+            <form string="Tender BME">
+                <header>
+                    <button string="Confirm" type="object" name="confirm" invisible="state =='in_progress' "/>
+                    <button string="Fetch" type="object" name="get_products" invisible="state =='in_progress' "/>
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+
+                    <group>
+                        <group>
+
+                            <field name="tender_id"/>
+
+
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Details">
+                            <field name="nubco_ids" widget="one2many_list">
+                                <list editable="top">
+                                    <field name="product_id"/>
+                                    <field name="pre_inst"/>
+                                    <field name="inst"/>
+                                    <field name="comm"/>
+                                    <field name="warr_2_cust"/>
+                                    <field name="warr_from_supp"/>
+                                    <field name="anticipated_warranty_cost"/>
+                                    <field name="ppm_main"/>
+
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Define the list view for the Tender model -->
+    <record id="view_tender_bme_list123" model="ir.ui.view">
+        <field name="name">tender.list</field>
+        <field name="model">tender.bme.approval</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="tender_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_tender_bme_search" model="ir.ui.view">
+        <field name="name">tender.bme.approval.search</field>
+        <field name="model">tender.bme.approval</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="tender_id" string="Tender NO"/>
+                <filter name="filter_draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_in_progress" string="Confirmed" domain="[('state', '=', 'in_progress')]"/>
+                <group expand="1">
+                    <filter name="state" string="Status" context="{'group_by': 'state'}"/>
+
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_tender_bme_so123452" model="ir.actions.act_window">
+        <field name="name">Tenders BME</field>
+        <field name="res_model">tender.bme.approval</field>
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+
+    <menuitem id="menu_tender6" name="Tender BME" parent="menu_report" action="action_tender_bme_so123452"/>
+</odoo>

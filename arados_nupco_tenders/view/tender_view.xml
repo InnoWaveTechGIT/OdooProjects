@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Define the form view for the Tender model -->
+    <record id="view_tender_form123" model="ir.ui.view">
+        <field name="name">tender.form</field>
+        <field name="model">tenders</field>
+        <field name="arch" type="xml">
+            <form string="Tender">
+                <header>
+                    <button name="generate_excel_file" string="Export" type="object" class="btn-primary"/>
+                    <button name="open_excel_import_wizard" string="Import" type="object" class="btn-primary"/>
+                    <button name="confirm_tender" string="Confirm" type="object" class="btn-primary"
+                            invisible="state1 != 'draft'"/>
+                    <button name="open_custom_wizard" string="Win" type="object" class="btn-primary"
+                            invisible="state1 == 'draft' or state1 == 'lost' or state1 == 'open'"/>
+                    <button name="lost_tender" string="Lost" type="object" class="btn-danger"
+                            invisible="state1 == 'lost' or state1 == 'draft' or state1 == 'open'"/>
+                    <field name="state1" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button class="oe_stat_button" type="object" icon="fa-file-text-o"
+                                name="action_open_document" string='Tender Repository' invisible="not document_id">
+
+
+                        </button>
+                        <button class="oe_stat_button" type="object" icon="fa-shopping-cart"
+                                name="action_open_orders" string='Orders' invisible="not order_ids">
+                        </button>
+                    </div>
+                    <!--                    <div name="button_box"  class="oe_button_box">-->
+                    <!--                        -->
+                    <!--                        </div>-->
+                    <group>
+                        <group>
+
+                            <field name="customer_id"/>
+                            <field name="tender_no"/>
+                            <field name="name"/>
+                            <field name="responsible"/>
+                            <field name="document_id" invisible="1"/>
+                            <!--                            <label for="date_from" />-->
+                            <!--                            <div class="d-flex" >-->
+                            <!--                                <field name="date_from" required="True" class="me-2" style="max-width: 6rem !important;" />-->
+                            <!--                                <span>-></span>-->
+                            <!--                                <field name="date_to"  required="True" class="me-2" style="max-width: 6rem !important;" />-->
+                            <!--                            </div>-->
+                            <field name="date_from" widget="daterange" options='{"end_date_field": "date_to"}'
+                                   required="date_from or date_to"/>
+                            <field name="date_to" invisible="1" required="date_from"/>
+
+
+                            <field name="validity" readonly="1"/>
+                            <field name="excel_file" invisible="1"/>
+                            <!-- Add other fields as needed -->
+
+                        </group>
+                        <group>
+                            <field name="document_no"/>
+                            <field name="tags_ids" widget='many2many_tags'/>
+                            <field name="order_ids" widget='many2many_tags' invisible="1"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="NUPCO Products">
+                            <field name="nubco_ids" widget="one2many_list">
+                                <list editable="top">
+                                    <field name="change_option"/>
+                                    <field name="item_type"/>
+                                    <field name="nubco_serial"/>
+                                    <field name="nubco_material"/>
+                                    <field name="nubco_material_des"/>
+                                    <field name="medical_group"/>
+                                    <field name="quantity1"/>
+                                    <field name="uom_id"/>
+                                    <field name="price"/>
+                                    <field name="currency_id"/>
+                                    <field name="vat_id"/>
+                                    <field name="product_id"/>
+                                    <field name="sd" column_invisible="1"/>
+                                    <field name="manufacturer_id" domain="[('id', '=', manufacturer_ids)]"/>
+                                    <field name="manufacturer_ids" column_invisible="1"/>
+                                    <field name="manufacturing_country"/>
+                                    <field name="product_packaging" domain="[('product_id', '=', product_id)]"/>
+                                    <field name="mdma_code"/>
+                                    <field name="foc"/>
+                                    <field name="MDMA_exp"/>
+                                    <field name="SFGa_code"/>
+                                    <field name="concentration"/>
+                                    <field name="sheif_life"/>
+                                    <field name="moq"/>
+                                    <field name="volume"/>
+                                    <field name="official_agent"/>
+                                    <field name="company_comment"/>
+                                    <field name="company_comment_term"/>
+                                    <field name="manufacture_process_local"/>
+                                    <field name="temp"/>
+                                    <field name="first_lead"/>
+                                    <field name="lead_time"/>
+                                    <field name="max_num_of_shipp"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Define the list view for the Tender model -->
+    <record id="view_tender_list123" model="ir.ui.view">
+        <field name="name">tender.list</field>
+        <field name="model">tenders</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="customer_id"/>
+                <field name="tender_no"/>
+                <!-- Add other fields as needed -->
+            </list>
+        </field>
+    </record>
+
+    <!-- Define an action to open the Tender list view -->
+    <record id="action_tender1234" model="ir.actions.act_window">
+        <field name="name">Tenders</field>
+        <field name="res_model">tenders</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_tender_list123')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_tender_form123')})]"/>
+    </record>
+
+    <!-- Define a menu item to access the Tenders from the Apps menu -->
+    <menuitem id="tender_root" name="Tenders" sequence="10"/>
+    <menuitem id="menu_tender" name="Tenders" parent="tender_root"/>
+    <menuitem id="menu_report" name="Reporting" parent="tender_root"/>
+    <menuitem id="menu_tender1" name="Tenders" parent="menu_tender" action="action_tender1234"/>
+</odoo>

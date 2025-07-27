@@ -1,0 +1,253 @@
+<odoo>
+
+    <record id="view_employee_skill_tree" model="ir.ui.view">
+        <field name="name">employee.skill.tree</field>
+        <field name="model">employee.skill</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="category"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_employee_skill_tree" model="ir.ui.view">
+        <field name="name">employee.skill.tree</field>
+        <field name="model">employee.skill</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="category"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_employee_skill_tree" model="ir.ui.view">
+        <field name="name">employee.skill.tree</field>
+        <field name="model">employee.skill</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="category"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_employee_skill_tree" model="ir.ui.view">
+        <field name="name">employee.skill.tree</field>
+        <field name="model">employee.skill</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="category"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="view_employee_skill_tree" model="ir.ui.view">
+        <field name="name">employee.skill.tree</field>
+        <field name="model">employee.skill</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="category"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_employee_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.form.skill.button</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_open_skill_wizard"
+                        string="Add Skill"
+                        type="object"
+                        class="oe_highlight"
+                        groups="hr.group_hr_manager"/>
+            </xpath>
+            <xpath expr="//group[1]/field[5]" position="after">
+                <field name="skill_count"/>
+                <field name="skill_line_ids" widget="many2many_tags" readonly="True"/>
+            </xpath>
+
+        </field>
+    </record>
+    <record id="employee_skill_form_rule" model="ir.rule">
+        <field name="name">Restrict Skill Assignment</field>
+        <field name="model_id" ref="model_employee_skill_line"/>
+        <field name="groups" eval="[(4, ref('hr.group_hr_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+
+    <record id="employee_skills_report" model="ir.actions.report">
+        <field name="name">Employee Skills Report</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">employee_skilles.report_employee_skills</field>
+        <field name="report_file">employee_skilles.report_employee_skills</field>
+        <field name="binding_model_id" ref="hr.model_hr_employee"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_employee_skills">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+
+                <!-- Report Title -->
+                <div class="page">
+                    <div class="text-center">
+                        <h2>Employee Skills Report</h2>
+                    </div>
+
+                    <!-- Iterate over Employees -->
+                    <t t-foreach="docs" t-as="employee">
+                        <div class="mb-3">
+                            <h3>
+                                <t t-esc="employee.name"/>
+                            </h3>
+
+                            <t t-if="employee.skill_line_ids">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Skill</th>
+                                            <th>Category</th>
+                                            <th>Proficiency</th>
+                                            <th>Date Achieved</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="employee.skill_line_ids" t-as="line">
+                                            <tr>
+                                                <td>
+                                                    <t t-esc="line.skill_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="line.skill_id.category"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="line.proficiency"/>
+                                                </td>
+                                                <td>
+                                                    <t t-if="line.date_achieved">
+                                                        <t t-esc="line.date_achieved.strftime('%Y-%m-%d')"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                            <t t-if="not employee.skill_line_ids">
+                                <p>No skills assigned.</p>
+                            </t>
+                        </div>
+                        <hr/>
+                    </t>
+                </div>
+
+            </t>
+        </t>
+    </template>
+
+
+    <record id="employee_skills_report_pdf" model="ir.actions.report">
+        <field name="name">Employee Skills Report</field>
+        <field name="model">employee.skill</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">employee_skilles.report_employee_skill_pdf</field>
+        <field name="report_file">employee_skilles.report_employee_skill_pdf</field>
+        <field name="binding_model_id" ref="employee_skilles.model_employee_skill"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    
+    <template id="report_employee_skill_pdf">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="skills" t-value="env['employee.skill'].search([])"/>
+
+                <div class="page">
+                    <h2 class="text-center">Employee Skills Report</h2>
+
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="skills" t-as="skill">
+                                <tr>
+                                    <td>
+                                        <t t-esc="skill.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="dict(skill._fields['category'].selection).get(skill.category)"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="skill.description or ''"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="action_employee_skill" model="ir.actions.act_window">
+        <field name="name">Skills</field>
+        <field name="res_model">employee.skill</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_employee_skill" name="Skills"
+              parent="hr.menu_hr_employee_payroll"
+              action="action_employee_skill"/>
+
+
+    <record id="view_employee_skill_wizard_form" model="ir.ui.view">
+        <field name="name">employee.skill.wizard.form</field>
+        <field name="model">employee.skill.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Assign Skill">
+                <group>
+                    <field name="employee_id" readonly="1"/>
+                    <field name="skill_id"/>
+                    <field name="proficiency"/>
+                    <field name="date_achieved"/>
+                    <field name="certification" filename="Certification"/>
+                </group>
+                <footer>
+                    <button string="Assign Skill" type="object" name="action_assign_skill" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_employee_kanban_view_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.kanban.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="arch" type="xml">
+            <xpath expr="//main[@class='ms-2']" position="inside">
+
+                <div>
+                    <strong>Skills:</strong>
+                    <field name="skill_count"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

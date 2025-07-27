@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="action_report_wallet_template" model="ir.actions.report">
+            <field name="name">Wallet Report</field>
+            <field name="model">loyalty.card</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">mazady_reports.external_layout_wallet_report</field>
+            <field name="report_file">mazady_reports.external_layout_wallet_report</field>
+            <field name="binding_model_id" ref="loyalty.model_loyalty_card"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="external_layout_wallet_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+
+                    <h2 style="text-align: center;">Wallet Details</h2>
+                    <t t-set="partner_sub_ids" t-value="docs.mapped('partner_sub_id')"/>
+                    <t t-set="all_same_partner_sub_id" t-value="len(set(partner_sub_ids)) == 1"/>
+                    <t>
+                        <t t-if="all_same_partner_sub_id">
+                            <span>Cost Center:
+                                <t t-esc="partner_sub_ids[0]"/>
+                            </span>
+                        </t>
+                        <t t-else="">
+                        </t>
+
+                        <div class="page" style="display: flex; justify-content: center; align-items: center;">
+                            <style>
+                                .table {
+                                border: 1px solid black;
+                                border-collapse: collapse;
+                                width: 100%;
+                                }
+                                .table th, .table td {
+                                border: 1px solid black;
+                                text-align: center;
+                                }
+                            </style>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Seq</th>
+                                        <th>User ID</th>
+                                        <th>User Name</th>
+                                        <th>Available Balance</th>
+                                        <th>Blocked Balance</th>
+                                        <th>Total Balance</th>
+                                        <th>Created Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="counter" t-value="1"/>
+                                    <t t-foreach="docs" t-as="record">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="counter"/>
+                                            </td>
+                                            <t t-set="counter" t-value="counter+1"/>
+
+                                            <td>
+                                                <span t-field="record.partner_sub_id"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="record.partner_id"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="record.points_display"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="record.blocked_balance"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="record.total_balance"/>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span t-field="record.create_date"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

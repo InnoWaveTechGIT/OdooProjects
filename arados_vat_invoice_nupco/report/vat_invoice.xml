@@ -1,0 +1,571 @@
+<odoo>
+
+    <record id="action_report_vat_invoice_template" model="ir.actions.report">
+        <field name="name">Vat Invoice Report</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arados_vat_invoice_nupco.pdf_vat_invoice_report_template</field>
+        <field name="report_file">arados_vat_invoice_nupco.pdf_vat_invoice_report_template</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="pdf_vat_invoice_report_template">
+        <t t-name="arados_vat_invoice_nupco.pdf_vat_invoice_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="header" style="width: 100%;">
+                            <div class='row' style="width: 100%;">
+                                <div class="col-4">
+                                    <span>
+                                        <strong>AL-HOBAIL MEDICAL COMPANY</strong>
+                                    </span>
+                                    <br/>
+                                    <span>
+                                        Tahliah Street - Aqiq
+                                    </span>
+                                    <br/>
+                                    <span>
+                                        Riyadh
+                                    </span>
+                                    <br/>
+                                    <span>
+                                        Saudi Arabia
+                                    </span>
+                                </div>
+                                <div class="col-4">
+                                    <div style="width: 100%; padding: 0px; margin-left: 5px; margin-top: 10px;">
+                                        <img src="/arados_vat_invoice_nupco/static/data/company_logo.jpeg"
+                                             alt="Company Image" style="width: 100%;  "/>
+                                    </div>
+                                </div>
+                                <div class="col-4" style="text-align: right;">
+                                    <span>
+                                        <strong>شركة الحبيل الطبية</strong>
+                                    </span>
+                                    <br/>
+                                    <span>
+                                        شارع التحلية - العقيق
+                                    </span>
+                                    <br/>
+                                    <span>
+                                        الرياض
+                                    </span>
+                                    <br/>
+                                    <span>
+                                        المملكة العربية السعودية
+                                    </span>
+                                </div>
+                            </div>
+                            <table class="table table-striped table-sm"
+                                   style="width: 100%; margin-left: 5px;">
+                                <tr style="border: 1px solid #ccc; color: black;">
+                                    <th>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <span style="text-align: left;">CR NO:</span>
+                                            </div>
+                                            <div class="col-4">
+                                                <span style="text-align: right;">
+                                                    <t t-esc="o.company_id.company_registry"/>
+                                                </span>
+                                            </div>
+                                            <div class="col-4">
+                                                <span style="text-align: right;">رقم السجل التجاري:</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <span style="text-align: left;">VAT NO:</span>
+                                            </div>
+                                            <div class="col-4">
+                                                <span style="text-align: right;">
+                                                    <t t-esc="o.company_id.vat"/>
+                                                </span>
+                                            </div>
+                                            <div class="col-4">
+                                                <span style="text-align: right;">ضريبة القيمة المضافة:</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div style="text-align: center; border: 1px solid #ccc; color :black;background-color:gray;margin-top: 20px;">
+                            <span>VAT Invoice / فاتورة ضريبية</span>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-8">
+                                <table class="table table-striped table-sm"
+                                       style="width: 100%;text-align: center;">
+                                    <thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Invoice Number
+                                                </td>
+                                                <td colspan="2">
+                                                    <t t-esc="o.name"/>
+                                                </td>
+                                                <td>
+                                                    رقم الفاتورة
+                                                </td>
+
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Invoice Date
+                                                </td>
+                                                <td colspan="2">
+                                                    <t t-esc="o.date"/>
+                                                </td>
+                                                <td>
+                                                    تاريخ الفاتورة
+                                                </td>
+
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Due Date
+                                                </td>
+                                                <td colspan="2">
+                                                    <t t-esc="o.invoice_date_due"/>
+                                                </td>
+                                                <td>
+                                                    تاريخ الاستحقاق
+                                                </td>
+
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Delivery Date
+                                                </td>
+                                                <td colspan="2">
+                                                    <t t-esc="o.ref"/>
+                                                </td>
+                                                <td>
+                                                    تاريخ التسليم
+                                                </td>
+
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Desc.
+                                                </td>
+                                                <td colspan="2">
+                                                    <t t-esc="o.sale_id.name"/>
+                                                </td>
+                                                <td>
+                                                    وصف الفاتورة
+                                                </td>
+
+
+                                            </tr>
+                                        </tbody>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="col-4 text-center align-top">
+                                <!--                                <img t-if="o.qr_code_image" t-att-src="image_data_uri(o.qr_code_image)" alt="Logo"-->
+                                <!--                                     height="100" width="100" style="     width: 250px;     height: 221px; "/>-->
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <table class="table table-striped table-sm"
+                                   style="width: 100%;text-align: center;margin-top:10px">
+                                <thead style="border: 1px solid #ccc; color :white;background-color:gray">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                Customer Name
+                                            </td>
+                                            <td colspan="2">
+                                                <t t-esc="o.partner_id.name"/>
+                                            </td>
+                                            <td>
+                                                اسم العميل
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Customer VAT
+                                            </td>
+                                            <td colspan="2">
+                                                <t t-esc="o.partner_id.vat"/>
+                                            </td>
+                                            <td>
+                                                الرقم الضريبي للعميل
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Customer Address
+                                            </td>
+                                            <td colspan="2">
+                                                <t t-esc="o.partner_id.contact_address"/>
+                                            </td>
+                                            <td>
+                                                عنوان العميل
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Tender NO
+                                            </td>
+                                            <td colspan="2">
+                                                <t t-esc="o.tender_no"/>
+                                            </td>
+                                            <td>
+                                                رقم المناقصة
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                PO
+                                            </td>
+                                            <td colspan="2">
+                                                <t t-esc="o.nupco_order_id.tender_id.purchasing_document"/>
+                                            </td>
+                                            <td>
+                                                أمر الشراء
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Contract NO
+                                            </td>
+                                            <td colspan="2">
+                                                <t t-esc="o.nupco_order_id.name"/>
+                                            </td>
+                                            <td>
+                                                رقم العقد
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Contract Name
+                                            </td>
+                                            <td colspan="2">
+                                                <t t-esc="o.nupco_order_id.tender_id.name"/>
+                                            </td>
+                                            <td>
+                                                العقد
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Area Name
+                                            </td>
+                                            <td colspan="2">
+                                                <t t-esc="o.partner_shipping_id.name"/>
+                                            </td>
+                                            <td>
+                                                اسم المنطقة
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Shipment NO.
+                                            </td>
+                                            <td colspan="2">
+                                                <t t-esc="o.ref"/>
+                                            </td>
+                                            <td>
+                                                الدفعة
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </thead>
+                            </table>
+
+                        </div>
+                        <div class="row">
+                            <table class="table table-striped table-sm"
+                                   style="width: 100%; text-align: center;">
+                                <thead style="border: 1px solid #ccc;  color :black;background-color:gray">
+                                    <tr style="border: 1px solid #ccc;">
+                                        <th>
+                                            <span>MOH Code</span>
+                                            <br/>
+                                            <span>كود الصنف</span>
+                                        </th>
+                                        <th>
+                                            <span>NUPCO Code</span>
+                                            <br/>
+                                            <span>كود الصنف</span>
+                                        </th>
+                                        <th>
+                                            <span>PO Item</span>
+                                            <br/>
+                                            <span>أمر الشراء</span>
+                                        </th>
+                                        <th>
+                                            <span>Nature of goods or service</span>
+                                            <br/>
+                                            <span>تفاصيل السلع والخدمات</span>
+                                        </th>
+                                        <th>
+                                            <span>Quantity</span>
+                                            <br/>
+                                            <span>الكمية</span>
+                                        </th>
+                                        <th>
+                                            <span>Unit Price</span>
+                                            <br/>
+                                            <span>سعر الوحدة</span>
+                                        </th>
+                                        <th>
+                                            <span>UOM</span>
+                                            <br/>
+                                            <span>وحدة القياس</span>
+                                        </th>
+                                        <th>
+                                            <span>Subtotal</span>
+                                            <br/>
+                                            <span>الإحمالي</span>
+                                        </th>
+                                        <th>
+                                            <span>VAT</span>
+                                            <br/>
+                                            <span>نسبة الضريبة</span>
+                                        </th>
+                                        <th>
+                                            <span>Man.Date</span>
+                                            <br/>
+                                            <span>تاريخ الانتاج</span>
+                                        </th>
+                                        <th>
+                                            <span>Batch/EXP.Date</span>
+                                            <br/>
+                                            <span>الصلاحية /التشغيلية</span>
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.invoice_line_ids" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <t t-esc="line.product_id.catalogue_no"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.product_id.SFGa_code"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.po_number"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.product_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.quantity"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.price_unit"/>
+
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.product_uom_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.price_subtotal"/>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.tax_ids">
+                                                    <t t-esc="line.tax_ids[0].name"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span></span>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.production_date"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.expiry_date"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                    <!-- Add more rows as needed -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <table style="width: 100%;text-align: center;">
+                            <tr style="border: 1px solid #ccc; color :black;background-color:gray">
+                                <th>Total Amounts</th>
+
+                                <th style="width: 50%; margin-top: 20px;text-align: right;">إجمالي المبلغ</th>
+                            </tr>
+                        </table>
+
+                        <table class="table table-striped table-sm"
+                               style="width: 100%;text-align: center;">
+                            <thead style="border: 1px solid #ccc;">
+
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            Total before discount (Excluding VAT)
+                                        </td>
+                                        <td>
+                                            الإجمالي قبل الخصم غير شامل للضريبة
+                                        </td>
+                                        <td>
+                                            <t t-esc="o.amount_total"/>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Discount
+                                        </td>
+                                        <td>
+                                            إجمالي الخصم
+                                        </td>
+                                        <td>
+                                            <t t-esc="o.discount_amount"/>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Medicine Vat 0%
+                                        </td>
+                                        <td>
+                                            إجمالي ضريبة القيمة المضافة على الأدوية 0%
+                                        </td>
+                                        <td>
+                                            0 SR
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Total Amount (Excluding VAT)
+                                        </td>
+                                        <td>
+                                            إجمالي المبلغ بعد الخصم غير شامل للضريبة
+                                        </td>
+                                        <td>
+                                            <t t-esc="o.amount_untaxed"/>
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            VAT 15%
+                                        </td>
+                                        <td>
+                                            إجمالي ضريبة القيمة المضافة15%
+                                        </td>
+                                        <td>
+                                            <t t-esc="o.amount_tax"/>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Total Amount
+                                        </td>
+                                        <td>
+                                            إجمالي المبلغ
+                                        </td>
+                                        <td>
+                                            <t t-esc="o.amount_total"/>
+                                        </td>
+
+
+                                    </tr>
+
+                                </tbody>
+                            </thead>
+                        </table>
+
+                        <table class="table table-striped table-sm"
+                               style="width: 100%; margin-top: 20px;">
+                            <tr style="border: 1px solid #ccc; color :black ;height: 70px;">
+                                <th>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <span style="text-align: left;">Customer Signature:</span>
+                                        </div>
+                                        <div class="col-6">
+                                            <span style="text-align: right;">توقيع العميل:</span>
+                                        </div>
+                                    </div>
+
+
+                                </th>
+
+                                <th>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <span style="text-align: left;">Prepared by/من إعداد:</span>
+                                        </div>
+                                        <div class="col-6">
+                                            <span style="text-align: right;">
+                                                <t t-esc="o.user_id.name"/>
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+                                </th>
+                            </tr>
+                        </table>
+                        <div class="footer" style="width: 100%; bottom: 10px; height: auto; overflow: visible;">
+                            <div style="width: 100%; padding: 0px; margin-left: 5px; margin-top: 10px;text-align:center">
+                                <strong>
+                                    +966920006647
+                                    <span style="margin-left: 10px; margin-right: 10px;">medical@al-hobail.com</span>
+                                    <span style="margin-left: 10px; margin-right: 10px;">http://www.al-hobail.com</span>
+                                    <span style="margin-left: 10px;">VAT ID: 300114373400003</span>
+                                </strong>
+                            </div>
+                        </div>
+
+
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
